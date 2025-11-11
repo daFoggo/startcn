@@ -9,15 +9,24 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@base-ui-components/react": "1.0.0-beta.4",
+    "@floating-ui/react": "^0.27.16",
+    "@radix-ui/react-avatar": "^1.1.11",
+    "@radix-ui/react-separator": "^1.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.553.0",
+    "motion": "^12.23.24",
     "next": "16.0.1",
+    "next-themes": "^0.4.6",
+    "radix-ui": "^1.4.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
