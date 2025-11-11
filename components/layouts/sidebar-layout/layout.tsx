@@ -1,0 +1,90 @@
+"use client";
+
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarFooter,
+	SidebarGroup,
+	SidebarHeader,
+	SidebarInset,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+	SidebarMenuSub,
+	SidebarMenuSubButton,
+	SidebarMenuSubItem,
+	SidebarProvider,
+} from "@/components/animate-ui/components/radix/sidebar";
+import { AnimateIcon } from "@/components/animate-ui/icons/icon";
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from "@/components/animate-ui/primitives/radix/collapsible";
+import type { ISidebarLayoutProps } from "@/lib/types/sidebar";
+
+export const SidebarLayout = ({
+	children,
+	variant = "inset",
+	header,
+	footer,
+	navigation,
+}: ISidebarLayoutProps) => {
+	return (
+		<SidebarProvider>
+			<Sidebar collapsible="icon" variant={variant}>
+				{header && <SidebarHeader>{header}</SidebarHeader>}
+
+				<SidebarContent>
+					<SidebarGroup>
+						<SidebarMenu>
+							{navigation.map((item) => (
+								<Collapsible
+									key={item.title}
+									asChild
+									defaultOpen={item.isActive}
+									className="group/collapsible"
+								>
+									<SidebarMenuItem>
+										<CollapsibleTrigger asChild>
+											<AnimateIcon animateOnHover animateOnTap>
+												<SidebarMenuButton tooltip={item.title}>
+													{item.icon && <item.icon className="size-4" />}
+													<span>{item.title}</span>
+													{item.items && (
+														<ChevronRight className="ml-auto group-data-[state=open]/collapsible:rotate-90 transition-transform duration-300" />
+													)}
+												</SidebarMenuButton>
+											</AnimateIcon>
+										</CollapsibleTrigger>
+										{item.items && (
+											<CollapsibleContent>
+												<SidebarMenuSub>
+													{item.items.map((subItem) => (
+														<SidebarMenuSubItem key={subItem.title}>
+															<SidebarMenuSubButton asChild>
+																<Link href={subItem.url}>
+																	<span>{subItem.title}</span>
+																</Link>
+															</SidebarMenuSubButton>
+														</SidebarMenuSubItem>
+													))}
+												</SidebarMenuSub>
+											</CollapsibleContent>
+										)}
+									</SidebarMenuItem>
+								</Collapsible>
+							))}
+						</SidebarMenu>
+					</SidebarGroup>
+				</SidebarContent>
+
+				{footer && <SidebarFooter>{footer}</SidebarFooter>}
+			</Sidebar>
+
+			<SidebarInset>{children}</SidebarInset>
+		</SidebarProvider>
+	);
+};

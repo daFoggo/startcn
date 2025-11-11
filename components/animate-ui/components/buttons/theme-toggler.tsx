@@ -1,10 +1,10 @@
 "use client";
 
 import type { VariantProps } from "class-variance-authority";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import type * as React from "react";
-
+import { useEffect, useState } from "react";
 import { buttonVariants } from "@/components/animate-ui/components/buttons/icon";
 import {
 	type Resolved,
@@ -13,6 +13,9 @@ import {
 	type ThemeTogglerProps as ThemeTogglerPrimitiveProps,
 } from "@/components/animate-ui/primitives/effects/theme-toggler";
 import { cn } from "@/lib/utils";
+import { Airplay } from "../../icons/airplay";
+import { MoonStar } from "../../icons/moon-star";
+import { SunMedium } from "../../icons/sun-medium";
 
 const getIcon = (
 	effective: ThemeSelection,
@@ -21,11 +24,11 @@ const getIcon = (
 ) => {
 	const theme = modes.includes("system") ? effective : resolved;
 	return theme === "system" ? (
-		<Monitor />
+		<Airplay animateOnHover animateOnView />
 	) : theme === "dark" ? (
-		<Moon />
+		<MoonStar animateOnHover animateOnView />
 	) : (
-		<Sun />
+		<SunMedium animateOnHover animateOnView />
 	);
 };
 
@@ -56,6 +59,27 @@ function ThemeTogglerButton({
 	...props
 }: ThemeTogglerButtonProps) {
 	const { theme, resolvedTheme, setTheme } = useTheme();
+	const [mounted, setMounted] = useState(false);
+
+	// Wait for next tick to ensure hydration is complete
+	useEffect(() => {
+		const timer = setTimeout(() => setMounted(true), 0);
+		return () => clearTimeout(timer);
+	}, []);
+
+	// Render a placeholder during SSR to match the initial client render
+	if (!mounted) {
+		return (
+			<button
+				data-slot="theme-toggler-button"
+				className={cn(buttonVariants({ variant, size, className }))}
+				disabled
+				{...props}
+			>
+				<Sun />
+			</button>
+		);
+	}
 
 	return (
 		<ThemeTogglerPrimitive
