@@ -10,7 +10,7 @@ const LogsPage = () => {
 		setBreadcrumbs([{ title: "Logs", url: "/dashboard/logs" }]);
 	}, [setBreadcrumbs]);
 
-	return <div>LogsPage</div>;
+	return <div className="p-6">LogsPage</div>;
 };
 
 export default LogsPage;

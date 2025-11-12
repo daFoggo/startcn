@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/refs */
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <idk> */
 "use client";
 
 import {
@@ -277,7 +278,7 @@ function TooltipOverlay() {
 			refs.setReference(referenceElRef.current);
 			update();
 		}
-	}, [referenceElRef, refs, update]);
+	}, [referenceElRef, refs, update, rendered.data]);
 
 	const ready = x != null && y != null;
 	const Component = rendered.data?.contentAsChild ? Slot : motion.div;
@@ -298,7 +299,7 @@ function TooltipOverlay() {
 							top: 0,
 							left: 0,
 							zIndex: 50,
-							transform: `translate3d(${x ?? 0}px, ${y ?? 0}px, 0)`,
+							transform: `translate3d(${x || 0}px, ${y || 0}px, 0)`,
 						}}
 					>
 						<FloatingProvider value={{ context, arrowRef }}>
@@ -416,17 +417,16 @@ function TooltipContent({ asChild = false, ...props }: TooltipContentProps) {
 		undefined,
 	);
 
-	// Update props on every render, but only if they've changed
-	React.useLayoutEffect(() => {
+	React.useEffect(() => {
 		if (!shallowEqualWithoutChildren(lastPropsRef.current, props)) {
 			lastPropsRef.current = props;
 			setProps(props);
 		}
-	}); // No dependencies - runs on every render
+	}, [props, setProps]);
 
-	React.useLayoutEffect(() => {
+	React.useEffect(() => {
 		setAsChild(asChild);
-	}); // No dependencies - runs on every render
+	}, [asChild, setAsChild]);
 
 	return null;
 }

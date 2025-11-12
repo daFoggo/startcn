@@ -10,7 +10,7 @@ const FeedbacksPage = () => {
 		setBreadcrumbs([{ title: "Feedbacks", url: "/dashboard/feedbacks" }]);
 	}, [setBreadcrumbs]);
   
-	return <div>FeedbacksPage</div>;
+	return <div className="p-6">FeedbacksPage</div>;
 };
 
 export default FeedbacksPage;

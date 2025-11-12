@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { TooltipProvider } from "@/components/animate-ui/components/animate/tooltip";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import "./globals.css";
 
@@ -11,6 +12,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
 	subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+	variable: "--font-space-grotesk",
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +34,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+				className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased  `}
 				style={
 					{
 						"--sidebar-width": "calc(var(--spacing) * 72)",
@@ -41,7 +48,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					{children}
+					<TooltipProvider>{children}</TooltipProvider>
 				</ThemeProvider>
 			</body>
 		</html>

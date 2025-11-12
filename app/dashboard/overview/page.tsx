@@ -10,7 +10,7 @@ const OverviewPage = () => {
 		setBreadcrumbs([{ title: "Overview", url: "/dashboard/overview" }]);
 	}, [setBreadcrumbs]);
 
-	return <div>OverviewPage</div>;
+	return <div className="p-6">OverviewPage</div>;
 };
 
 export default OverviewPage;

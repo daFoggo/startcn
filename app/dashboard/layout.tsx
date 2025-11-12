@@ -44,11 +44,11 @@ const NAVIGATION: ISidebarNavItem[] = [
 	},
 ];
 
-export default function DashboardLayout({
+const DashboardLayout = ({
 	children,
 }: {
 	children: React.ReactNode;
-}) {
+})  => {
 	return (
 		<SidebarLayout
 			navigation={NAVIGATION}
@@ -69,7 +69,9 @@ export default function DashboardLayout({
 			}
 		>
 			<DashboardHeader breadcrumbs={<DashboardBreadcrumb />} />
-			<div className="p-6 w-full h-full">{children}</div>
+			<div className="w-full h-full">{children}</div>
 		</SidebarLayout>
 	);
 }
+
+export default DashboardLayout;
