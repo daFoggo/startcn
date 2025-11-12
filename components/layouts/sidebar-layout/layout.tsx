@@ -49,14 +49,23 @@ export const SidebarLayout = ({
 								>
 									<SidebarMenuItem>
 										<CollapsibleTrigger asChild>
-											<AnimateIcon animateOnHover animateOnTap>
-												<SidebarMenuButton tooltip={item.title}>
-													{item.icon && <item.icon className="size-4" />}
-													<span>{item.title}</span>
-													{item.items && (
-														<ChevronRight className="ml-auto group-data-[state=open]/collapsible:rotate-90 transition-transform duration-300" />
-													)}
-												</SidebarMenuButton>
+											<AnimateIcon animateOnHover animateOnView>
+												<Link href={item.url || ""}>
+													<SidebarMenuButton tooltip={item.title}>
+														{item.items ? (
+															<>
+																{item.icon && <item.icon className="size-4" />}
+																<span>{item.title}</span>
+																<ChevronRight className="ml-auto group-data-[state=open]/collapsible:rotate-90 transition-transform duration-300" />
+															</>
+														) : (
+															<>
+																{item.icon && <item.icon className="size-4" />}
+																<span>{item.title}</span>
+															</>
+														)}
+													</SidebarMenuButton>
+												</Link>
 											</AnimateIcon>
 										</CollapsibleTrigger>
 										{item.items && (

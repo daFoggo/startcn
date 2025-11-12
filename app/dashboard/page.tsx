@@ -1,13 +1,7 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { redirect } from "next/navigation";
 
 const DashboardPage = () => {
-  return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle>Bonjour</CardTitle>
-      </CardHeader>
-    </Card>
-  );
+  return redirect("/dashboard/overview");
 };
 
 export default DashboardPage;
