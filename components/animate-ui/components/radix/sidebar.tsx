@@ -3,7 +3,6 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
 import type { Transition } from "motion/react";
 import { Slot } from "radix-ui";
 import * as React from "react";
@@ -31,6 +30,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getStrictContext } from "@/lib/get-strict-context";
 import { cn } from "@/lib/utils";
+import { AnimateIcon } from "../../icons/icon";
+import { PanelLeft } from "../../icons/panel-left";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -308,7 +309,9 @@ function SidebarTrigger({ className, onClick, ...props }: SidebarTriggerProps) {
 			}}
 			{...props}
 		>
-			<PanelLeftIcon />
+			<AnimateIcon animateOnHover animateOnTap animateOnView>
+				<PanelLeft />
+			</AnimateIcon>
 			<span className="sr-only">Toggle Sidebar</span>
 		</Button>
 	);

@@ -30,7 +30,7 @@ interface IChatHistoryPanelProps {
 
 export const ChatHistoryPanel = ({ setIsHistoryOpen }: IChatHistoryPanelProps) => {
   return (
-    <div className="relative flex flex-col bg-background shadow-md border-border border-r w-64 sm:w-80 h-full">
+    <div className="relative flex flex-col bg-background border-border border-r w-64 sm:w-80 h-full">
       {/* Header */}
       <div className="flex justify-between items-center px-6 py-3 border-border border-b shrink-0">
         <p className="font-semibold">History</p>
@@ -39,7 +39,7 @@ export const ChatHistoryPanel = ({ setIsHistoryOpen }: IChatHistoryPanelProps) =
             className="size-4"
             animateOnHover
             animateOnView
-            animateOnTap
+            
           />
         </Button>
       </div>
@@ -63,7 +63,7 @@ export const ChatHistoryPanel = ({ setIsHistoryOpen }: IChatHistoryPanelProps) =
                       <Trash2
                         animateOnHover
                         animateOnView
-                        animateOnTap
+                        
                         className="size-4 text-muted-foreground hover:text-destructive"
                       />
                     </div>

@@ -4,30 +4,26 @@ import {
   TooltipTrigger,
 } from "@/components/animate-ui/components/animate/tooltip";
 import { Clock4 } from "@/components/animate-ui/icons/clock-4";
+import { AnimateIcon } from "@/components/animate-ui/icons/icon";
 import { Plus } from "@/components/animate-ui/icons/plus";
 import { Button } from "@/components/ui/button";
 
 interface IChatSidebarProps {
-  handleAddBlock: () => void;
   isHistoryOpen: boolean;
   setIsHistoryOpen: (isOpen: boolean) => void;
 }
 export const ChatSidebar = ({
-  handleAddBlock,
   isHistoryOpen,
   setIsHistoryOpen,
 }: IChatSidebarProps) => {
   return (
-    <div className="z-10 relative flex flex-col items-center gap-3 bg-background p-3 border-border border-r w-16 shrink-0">
+    <div className="z-10 relative flex flex-col items-center gap-3 bg-background p-3 border-border border-r rounded-bl-xl w-16 shrink-0">
       <Tooltip side="right">
         <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon" onClick={handleAddBlock}>
-            <Plus
-              className="size-4"
-              animateOnHover
-              animateOnView
-              animateOnTap
-            />
+          <Button variant="ghost" size="icon">
+            <AnimateIcon animateOnHover animateOnView>
+              <Plus className="size-4" />
+            </AnimateIcon>
           </Button>
         </TooltipTrigger>
         <TooltipContent>Add new chat</TooltipContent>
@@ -40,12 +36,9 @@ export const ChatSidebar = ({
             size="icon"
             onClick={() => setIsHistoryOpen(!isHistoryOpen)}
           >
-            <Clock4
-              className="size-4"
-              animateOnHover
-              animateOnView
-              animateOnTap
-            />
+            <AnimateIcon animateOnHover animateOnView>
+              <Clock4 className="size-4" />
+            </AnimateIcon>
           </Button>
         </TooltipTrigger>
         <TooltipContent>

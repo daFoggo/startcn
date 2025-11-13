@@ -14,6 +14,7 @@ import {
 } from "@/components/animate-ui/primitives/effects/theme-toggler";
 import { cn } from "@/lib/utils";
 import { Airplay } from "../../icons/airplay";
+import { AnimateIcon } from "../../icons/icon";
 import { MoonStar } from "../../icons/moon-star";
 import { SunMedium } from "../../icons/sun-medium";
 
@@ -24,11 +25,17 @@ const getIcon = (
 ) => {
 	const theme = modes.includes("system") ? effective : resolved;
 	return theme === "system" ? (
-		<Airplay animateOnHover animateOnView />
+		<AnimateIcon animateOnTap animateOnHover animateOnView>
+			<Airplay />
+		</AnimateIcon>
 	) : theme === "dark" ? (
-		<MoonStar animateOnHover animateOnView />
+		<AnimateIcon animateOnTap animateOnHover animateOnView>
+			<MoonStar />
+		</AnimateIcon>
 	) : (
-		<SunMedium animateOnHover animateOnView />
+		<AnimateIcon animateOnTap animateOnHover animateOnView>
+			<SunMedium />
+		</AnimateIcon>
 	);
 };
 

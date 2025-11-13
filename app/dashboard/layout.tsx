@@ -69,7 +69,7 @@ const DashboardLayout = ({
 			}
 		>
 			<DashboardHeader breadcrumbs={<DashboardBreadcrumb />} />
-			<div className="w-full h-full">{children}</div>
+			<div className="rounded-xl w-full h-full overflow-hidden">{children}</div>
 		</SidebarLayout>
 	);
 }
