@@ -30,12 +30,12 @@
   --chart-5: oklch(0.559 0 0);
   --sidebar: oklch(0.9777 0.0051 247.8763);
   --sidebar-foreground: oklch(0 0 0);
-  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary: oklch(0.5393 0.2713 286.7462);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.9401 0 0);
-  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-accent-foreground: oklch(0.5393 0.2713 286.7462);
   --sidebar-border: oklch(0.9401 0 0);
-  --sidebar-ring: oklch(0 0 0);
+  --sidebar-ring: oklch(0.5393 0.2713 286.7462);
 
   --font-sans: Geist, sans-serif;
   --font-serif: Lora, serif;
