@@ -5,9 +5,9 @@ import { QwenDark } from "./qwenDark";
 import { QwenLight } from "./qwenLight";
 
 export const Qwen = ({ className }: { className?: string }) => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  if (theme === "dark") {
+  if (resolvedTheme === "dark") {
     return <QwenDark className={className} />;
   }
 

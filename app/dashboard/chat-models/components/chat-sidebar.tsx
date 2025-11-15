@@ -17,7 +17,7 @@ export const ChatSidebar = ({
   setIsHistoryOpen,
 }: IChatSidebarProps) => {
   return (
-    <div className="z-10 relative flex flex-col items-center gap-3 bg-background p-3 border-border border-r rounded-bl-xl w-16 shrink-0">
+    <div className="z-20 relative flex flex-col items-center gap-3 bg-background p-3 border-border border-r rounded-bl-xl w-16 shrink-0">
       <Tooltip side="right">
         <AnimateIcon animateOnHover >
           <TooltipTrigger asChild>

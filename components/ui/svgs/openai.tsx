@@ -5,9 +5,9 @@ import { OpenaiDark } from "./openaiDark";
 import { OpenaiLight } from "./openaiLight";
 
 export const Openai = ({ className }: { className?: string }) => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  if (theme === "dark") {
+  if (resolvedTheme === "dark") {
     return <OpenaiDark className={className} />;
   }
 

@@ -12,7 +12,7 @@ const ChatModelsPage = () => {
 	const { setBreadcrumbs } = useBreadcrumbStore();
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
-	const { blocks, addBlock, updateBlockModel } = useChatModelBlocksStore();
+	const { blocks, addBlock, updateBlockModel, removeBlock, moveBlockPosition, resetBlock } = useChatModelBlocksStore();
 
 	const { data: models } = useSampleModels();
 
@@ -41,7 +41,7 @@ const ChatModelsPage = () => {
 			{/* History Panel */}
 			<div
 				className={[
-					"absolute top-0 left-16 h-full z-0 transition-all duration-300",
+					"absolute top-0 left-16 h-full z-10 transition-all duration-300",
 					isHistoryOpen
 						? "translate-x-0 opacity-100 visible pointer-events-auto"
 						: "-translate-x-full opacity-0 invisible pointer-events-none",
@@ -51,23 +51,43 @@ const ChatModelsPage = () => {
 			</div>
 
 			{/* Main content */}
-			<div className="flex-1 space-y-3 p-3 overflow-auto">
-				{blocks.map((b) => (
-					<AIChatBlock
-						key={b.blockId}
-						options={
-							models?.map((m) => ({
-								label: m.label,
-								value: m.value,
-								icon: m.icon,
-							})) || []
-						}
-						currentOption={b.selectedModel || undefined}
-						onOptionChange={(value) => updateBlockModel(b.blockId, value)}
-						onAddBlock={addBlock}
-						modelId={b.selectedModel || ""}
-					/>
-				))}
+			<div className="flex-1 p-3 overflow-x-auto overflow-y-hidden">
+				<div className="flex gap-3 h-full">
+					{blocks.map((b, index) => (
+						<div
+							key={b.blockId}
+							className="shrink-0"
+							style={{
+								width:
+									blocks.length === 1
+										? "100%"
+										: blocks.length === 2
+											? "50%"
+											: "max(50%, 600px)",
+							}}
+						>
+							<AIChatBlock
+								options={
+									models?.map((m) => ({
+										label: m.label,
+										value: m.value,
+										icon: m.icon,
+									})) || []
+								}
+								currentOption={b.selectedModel || undefined}
+								onOptionChange={(value) => updateBlockModel(b.blockId, value)}
+								onAddBlock={addBlock}
+								modelId={b.selectedModel || ""}
+								blockId={b.blockId}
+								blockIndex={index}
+								totalBlocks={blocks.length}
+								onRemoveBlock={removeBlock}
+								onMoveBlock={moveBlockPosition}
+								onResetBlock={resetBlock}
+							/>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	);

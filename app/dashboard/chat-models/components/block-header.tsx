@@ -34,6 +34,12 @@ interface IBlockHeaderProps {
 	currentOption?: string;
 	onOptionChange?: (value: string) => void;
 	onAddBlock?: () => void;
+	blockId: string;
+	blockIndex: number;
+	totalBlocks: number;
+	onRemoveBlock: (blockId: string) => void;
+	onMoveBlock: (fromIndex: number, toIndex: number) => void;
+	onResetBlock: (blockId: string) => void;
 }
 
 export const BlockHeader = ({
@@ -41,7 +47,39 @@ export const BlockHeader = ({
 	currentOption,
 	onOptionChange,
 	onAddBlock,
+	blockId,
+	blockIndex,
+	totalBlocks,
+	onRemoveBlock,
+	onMoveBlock,
+	onResetBlock,
 }: IBlockHeaderProps) => {
+	const canMoveLeft = blockIndex > 0;
+	const canMoveRight = blockIndex < totalBlocks - 1;
+	const canDelete = totalBlocks > 1;
+
+	const handleClearChat = () => {
+		onResetBlock(blockId);
+	};
+
+	const handleMoveLeft = () => {
+		if (canMoveLeft) {
+			onMoveBlock(blockIndex, blockIndex - 1);
+		}
+	};
+
+	const handleMoveRight = () => {
+		if (canMoveRight) {
+			onMoveBlock(blockIndex, blockIndex + 1);
+		}
+	};
+
+	const handleDelete = () => {
+		if (canDelete) {
+			onRemoveBlock(blockId);
+		}
+	};
+
 	return (
 		<div className="flex justify-between items-center gap-2 bg-background p-3 border-b rounded-t-xl w-full overflow-auto">
 			<ComboBox
@@ -72,7 +110,7 @@ export const BlockHeader = ({
 
 			<div className="flex items-center gap-2">
 				<Tooltip side="bottom">
-					<AnimateIcon  animateOnHover>
+					<AnimateIcon animateOnHover>
 						<TooltipTrigger>
 							<Button size="icon-sm" variant="ghost">
 								<SlidersHorizontal className="size-4" />
@@ -83,7 +121,7 @@ export const BlockHeader = ({
 				</Tooltip>
 				{onAddBlock && (
 					<Tooltip side="bottom">
-						<AnimateIcon  animateOnHover>
+						<AnimateIcon animateOnHover>
 							<TooltipTrigger>
 								<Button size="icon-sm" variant="ghost" onClick={onAddBlock}>
 									<SquarePlus className="size-4" />
@@ -95,7 +133,7 @@ export const BlockHeader = ({
 				)}
 
 				<DropdownMenu>
-					<AnimateIcon  animateOnHover>
+					<AnimateIcon animateOnHover>
 						<DropdownMenuTrigger asChild>
 							<Button variant="ghost" size="icon-sm">
 								<Ellipsis className="size-4" />
@@ -104,21 +142,27 @@ export const BlockHeader = ({
 					</AnimateIcon>
 					<DropdownMenuContent align="end">
 						<DropdownMenuGroup>
-							<DropdownMenuItem>
+							<DropdownMenuItem onClick={handleClearChat}>
 								<RotateCcwSquare className="mr-2 size-4" />
 								Clear chat
 							</DropdownMenuItem>
-							<DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={handleMoveLeft}
+								disabled={!canMoveLeft}
+							>
 								<SquareArrowLeft className="mr-2 size-4" />
 								Move left
 							</DropdownMenuItem>
-							<DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={handleMoveRight}
+								disabled={!canMoveRight}
+							>
 								<SquareArrowRight className="mr-2 size-4" />
 								Move right
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>
+						<DropdownMenuItem onClick={handleDelete} disabled={!canDelete}>
 							<SquareX className="mr-2 size-4 text-destructive" />
 							<span className="text-destructive">Delete model</span>
 						</DropdownMenuItem>
