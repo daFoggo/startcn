@@ -19,28 +19,28 @@ export const ChatSidebar = ({
   return (
     <div className="z-10 relative flex flex-col items-center gap-3 bg-background p-3 border-border border-r rounded-bl-xl w-16 shrink-0">
       <Tooltip side="right">
-        <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <AnimateIcon animateOnHover animateOnView>
+        <AnimateIcon animateOnHover >
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon">
               <Plus className="size-4" />
-            </AnimateIcon>
-          </Button>
-        </TooltipTrigger>
+            </Button>
+          </TooltipTrigger>
+        </AnimateIcon>
         <TooltipContent>Add new chat</TooltipContent>
       </Tooltip>
 
       <Tooltip side="right">
-        <TooltipTrigger asChild>
-          <Button
-            variant={isHistoryOpen ? "secondary" : "ghost"}
-            size="icon"
-            onClick={() => setIsHistoryOpen(!isHistoryOpen)}
-          >
-            <AnimateIcon animateOnHover animateOnView>
+        <AnimateIcon animateOnHover >
+          <TooltipTrigger asChild>
+            <Button
+              variant={isHistoryOpen ? "secondary" : "ghost"}
+              size="icon"
+              onClick={() => setIsHistoryOpen(!isHistoryOpen)}
+            >
               <Clock4 className="size-4" />
-            </AnimateIcon>
-          </Button>
-        </TooltipTrigger>
+            </Button>
+          </TooltipTrigger>
+        </AnimateIcon>
         <TooltipContent>
           {isHistoryOpen ? "Close history" : "Open history"}
         </TooltipContent>

@@ -297,23 +297,23 @@ function SidebarTrigger({ className, onClick, ...props }: SidebarTriggerProps) {
 	const { toggleSidebar } = useSidebar();
 
 	return (
-		<Button
-			data-sidebar="trigger"
-			data-slot="sidebar-trigger"
-			variant="ghost"
-			size="icon"
-			className={cn("size-7", className)}
-			onClick={(event) => {
-				onClick?.(event);
-				toggleSidebar();
-			}}
-			{...props}
-		>
-			<AnimateIcon animateOnHover animateOnTap animateOnView>
+		<AnimateIcon animateOnHover animateOnTap>
+			<Button
+				data-sidebar="trigger"
+				data-slot="sidebar-trigger"
+				variant="ghost"
+				size="icon"
+				className={cn("size-7", className)}
+				onClick={(event) => {
+					onClick?.(event);
+					toggleSidebar();
+				}}
+				{...props}
+			>
 				<PanelLeft />
-			</AnimateIcon>
-			<span className="sr-only">Toggle Sidebar</span>
-		</Button>
+				<span className="sr-only">Toggle Sidebar</span>
+			</Button>
+		</AnimateIcon>
 	);
 }
 

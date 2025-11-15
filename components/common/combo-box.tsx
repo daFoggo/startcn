@@ -2,7 +2,13 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { type ReactNode, useLayoutEffect, useState } from "react";
+import {
+	type ComponentType,
+	createElement,
+	type ReactNode,
+	useLayoutEffect,
+	useState,
+} from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -24,7 +30,7 @@ import { cn } from "@/lib/utils";
 export type ComboBoxOption = {
 	value: string;
 	label: string;
-	icon?: ReactNode;
+	icon?: ComponentType<{ className?: string }>;
 };
 
 export interface IComboBoxProps {
@@ -41,7 +47,15 @@ export interface IComboBoxProps {
 	breakpoint?: number;
 	align?: "start" | "center" | "end";
 	side?: "top" | "right" | "bottom" | "left";
-	size?: "default" | "icon" | "sm" | "lg" | "icon-sm" | "icon-lg" | null | undefined;
+	size?:
+		| "default"
+		| "icon"
+		| "sm"
+		| "lg"
+		| "icon-sm"
+		| "icon-lg"
+		| null
+		| undefined;
 	showCheck?: boolean;
 	renderOption?: (option: ComboBoxOption) => ReactNode;
 }
@@ -82,10 +96,11 @@ const OptionsList = ({
 							) : (
 								<>
 									{option.icon && (
-										<span className="flex items-center mr-2">
-											{option.icon}
+										<span className="mr-2">
+											{createElement(option.icon, { className: "size-4" })}
 										</span>
 									)}
+
 									<span className="flex-1">{option.label}</span>
 									{showCheck && value === option.value && (
 										<Check className="ml-2 size-4" />
@@ -167,7 +182,11 @@ export const ComboBox = ({
 							{selectedOption ? (
 								<span className="flex items-center">
 									{selectedOption.icon && (
-										<span className="mr-2">{selectedOption.icon}</span>
+										<span className="mr-2">
+											{createElement(selectedOption.icon, {
+												className: "size-4",
+											})}
+										</span>
 									)}
 									{selectedOption.label}
 								</span>
@@ -211,7 +230,11 @@ export const ComboBox = ({
 						{selectedOption ? (
 							<span className="flex items-center">
 								{selectedOption.icon && (
-									<span className="mr-2">{selectedOption.icon}</span>
+									<span className="mr-2">
+										{createElement(selectedOption.icon, {
+											className: "size-4",
+										})}
+									</span>
 								)}
 								{selectedOption.label}
 							</span>

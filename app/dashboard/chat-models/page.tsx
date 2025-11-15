@@ -20,6 +20,16 @@ const ChatModelsPage = () => {
 		setBreadcrumbs([{ title: "Chat Models", url: "/dashboard/chat-models" }]);
 	}, [setBreadcrumbs]);
 
+	useEffect(() => {
+		if (models && blocks.length > 0) {
+			blocks.forEach((b) => {
+				if (!b.selectedModel) {
+					updateBlockModel(b.blockId, models[0].value);
+				}
+			});
+		}
+	}, [models, blocks, updateBlockModel]);
+
 	return (
 		<div className="relative flex w-full h-[calc(100svh-var(--header-height)-var(--spacing)*4)] overflow-hidden">
 			{/* Sidebar */}
@@ -45,10 +55,17 @@ const ChatModelsPage = () => {
 				{blocks.map((b) => (
 					<AIChatBlock
 						key={b.blockId}
-						options={models?.map((m) => ({ label: m.label, value: m.value })) || []}
+						options={
+							models?.map((m) => ({
+								label: m.label,
+								value: m.value,
+								icon: m.icon,
+							})) || []
+						}
 						currentOption={b.selectedModel || undefined}
 						onOptionChange={(value) => updateBlockModel(b.blockId, value)}
 						onAddBlock={addBlock}
+						modelId={b.selectedModel || ""}
 					/>
 				))}
 			</div>

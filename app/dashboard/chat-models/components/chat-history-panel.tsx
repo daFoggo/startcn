@@ -38,7 +38,7 @@ export const ChatHistoryPanel = ({ setIsHistoryOpen }: IChatHistoryPanelProps) =
           <PanelRightOpen
             className="size-4"
             animateOnHover
-            animateOnView
+            
             
           />
         </Button>
@@ -62,7 +62,7 @@ export const ChatHistoryPanel = ({ setIsHistoryOpen }: IChatHistoryPanelProps) =
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                       <Trash2
                         animateOnHover
-                        animateOnView
+                        
                         
                         className="size-4 text-muted-foreground hover:text-destructive"
                       />

@@ -1,7 +1,6 @@
 "use client";
 
 import type { VariantProps } from "class-variance-authority";
-import { Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import type * as React from "react";
 import { useEffect, useState } from "react";
@@ -25,17 +24,11 @@ const getIcon = (
 ) => {
 	const theme = modes.includes("system") ? effective : resolved;
 	return theme === "system" ? (
-		<AnimateIcon animateOnTap animateOnHover animateOnView>
-			<Airplay />
-		</AnimateIcon>
+		<Airplay />
 	) : theme === "dark" ? (
-		<AnimateIcon animateOnTap animateOnHover animateOnView>
-			<MoonStar />
-		</AnimateIcon>
+		<MoonStar />
 	) : (
-		<AnimateIcon animateOnTap animateOnHover animateOnView>
-			<SunMedium />
-		</AnimateIcon>
+		<SunMedium />
 	);
 };
 
@@ -83,7 +76,7 @@ function ThemeTogglerButton({
 				disabled
 				{...props}
 			>
-				<Sun />
+				<SunMedium />
 			</button>
 		);
 	}
@@ -97,17 +90,19 @@ function ThemeTogglerButton({
 			onImmediateChange={onImmediateChange}
 		>
 			{({ effective, resolved, toggleTheme }) => (
-				<button
-					data-slot="theme-toggler-button"
-					className={cn(buttonVariants({ variant, size, className }))}
-					onClick={(e) => {
-						onClick?.(e);
-						toggleTheme(getNextTheme(effective, modes));
-					}}
-					{...props}
-				>
-					{getIcon(effective, resolved, modes)}
-				</button>
+				<AnimateIcon animateOnTap animateOnView animateOnHover>
+					<button
+						data-slot="theme-toggler-button"
+						className={cn(buttonVariants({ variant, size, className }))}
+						onClick={(e) => {
+							onClick?.(e);
+							toggleTheme(getNextTheme(effective, modes));
+						}}
+						{...props}
+					>
+						{getIcon(effective, resolved, modes)}
+					</button>
+				</AnimateIcon>
 			)}
 		</ThemeTogglerPrimitive>
 	);

@@ -48,8 +48,8 @@ export const SidebarLayout = ({
 									className="group/collapsible"
 								>
 									<SidebarMenuItem>
-										<CollapsibleTrigger asChild>
-											<AnimateIcon animateOnHover animateOnView>
+										<AnimateIcon animateOnHover animateOnView>
+											<CollapsibleTrigger asChild>
 												<Link href={item.url || ""}>
 													<SidebarMenuButton tooltip={item.title}>
 														{item.items ? (
@@ -66,8 +66,8 @@ export const SidebarLayout = ({
 														)}
 													</SidebarMenuButton>
 												</Link>
-											</AnimateIcon>
-										</CollapsibleTrigger>
+											</CollapsibleTrigger>
+										</AnimateIcon>
 										{item.items && (
 											<CollapsibleContent>
 												<SidebarMenuSub>
