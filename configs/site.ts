@@ -9,6 +9,7 @@ export const SITE_CONFIG = {
   url: isDev ? "http://localhost:3000" : "https://startcn.vercel.app",
   github: {
     name: "startcn",
+    repo: "startcn",
     url: "https://github.com/daFoggo/startcn",
   },
   author: {

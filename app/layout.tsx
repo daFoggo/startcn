@@ -1,7 +1,7 @@
 import { TooltipProvider } from "@/components/animate-ui/components/animate/tooltip";
 import { ThemeProvider } from "@/components/common/theme-provider";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
+import { DynamicClerkProvider } from "@/components/common/dynamic-clerk-provider";
+
 import "@clerk/themes/shadcn.css";
 import type { Metadata } from "next";
 import { Google_Sans, Google_Sans_Code } from "next/font/google";
@@ -39,31 +39,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        theme: [dark],
-      }}
-    >
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${googleSans.variable} ${googleSansCode.variable} antialiased`}
-          style={
-            {
-              "--sidebar-width": "calc(var(--spacing) * 72)",
-              "--header-height": "calc(var(--spacing) * 12)",
-            } as React.CSSProperties
-          }
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${googleSans.variable} ${googleSansCode.variable} antialiased`}
+        style={
+          {
+            "--sidebar-width": "calc(var(--spacing) * 72)",
+            "--header-height": "calc(var(--spacing) * 12)",
+          } as React.CSSProperties
+        }
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <DynamicClerkProvider>
             <TooltipProvider>{children}</TooltipProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          </DynamicClerkProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
