@@ -13,12 +13,7 @@ import {
 import { SITE_CONFIG } from "@/configs/site";
 import type { ISidebarNavItem } from "@/lib/types/sidebar";
 import { DashboardHeader } from "./components/dashboard-header";
-
-const USER = {
-  name: "Foggo",
-  email: "foggo@example.com",
-  avatar: "",
-};
+import { LayoutDashboard } from "@/components/animate-ui/icons/layout-dashboard";
 
 const NAVIGATION: ISidebarNavItem[] = [
   {
@@ -56,18 +51,12 @@ const DashboardLayout = ({
       header={
         <SidebarSiteHeader
           logo={
-            <GalleryVerticalEnd
-              animateOnView
-              animateOnHover
-              className="size-4"
-            />
+            <LayoutDashboard animateOnView animateOnHover className="size-4" />
           }
           title={SITE_CONFIG.name}
         />
       }
-      footer={
-        <SidebarUserMenu user={USER} onLogout={() => console.log("Logout")} />
-      }
+      footer={<SidebarUserMenu />}
     >
       <DashboardHeader breadcrumbs={breadcrumb} />
       <div className="rounded-xl w-full h-full overflow-hidden">{children}</div>
