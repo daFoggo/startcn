@@ -1,23 +1,18 @@
 import { TooltipProvider } from "@/components/animate-ui/components/animate/tooltip";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Google_Sans,
-  Google_Sans_Code,
-} from "next/font/google";
+import { Google_Sans, Google_Sans_Code } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 const googleSans = Google_Sans({
   variable: "--font-google-sans",
