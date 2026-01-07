@@ -18,6 +18,7 @@ import {
   ParticlesEffect,
   type ParticlesEffectProps,
 } from '@/components/animate-ui/primitives/effects/particles';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 
 type GithubStarsContextType = {
@@ -40,7 +41,7 @@ type GithubStarsProps = WithAsChild<
     value?: number;
     delay?: number;
   } & UseIsInViewOptions &
-    HTMLMotionProps<'div'>
+  HTMLMotionProps<'div'>
 >;
 
 function GithubStars({
@@ -105,7 +106,9 @@ function GithubStars({
         setCurrentStars,
       }}
     >
-      {!isLoading && (
+      {isLoading ? (
+        <Skeleton className={cn('h-8 w-20', props.className)} />
+      ) : (
         <Component ref={localRef} {...props}>
           {children}
         </Component>

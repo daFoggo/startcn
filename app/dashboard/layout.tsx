@@ -11,7 +11,7 @@ import {
   SidebarUserMenu,
 } from "@/components/layouts/sidebar-layout";
 import { SITE_CONFIG } from "@/configs/site";
-import type { ISidebarNavItem } from "@/lib/types/sidebar";
+import type { ISidebarNavItem } from "@/lib/types/sidebar.types";
 import { DashboardHeader } from "./components/dashboard-header";
 import { LayoutDashboard } from "@/components/animate-ui/icons/layout-dashboard";
 

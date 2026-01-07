@@ -21,7 +21,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/animate-ui/primitives/radix/collapsible";
-import type { ISidebarLayoutProps } from "@/lib/types/sidebar";
+import type { ISidebarLayoutProps } from "@/lib/types/sidebar.types";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 

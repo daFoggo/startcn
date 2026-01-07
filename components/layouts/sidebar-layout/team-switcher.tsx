@@ -15,7 +15,7 @@ import {
   SidebarMenuItem,
 } from "@/components/animate-ui/components/radix/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
-import type { ITeam } from "@/lib/types/team";
+import type { ITeam } from "@/lib/types/team.types";
 import { ChevronsUpDown, Plus } from "lucide-react";
 
 interface ISidebarTeamSwitcherProps {
