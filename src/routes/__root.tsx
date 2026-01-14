@@ -15,7 +15,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'startcn',
       },
     ],
     links: [
@@ -27,6 +27,7 @@ export const Route = createRootRoute({
   }),
 
   shellComponent: RootDocument,
+  notFoundComponent: () => <p>Not found</p>,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
