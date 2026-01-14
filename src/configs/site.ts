@@ -1,7 +1,7 @@
 /**
  * Common site info
  */
-import { SiteConfig } from '@/shared/types/site'
+import { type SiteConfig } from '@/shared/types/site'
 export const SITE_CONFIG: SiteConfig = {
   metadata: {
     title: 'StartCN',

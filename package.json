@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
+    "@floating-ui/react": "^0.27.16",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource-variable/geist-mono": "^5.2.7",
     "@tailwindcss/vite": "^4.0.6",
@@ -25,6 +26,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.562.0",
+    "motion": "^12.26.2",
     "nitro": "latest",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",

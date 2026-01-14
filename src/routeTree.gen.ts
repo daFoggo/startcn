@@ -9,38 +9,144 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as AppDashboardRouteRouteImport } from './routes/_app/dashboard/route'
+import { Route as AppDashboardOverviewRouteImport } from './routes/_app/dashboard/overview'
+import { Route as AppDashboardNotebooksRouteImport } from './routes/_app/dashboard/notebooks'
+import { Route as AppDashboardNotebooksIdRouteImport } from './routes/_app/dashboard/notebooks.$id'
 
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AppDashboardRouteRoute = AppDashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDashboardOverviewRoute = AppDashboardOverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
+  getParentRoute: () => AppDashboardRouteRoute,
+} as any)
+const AppDashboardNotebooksRoute = AppDashboardNotebooksRouteImport.update({
+  id: '/notebooks',
+  path: '/notebooks',
+  getParentRoute: () => AppDashboardRouteRoute,
+} as any)
+const AppDashboardNotebooksIdRoute = AppDashboardNotebooksIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppDashboardNotebooksRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof AppDashboardRouteRouteWithChildren
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
+  '/dashboard/notebooks': typeof AppDashboardNotebooksRouteWithChildren
+  '/dashboard/overview': typeof AppDashboardOverviewRoute
+  '/dashboard/notebooks/$id': typeof AppDashboardNotebooksIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof AppDashboardRouteRouteWithChildren
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
+  '/dashboard/notebooks': typeof AppDashboardNotebooksRouteWithChildren
+  '/dashboard/overview': typeof AppDashboardOverviewRoute
+  '/dashboard/notebooks/$id': typeof AppDashboardNotebooksIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteRouteWithChildren
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/_app/dashboard': typeof AppDashboardRouteRouteWithChildren
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/register': typeof AuthRegisterRoute
+  '/_app/dashboard/notebooks': typeof AppDashboardNotebooksRouteWithChildren
+  '/_app/dashboard/overview': typeof AppDashboardOverviewRoute
+  '/_app/dashboard/notebooks/$id': typeof AppDashboardNotebooksIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/register'
+    | '/dashboard/notebooks'
+    | '/dashboard/overview'
+    | '/dashboard/notebooks/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/register'
+    | '/dashboard/notebooks'
+    | '/dashboard/overview'
+    | '/dashboard/notebooks/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_auth'
+    | '/_app/dashboard'
+    | '/_auth/login'
+    | '/_auth/register'
+    | '/_app/dashboard/notebooks'
+    | '/_app/dashboard/overview'
+    | '/_app/dashboard/notebooks/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +154,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/register': {
+      id: '/_auth/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/dashboard/overview': {
+      id: '/_app/dashboard/overview'
+      path: '/overview'
+      fullPath: '/dashboard/overview'
+      preLoaderRoute: typeof AppDashboardOverviewRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/_app/dashboard/notebooks': {
+      id: '/_app/dashboard/notebooks'
+      path: '/notebooks'
+      fullPath: '/dashboard/notebooks'
+      preLoaderRoute: typeof AppDashboardNotebooksRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/_app/dashboard/notebooks/$id': {
+      id: '/_app/dashboard/notebooks/$id'
+      path: '/$id'
+      fullPath: '/dashboard/notebooks/$id'
+      preLoaderRoute: typeof AppDashboardNotebooksIdRouteImport
+      parentRoute: typeof AppDashboardNotebooksRoute
+    }
   }
 }
 
+interface AppDashboardNotebooksRouteChildren {
+  AppDashboardNotebooksIdRoute: typeof AppDashboardNotebooksIdRoute
+}
+
+const AppDashboardNotebooksRouteChildren: AppDashboardNotebooksRouteChildren = {
+  AppDashboardNotebooksIdRoute: AppDashboardNotebooksIdRoute,
+}
+
+const AppDashboardNotebooksRouteWithChildren =
+  AppDashboardNotebooksRoute._addFileChildren(
+    AppDashboardNotebooksRouteChildren,
+  )
+
+interface AppDashboardRouteRouteChildren {
+  AppDashboardNotebooksRoute: typeof AppDashboardNotebooksRouteWithChildren
+  AppDashboardOverviewRoute: typeof AppDashboardOverviewRoute
+}
+
+const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
+  AppDashboardNotebooksRoute: AppDashboardNotebooksRouteWithChildren,
+  AppDashboardOverviewRoute: AppDashboardOverviewRoute,
+}
+
+const AppDashboardRouteRouteWithChildren =
+  AppDashboardRouteRoute._addFileChildren(AppDashboardRouteRouteChildren)
+
+interface AppRouteRouteChildren {
+  AppDashboardRouteRoute: typeof AppDashboardRouteRouteWithChildren
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppDashboardRouteRoute: AppDashboardRouteRouteWithChildren,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
+interface AuthRouteRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

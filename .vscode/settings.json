@@ -1,0 +1,6 @@
+{
+  // allow vscode to treat tailwindcss files as css
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
