@@ -4,9 +4,13 @@ dist
 dist-ssr
 *.local
 count.txt
+# Environment files (keep .env.example in git)
 .env
+.env.local
 .env.development
+.env.development.local
 .env.production
+.env.production.local
 .nitro
 .tanstack
 .wrangler
