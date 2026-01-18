@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { ChartPie } from "lucide-react";
+import { ChartPie, User2 } from "lucide-react";
+import { DashboardBreadcrumb } from "@/components/layouts/breadcrumb";
 import {
 	SidebarLayout,
 	SidebarSiteHeader,
@@ -8,6 +9,9 @@ import { SITE_CONFIG } from "@/configs/site";
 import type { SidebarNavItem } from "@/types/sidebar";
 
 export const Route = createFileRoute("/(app)/dashboard")({
+	staticData: {
+		getTitle: () => "Dashboard",
+	},
 	component: DashboardLayout,
 });
 
@@ -15,8 +19,13 @@ function DashboardLayout() {
 	const navigation: SidebarNavItem[] = [
 		{
 			title: "Overview",
-			url: "/overview",
+			to: "/dashboard/overview",
 			icon: ChartPie,
+		},
+		{
+			title: "Users",
+			to: "/dashboard/users",
+			icon: User2,
 		},
 	];
 
@@ -31,7 +40,10 @@ function DashboardLayout() {
 				/>
 			}
 		>
-			<Outlet />
+			<div className="p-4 space-y-4">
+				<DashboardBreadcrumb />
+				<Outlet />
+			</div>
 		</SidebarLayout>
 	);
 }

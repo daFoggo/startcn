@@ -48,7 +48,7 @@ export const SidebarLayout = ({
 								>
 									<SidebarMenuItem>
 										<CollapsibleTrigger asChild>
-											<Link to={item.url || ""}>
+											<Link to={item.to}>
 												<SidebarMenuButton tooltip={item.title}>
 													{item.items ? (
 														<>
