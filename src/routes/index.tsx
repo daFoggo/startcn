@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({ component: App });
 
 function App() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="font-medium">Hello World</div>
-    </div>
-  );
+	return (
+		<div className="flex flex-col min-h-dvh items-center justify-center">
+			<Link to="/dashboard">Go to /dashboard</Link>
+		</div>
+	);
 }
