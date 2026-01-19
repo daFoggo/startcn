@@ -19,8 +19,8 @@ export const ThemeSwitcher = ({ className }: { className?: string }) => {
 	return (
 		<Switch
 			className={className}
-			startIcon={<Sun className="text-primary-foreground" />} // changed from leftIcon
-			endIcon={<Moon className="text-muted-foreground" />} // changed from rightIcon
+			startIcon={<Sun className="text-primary-foreground" />}
+			endIcon={<Moon className="text-muted-foreground" />}
 			checked={theme === "dark"}
 			onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
 		/>
