@@ -7,7 +7,6 @@ export const Route = createFileRoute("/(app)/dashboard/users")({
 	component: UsersLayout,
 });
 
-// Shared mock data - exported for child routes
 export const MOCK_USERS: Record<
 	string,
 	{ id: string; name: string; email: string; role: string }
@@ -33,5 +32,9 @@ export const MOCK_USERS: Record<
 };
 
 function UsersLayout() {
-	return <Outlet />;
+	return (
+		<div className="p-2 sm:p-4 space-y-2 sm:space-y-4">
+			<Outlet />
+		</div>
+	);
 }

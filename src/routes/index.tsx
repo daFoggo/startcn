@@ -17,6 +17,7 @@ export const Route = createFileRoute("/")({ component: App });
 
 function App() {
 	const metadata = SITE_CONFIG.metadata;
+
 	return (
 		<div className="flex flex-col min-h-dvh items-center justify-center space-y-4 relative">
 			<Antigravity
@@ -51,7 +52,7 @@ function App() {
 				<CardFooter>
 					<Link
 						to="/dashboard"
-						className="hover:text-primary hover:underline transition-all"
+						className="hover:text-primary hover:underline  duration-300"
 					>
 						Go to /dashboard
 					</Link>

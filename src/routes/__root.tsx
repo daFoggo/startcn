@@ -1,8 +1,15 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import type { QueryClient } from "@tanstack/react-query";
+import {
+	createRootRouteWithContext,
+	HeadContent,
+	Scripts,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { SITE_CONFIG } from "@/configs/site";
+import { TanstackQueryProvider } from "@/providers/tanstack-query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { ToasterProvider } from "@/providers/toaster-provider";
 import appCss from "../styles.css?url";
 
 // Inline script to prevent flash of unstyled content (FOUC)
@@ -21,7 +28,11 @@ const themeInitScript = `
 })();
 `;
 
-export const Route = createRootRoute({
+export interface RootRouterContext {
+	queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<RootRouterContext>()({
 	head: () => ({
 		meta: [
 			{
@@ -57,7 +68,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-					{children}
+					<TanstackQueryProvider>
+						{children}
+						<ToasterProvider />
+					</TanstackQueryProvider>
 				</ThemeProvider>
 				<TanStackDevtools
 					config={{

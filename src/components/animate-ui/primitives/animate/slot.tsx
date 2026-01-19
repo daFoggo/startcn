@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/suspicious/noExplicitAny: <idk> */
 "use client";
 
 import { type HTMLMotionProps, isMotionComponent, motion } from "motion/react";

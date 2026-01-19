@@ -44,22 +44,20 @@ function DashboardLayout() {
 				/>
 			}
 		>
-			<div>
-				<DashboardHeader
-					breadcrumbs={<DashboardBreadcrumb />}
-					actions={[
-						{
-							id: "github-stars",
-							node: <GithubStarsCounter />,
-						},
-						{
-							id: "theme-switcher",
-							node: <ThemeSwitcher />,
-						},
-					]}
-				/>
-				<Outlet />
-			</div>
+			<DashboardHeader
+				breadcrumbs={<DashboardBreadcrumb />}
+				actions={[
+					{
+						id: "github-stars",
+						node: <GithubStarsCounter />,
+					},
+					{
+						id: "theme-switcher",
+						node: <ThemeSwitcher />,
+					},
+				]}
+			/>
+			<Outlet />
 		</SidebarLayout>
 	);
 }
