@@ -28,7 +28,7 @@ function UserDetailPage() {
 	const user = useLoaderData({ from: "/(app)/dashboard/users/$userId" });
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-4 p-4">
 			<div className="rounded-lg border p-4">
 				<h1 className="text-xl font-bold">{user.name}</h1>
 				<div className="mt-2 space-y-2 text-muted-foreground">

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/(app)/dashboard/users/")({
 
 function UsersIndexPage() {
 	return (
-		<div className="space-y-4">
+		<div className="space-y-4 p-4">
 			<div>
 				<h1 className="text-2xl font-bold">Users Management</h1>
 				<p className="text-muted-foreground">

@@ -4,19 +4,18 @@
 import type { SiteConfig } from "@/types/site";
 export const SITE_CONFIG: SiteConfig = {
 	metadata: {
-		title: "StartCN",
-    subTitle: "A project base",
+		title: "startcn",
+		subTitle: "Project base",
 		description:
-			"StartCN - a Tanstack Start & ShadcnUI base project for kickstarting new web application with a modern stack, essential layouts and components, and best practices",
+			"A Tanstack Start & shadcn/ui base project for kickstarting new web application with a modern stack, essential layouts and components, and best practices",
 		keywords: [
 			"Tanstack Start",
 			"Tanstack",
-			"Start",
+			"startcn",
 			"Tanstack Start base project",
-			"Shadcn",
-			"ShadcnUI",
-			"ShadcnUI base project",
-			"Tanstack Start and ShadcnUI base project",
+			"shadcn/ui",
+			"shadcn/ui base project",
+			"Tanstack Start and shadcn/ui base project",
 		],
 		author: "daFoggo",
 		author_url: "https://github.com/daFoggo",

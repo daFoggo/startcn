@@ -1,6 +1,9 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { ChartPie, User2 } from "lucide-react";
+import { ChartPie, SquareArrowUpRight, User2 } from "lucide-react";
+import { GithubStarsCounter } from "@/components/common/github-stars-counter";
+import { ThemeSwitcher } from "@/components/common/theme-switcher";
 import { DashboardBreadcrumb } from "@/components/layouts/breadcrumb";
+import { DashboardHeader } from "@/components/layouts/dashboard";
 import {
 	SidebarLayout,
 	SidebarSiteHeader,
@@ -37,11 +40,24 @@ function DashboardLayout() {
 				<SidebarSiteHeader
 					title={SITE_CONFIG.metadata.title}
 					subtitle={SITE_CONFIG.metadata.subTitle}
+					logo={<SquareArrowUpRight />}
 				/>
 			}
 		>
-			<div className="p-4 space-y-4">
-				<DashboardBreadcrumb />
+			<div>
+				<DashboardHeader
+					breadcrumbs={<DashboardBreadcrumb />}
+					actions={[
+						{
+							id: "github-stars",
+							node: <GithubStarsCounter />,
+						},
+						{
+							id: "theme-switcher",
+							node: <ThemeSwitcher />,
+						},
+					]}
+				/>
 				<Outlet />
 			</div>
 		</SidebarLayout>

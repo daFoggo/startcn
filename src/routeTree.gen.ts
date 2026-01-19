@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as appDashboardRouteRouteImport } from './routes/(app)/dashboard/route'
+import { Route as appDashboardIndexRouteImport } from './routes/(app)/dashboard/index'
 import { Route as appDashboardOverviewRouteImport } from './routes/(app)/dashboard/overview'
 import { Route as appDashboardUsersRouteRouteImport } from './routes/(app)/dashboard/users/route'
 import { Route as appDashboardUsersIndexRouteImport } from './routes/(app)/dashboard/users/index'
@@ -25,6 +26,11 @@ const appDashboardRouteRoute = appDashboardRouteRouteImport.update({
   id: '/(app)/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
+} as any)
+const appDashboardIndexRoute = appDashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appDashboardRouteRoute,
 } as any)
 const appDashboardOverviewRoute = appDashboardOverviewRouteImport.update({
   id: '/overview',
@@ -52,13 +58,14 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof appDashboardRouteRouteWithChildren
   '/dashboard/users': typeof appDashboardUsersRouteRouteWithChildren
   '/dashboard/overview': typeof appDashboardOverviewRoute
+  '/dashboard/': typeof appDashboardIndexRoute
   '/dashboard/users/$userId': typeof appDashboardUsersUserIdRoute
   '/dashboard/users/': typeof appDashboardUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard': typeof appDashboardRouteRouteWithChildren
   '/dashboard/overview': typeof appDashboardOverviewRoute
+  '/dashboard': typeof appDashboardIndexRoute
   '/dashboard/users/$userId': typeof appDashboardUsersUserIdRoute
   '/dashboard/users': typeof appDashboardUsersIndexRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesById {
   '/(app)/dashboard': typeof appDashboardRouteRouteWithChildren
   '/(app)/dashboard/users': typeof appDashboardUsersRouteRouteWithChildren
   '/(app)/dashboard/overview': typeof appDashboardOverviewRoute
+  '/(app)/dashboard/': typeof appDashboardIndexRoute
   '/(app)/dashboard/users/$userId': typeof appDashboardUsersUserIdRoute
   '/(app)/dashboard/users/': typeof appDashboardUsersIndexRoute
 }
@@ -78,13 +86,14 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/users'
     | '/dashboard/overview'
+    | '/dashboard/'
     | '/dashboard/users/$userId'
     | '/dashboard/users/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/dashboard'
     | '/dashboard/overview'
+    | '/dashboard'
     | '/dashboard/users/$userId'
     | '/dashboard/users'
   id:
@@ -93,6 +102,7 @@ export interface FileRouteTypes {
     | '/(app)/dashboard'
     | '/(app)/dashboard/users'
     | '/(app)/dashboard/overview'
+    | '/(app)/dashboard/'
     | '/(app)/dashboard/users/$userId'
     | '/(app)/dashboard/users/'
   fileRoutesById: FileRoutesById
@@ -117,6 +127,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard'
       preLoaderRoute: typeof appDashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(app)/dashboard/': {
+      id: '/(app)/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof appDashboardIndexRouteImport
+      parentRoute: typeof appDashboardRouteRoute
     }
     '/(app)/dashboard/overview': {
       id: '/(app)/dashboard/overview'
@@ -168,11 +185,13 @@ const appDashboardUsersRouteRouteWithChildren =
 interface appDashboardRouteRouteChildren {
   appDashboardUsersRouteRoute: typeof appDashboardUsersRouteRouteWithChildren
   appDashboardOverviewRoute: typeof appDashboardOverviewRoute
+  appDashboardIndexRoute: typeof appDashboardIndexRoute
 }
 
 const appDashboardRouteRouteChildren: appDashboardRouteRouteChildren = {
   appDashboardUsersRouteRoute: appDashboardUsersRouteRouteWithChildren,
   appDashboardOverviewRoute: appDashboardOverviewRoute,
+  appDashboardIndexRoute: appDashboardIndexRoute,
 }
 
 const appDashboardRouteRouteWithChildren =
