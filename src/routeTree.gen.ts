@@ -13,8 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as appDashboardRouteRouteImport } from './routes/(app)/dashboard/route'
 import { Route as appDashboardIndexRouteImport } from './routes/(app)/dashboard/index'
 import { Route as appDashboardUsersRouteRouteImport } from './routes/(app)/dashboard/users/route'
+import { Route as appDashboardPostsRouteRouteImport } from './routes/(app)/dashboard/posts/route'
 import { Route as appDashboardOverviewRouteRouteImport } from './routes/(app)/dashboard/overview/route'
 import { Route as appDashboardUsersIndexRouteImport } from './routes/(app)/dashboard/users/index'
+import { Route as appDashboardPostsIndexRouteImport } from './routes/(app)/dashboard/posts/index'
 import { Route as appDashboardUsersUserIdRouteImport } from './routes/(app)/dashboard/users/$userId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -37,6 +39,11 @@ const appDashboardUsersRouteRoute = appDashboardUsersRouteRouteImport.update({
   path: '/users',
   getParentRoute: () => appDashboardRouteRoute,
 } as any)
+const appDashboardPostsRouteRoute = appDashboardPostsRouteRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => appDashboardRouteRoute,
+} as any)
 const appDashboardOverviewRouteRoute =
   appDashboardOverviewRouteRouteImport.update({
     id: '/overview',
@@ -48,6 +55,11 @@ const appDashboardUsersIndexRoute = appDashboardUsersIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appDashboardUsersRouteRoute,
 } as any)
+const appDashboardPostsIndexRoute = appDashboardPostsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appDashboardPostsRouteRoute,
+} as any)
 const appDashboardUsersUserIdRoute = appDashboardUsersUserIdRouteImport.update({
   id: '/$userId',
   path: '/$userId',
@@ -58,9 +70,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof appDashboardRouteRouteWithChildren
   '/dashboard/overview': typeof appDashboardOverviewRouteRoute
+  '/dashboard/posts': typeof appDashboardPostsRouteRouteWithChildren
   '/dashboard/users': typeof appDashboardUsersRouteRouteWithChildren
   '/dashboard/': typeof appDashboardIndexRoute
   '/dashboard/users/$userId': typeof appDashboardUsersUserIdRoute
+  '/dashboard/posts/': typeof appDashboardPostsIndexRoute
   '/dashboard/users/': typeof appDashboardUsersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -68,6 +82,7 @@ export interface FileRoutesByTo {
   '/dashboard/overview': typeof appDashboardOverviewRouteRoute
   '/dashboard': typeof appDashboardIndexRoute
   '/dashboard/users/$userId': typeof appDashboardUsersUserIdRoute
+  '/dashboard/posts': typeof appDashboardPostsIndexRoute
   '/dashboard/users': typeof appDashboardUsersIndexRoute
 }
 export interface FileRoutesById {
@@ -75,9 +90,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/(app)/dashboard': typeof appDashboardRouteRouteWithChildren
   '/(app)/dashboard/overview': typeof appDashboardOverviewRouteRoute
+  '/(app)/dashboard/posts': typeof appDashboardPostsRouteRouteWithChildren
   '/(app)/dashboard/users': typeof appDashboardUsersRouteRouteWithChildren
   '/(app)/dashboard/': typeof appDashboardIndexRoute
   '/(app)/dashboard/users/$userId': typeof appDashboardUsersUserIdRoute
+  '/(app)/dashboard/posts/': typeof appDashboardPostsIndexRoute
   '/(app)/dashboard/users/': typeof appDashboardUsersIndexRoute
 }
 export interface FileRouteTypes {
@@ -86,9 +103,11 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dashboard/overview'
+    | '/dashboard/posts'
     | '/dashboard/users'
     | '/dashboard/'
     | '/dashboard/users/$userId'
+    | '/dashboard/posts/'
     | '/dashboard/users/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -96,15 +115,18 @@ export interface FileRouteTypes {
     | '/dashboard/overview'
     | '/dashboard'
     | '/dashboard/users/$userId'
+    | '/dashboard/posts'
     | '/dashboard/users'
   id:
     | '__root__'
     | '/'
     | '/(app)/dashboard'
     | '/(app)/dashboard/overview'
+    | '/(app)/dashboard/posts'
     | '/(app)/dashboard/users'
     | '/(app)/dashboard/'
     | '/(app)/dashboard/users/$userId'
+    | '/(app)/dashboard/posts/'
     | '/(app)/dashboard/users/'
   fileRoutesById: FileRoutesById
 }
@@ -143,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appDashboardUsersRouteRouteImport
       parentRoute: typeof appDashboardRouteRoute
     }
+    '/(app)/dashboard/posts': {
+      id: '/(app)/dashboard/posts'
+      path: '/posts'
+      fullPath: '/dashboard/posts'
+      preLoaderRoute: typeof appDashboardPostsRouteRouteImport
+      parentRoute: typeof appDashboardRouteRoute
+    }
     '/(app)/dashboard/overview': {
       id: '/(app)/dashboard/overview'
       path: '/overview'
@@ -157,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appDashboardUsersIndexRouteImport
       parentRoute: typeof appDashboardUsersRouteRoute
     }
+    '/(app)/dashboard/posts/': {
+      id: '/(app)/dashboard/posts/'
+      path: '/'
+      fullPath: '/dashboard/posts/'
+      preLoaderRoute: typeof appDashboardPostsIndexRouteImport
+      parentRoute: typeof appDashboardPostsRouteRoute
+    }
     '/(app)/dashboard/users/$userId': {
       id: '/(app)/dashboard/users/$userId'
       path: '/$userId'
@@ -166,6 +202,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface appDashboardPostsRouteRouteChildren {
+  appDashboardPostsIndexRoute: typeof appDashboardPostsIndexRoute
+}
+
+const appDashboardPostsRouteRouteChildren: appDashboardPostsRouteRouteChildren =
+  {
+    appDashboardPostsIndexRoute: appDashboardPostsIndexRoute,
+  }
+
+const appDashboardPostsRouteRouteWithChildren =
+  appDashboardPostsRouteRoute._addFileChildren(
+    appDashboardPostsRouteRouteChildren,
+  )
 
 interface appDashboardUsersRouteRouteChildren {
   appDashboardUsersUserIdRoute: typeof appDashboardUsersUserIdRoute
@@ -185,12 +235,14 @@ const appDashboardUsersRouteRouteWithChildren =
 
 interface appDashboardRouteRouteChildren {
   appDashboardOverviewRouteRoute: typeof appDashboardOverviewRouteRoute
+  appDashboardPostsRouteRoute: typeof appDashboardPostsRouteRouteWithChildren
   appDashboardUsersRouteRoute: typeof appDashboardUsersRouteRouteWithChildren
   appDashboardIndexRoute: typeof appDashboardIndexRoute
 }
 
 const appDashboardRouteRouteChildren: appDashboardRouteRouteChildren = {
   appDashboardOverviewRouteRoute: appDashboardOverviewRouteRoute,
+  appDashboardPostsRouteRoute: appDashboardPostsRouteRouteWithChildren,
   appDashboardUsersRouteRoute: appDashboardUsersRouteRouteWithChildren,
   appDashboardIndexRoute: appDashboardIndexRoute,
 }

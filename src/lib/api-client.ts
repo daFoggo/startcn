@@ -8,13 +8,13 @@ import { BACKEND_API_URL } from "@/constants/backend";
  */
 export const mainClient = ky.create({
 	prefixUrl: BACKEND_API_URL,
-	hooks: {
-		beforeRequest: [
-			(request) => {
-				// Example: request.headers.set('Authorization', `Bearer ${token}`);
-			},
-		],
-	},
+	// hooks: {
+	// 	beforeRequest: [
+	// 		(request) => {
+	// 			// Example: request.headers.set('Authorization', `Bearer ${token}`);
+	// 		},
+	// 	],
+	// },
 });
 
 /**

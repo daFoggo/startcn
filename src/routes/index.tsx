@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SquareArrowUpRight } from "lucide-react";
+import { GithubStarsCounter } from "@/components/common/github-stars-counter";
 import Antigravity from "@/components/decorations/antigravity";
-import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardAction,
@@ -43,18 +42,18 @@ function App() {
 					<CardTitle className="font-semibold">{metadata.title}</CardTitle>
 					<CardDescription>{metadata.subTitle}</CardDescription>
 					<CardAction>
-						<Button size="icon">
-							<SquareArrowUpRight className="size-4" />
-						</Button>
+						<GithubStarsCounter />
 					</CardAction>
 				</CardHeader>
-				<CardContent>{metadata.description}</CardContent>
+				<CardContent className="space-y-2">
+					<p>{metadata.description}</p>
+				</CardContent>
 				<CardFooter>
 					<Link
 						to="/dashboard"
 						className="hover:text-primary hover:underline  duration-300"
 					>
-						Go to /dashboard
+						Go to dashboard
 					</Link>
 				</CardFooter>
 			</Card>

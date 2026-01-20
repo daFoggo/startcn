@@ -48,7 +48,7 @@ export const ListViewContent = ({ users }: ListViewContentProps) => {
 						</ItemContent>
 
 						<ItemActions>
-							<Button variant="outline">
+							<Button variant="secondary">
 								<UserPen />
 								View detail
 							</Button>

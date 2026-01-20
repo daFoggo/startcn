@@ -32,7 +32,7 @@ export const SidebarLayout = ({
 	navigation,
 }: SidebarLayoutProps) => {
 	return (
-		<SidebarProvider>
+		<SidebarProvider className="h-svh overflow-hidden">
 			<Sidebar collapsible="icon" variant={variant}>
 				{header && <SidebarHeader>{header}</SidebarHeader>}
 
@@ -71,7 +71,7 @@ export const SidebarLayout = ({
 													{item.items.map((subItem) => (
 														<SidebarMenuSubItem key={subItem.title}>
 															<SidebarMenuSubButton asChild>
-																<Link to={subItem.url}>
+																<Link to={subItem.to}>
 																	<span>{subItem.title}</span>
 																</Link>
 															</SidebarMenuSubButton>

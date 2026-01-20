@@ -33,7 +33,7 @@ export const MOCK_USERS: Record<
 
 function UsersLayout() {
 	return (
-		<div className="p-2 sm:p-4 space-y-2 sm:space-y-4">
+		<div className="p-2 sm:p-4 space-y-2 sm:space-y-4 overflow-hidden">
 			<Outlet />
 		</div>
 	);

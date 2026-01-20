@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { User } from "../types/user.types";
 import { UserViewMode } from "../utils/constants";
 import { ListViewContent } from "./list-view-content";
+import { TableViewContent } from "./table-view-content";
 
 interface UserViewModeTabProps {
 	users: User[];
@@ -20,13 +21,13 @@ export const UserViewModeTab = ({
 			value: UserViewMode.LIST,
 			icon: <List className="size-4" />,
 			label: "List",
-			content: ListViewContent({ users }),
+			content: <ListViewContent users={users} />,
 		},
 		{
 			value: UserViewMode.TABLE,
 			icon: <Table2 />,
 			label: "Table",
-			content: <div>Table View Placeholder (Users count: {users.length})</div>, // Implement table later if needed
+			content: <TableViewContent users={users} />,
 		},
 		{
 			value: UserViewMode.GRID,

@@ -17,7 +17,7 @@ export interface SidebarNavItem {
 
 export interface SidebarNavSubItem {
 	title: string;
-	url: string;
+	to: string;
 }
 
 export interface SidebarLayoutProps {

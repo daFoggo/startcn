@@ -6,6 +6,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { NuqsAdapter } from "nuqs/adapters/tanstack-router";
 import { SITE_CONFIG } from "@/configs/site";
 import { TanstackQueryProvider } from "@/providers/tanstack-query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -68,10 +69,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-					<TanstackQueryProvider>
-						{children}
-						<ToasterProvider />
-					</TanstackQueryProvider>
+					<NuqsAdapter>
+						<TanstackQueryProvider>
+							{children}
+							<ToasterProvider />
+						</TanstackQueryProvider>
+					</NuqsAdapter>
 				</ThemeProvider>
 				<TanStackDevtools
 					config={{
