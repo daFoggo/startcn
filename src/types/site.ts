@@ -1,17 +1,17 @@
 export type SiteConfig = {
-  metadata: {
-    title: string
-    subTitle?: string
-    description?: string
-    keywords?: string[]
-    author?: string
-    author_url?: string
-    publisher?: string
-    publisher_url?: string
-    language?: string
-  }
-  github?: {
-    username: string
-    repo: string
-  }
-}
+	metadata: {
+		title: string;
+		subTitle?: string;
+		description?: string;
+		keywords?: string[];
+		author?: string;
+		author_url?: string;
+		publisher?: string;
+		publisher_url?: string;
+		language?: string;
+	};
+	github?: {
+		username: string;
+		repo: string;
+	};
+};

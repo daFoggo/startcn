@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageTitle } from "@/components/layouts/dashboard";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/(app)/dashboard/overview")({
 	staticData: {
@@ -15,6 +16,13 @@ function OverviewPage() {
 				title="Overview"
 				subTitle="View summary information of your system"
 			/>
+			<Button
+				onClick={() => {
+					throw new Error("This is your first error!");
+				}}
+			>
+				Break the world
+			</Button>
 		</div>
 	);
 }

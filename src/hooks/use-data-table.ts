@@ -19,7 +19,6 @@ import {
 import {
 	parseAsArrayOf,
 	parseAsInteger,
-	parseAsJson,
 	parseAsString,
 	type SingleParser,
 	type UseQueryStateOptions,
@@ -27,8 +26,9 @@ import {
 	useQueryStates,
 } from "nuqs";
 import * as React from "react";
-import { z } from "zod";
+
 import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
+import { getSortingStateParser } from "@/lib/parsers";
 import type { ExtendedColumnSort, QueryKeys } from "@/types/data-table";
 
 const PAGE_KEY = "page";
@@ -62,7 +62,6 @@ interface UseDataTableProps<TData>
 	enableAdvancedFilter?: boolean;
 	scroll?: boolean;
 	shallow?: boolean;
-	enableClientSide?: boolean;
 	startTransition?: React.TransitionStartFunction;
 }
 
@@ -78,7 +77,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 		clearOnDefault = false,
 		enableAdvancedFilter = false,
 		scroll = false,
-		shallow = false,
+		shallow = true,
 		startTransition,
 		...tableProps
 	} = props;
@@ -149,48 +148,29 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 		[pagination, setPage, setPerPage],
 	);
 
-	// Schema for validating sorting items
-	const sortingItemSchema = z.object({
-		id: z.string(),
-		desc: z.boolean(),
-	});
+	const columnIds = React.useMemo(() => {
+		return new Set(
+			columns.map((column) => column.id).filter(Boolean) as string[],
+		);
+	}, [columns]);
 
-	const sortingParser = parseAsJson(z.array(sortingItemSchema).parse)
-		.withOptions(queryStateOptions)
-		.withDefault(initialState?.sorting ?? []);
-
-	// For client-side mode, use local state to avoid nuqs flickering issues
-	const [localSorting, setLocalSorting] = React.useState<SortingState>(
-		initialState?.sorting ?? [],
+	const [sorting, setSorting] = useQueryState(
+		sortKey,
+		getSortingStateParser<TData>(columnIds)
+			.withOptions(queryStateOptions)
+			.withDefault(initialState?.sorting ?? []),
 	);
-
-	// For server-side mode, use nuqs for URL persistence
-	const [urlSorting, setUrlSorting] = useQueryState(sortKey, sortingParser);
-
-	// Use local state for client-side, URL state for server-side
-	const sorting = props.enableClientSide ? localSorting : urlSorting;
 
 	const onSortingChange = React.useCallback(
 		(updaterOrValue: Updater<SortingState>) => {
 			if (typeof updaterOrValue === "function") {
-				const currentSorting = props.enableClientSide
-					? localSorting
-					: urlSorting;
-				const newSorting = updaterOrValue(currentSorting);
-				if (props.enableClientSide) {
-					setLocalSorting(newSorting);
-				} else {
-					setUrlSorting(newSorting as ExtendedColumnSort<TData>[]);
-				}
+				const newSorting = updaterOrValue(sorting);
+				setSorting(newSorting as ExtendedColumnSort<TData>[]);
 			} else {
-				if (props.enableClientSide) {
-					setLocalSorting(updaterOrValue);
-				} else {
-					setUrlSorting(updaterOrValue as ExtendedColumnSort<TData>[]);
-				}
+				setSorting(updaterOrValue as ExtendedColumnSort<TData>[]);
 			}
 		},
-		[localSorting, urlSorting, setUrlSorting, props.enableClientSide],
+		[sorting, setSorting],
 	);
 
 	const filterableColumns = React.useMemo(() => {
@@ -253,14 +233,6 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 	const [columnFilters, setColumnFilters] =
 		React.useState<ColumnFiltersState>(initialColumnFilters);
 
-	// Sync columnFilters with URL state only for server-side mode
-	// Skip for client-side mode to avoid flickering
-	React.useEffect(() => {
-		if (!props.enableClientSide) {
-			setColumnFilters(initialColumnFilters);
-		}
-	}, [initialColumnFilters, props.enableClientSide]);
-
 	const onColumnFiltersChange = React.useCallback(
 		(updaterOrValue: Updater<ColumnFiltersState>) => {
 			if (enableAdvancedFilter) return;
@@ -271,34 +243,26 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 						? updaterOrValue(prev)
 						: updaterOrValue;
 
-				// Skip URL sync for client-side mode to avoid flickering
-				if (!props.enableClientSide) {
-					const filterUpdates = next.reduce<
-						Record<string, string | string[] | null>
-					>((acc, filter) => {
-						if (filterableColumns.find((column) => column.id === filter.id)) {
-							acc[filter.id] = filter.value as string | string[];
-						}
-						return acc;
-					}, {});
-
-					for (const prevFilter of prev) {
-						if (!next.some((filter) => filter.id === prevFilter.id)) {
-							filterUpdates[prevFilter.id] = null;
-						}
+				const filterUpdates = next.reduce<
+					Record<string, string | string[] | null>
+				>((acc, filter) => {
+					if (filterableColumns.find((column) => column.id === filter.id)) {
+						acc[filter.id] = filter.value as string | string[];
 					}
+					return acc;
+				}, {});
 
-					debouncedSetFilterValues(filterUpdates);
+				for (const prevFilter of prev) {
+					if (!next.some((filter) => filter.id === prevFilter.id)) {
+						filterUpdates[prevFilter.id] = null;
+					}
 				}
+
+				debouncedSetFilterValues(filterUpdates);
 				return next;
 			});
 		},
-		[
-			debouncedSetFilterValues,
-			filterableColumns,
-			enableAdvancedFilter,
-			props.enableClientSide,
-		],
+		[debouncedSetFilterValues, filterableColumns, enableAdvancedFilter],
 	);
 
 	const table = useReactTable({
@@ -330,12 +294,11 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 		getFacetedRowModel: getFacetedRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFacetedMinMaxValues: getFacetedMinMaxValues(),
-		manualPagination: !props.enableClientSide,
-		manualSorting: !props.enableClientSide,
-		manualFiltering: !props.enableClientSide,
+		manualPagination: true,
+		manualSorting: true,
+		manualFiltering: true,
 		meta: {
 			...tableProps.meta,
-			enableClientSide: props.enableClientSide,
 			queryKeys: {
 				page: pageKey,
 				perPage: perPageKey,

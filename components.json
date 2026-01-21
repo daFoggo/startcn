@@ -1,28 +1,28 @@
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-nova",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "src/styles.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "menuColor": "default",
-  "menuAccent": "subtle",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
-  "registries": {
-    "@animate-ui": "https://animate-ui.com/r/{name}.json",
-    "@react-bits": "https://reactbits.dev/r/{name}.json",
-    "@diceui": "https://diceui.com/r/{name}.json"
-  }
+	"$schema": "https://ui.shadcn.com/schema.json",
+	"style": "radix-nova",
+	"rsc": false,
+	"tsx": true,
+	"tailwind": {
+		"config": "",
+		"css": "src/styles.css",
+		"baseColor": "neutral",
+		"cssVariables": true,
+		"prefix": ""
+	},
+	"iconLibrary": "lucide",
+	"menuColor": "default",
+	"menuAccent": "subtle",
+	"aliases": {
+		"components": "@/components",
+		"utils": "@/lib/utils",
+		"ui": "@/components/ui",
+		"lib": "@/lib",
+		"hooks": "@/hooks"
+	},
+	"registries": {
+		"@animate-ui": "https://animate-ui.com/r/{name}.json",
+		"@react-bits": "https://reactbits.dev/r/{name}.json",
+		"@diceui": "https://diceui.com/r/{name}.json"
+	}
 }

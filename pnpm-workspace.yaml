@@ -1,4 +1,5 @@
 onlyBuiltDependencies:
+  - '@sentry/cli'
   - esbuild
   - msw
   - unrs-resolver

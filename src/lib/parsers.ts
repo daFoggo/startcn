@@ -1,6 +1,8 @@
 import { createParser } from "nuqs/server";
 import { z } from "zod";
+
 import { dataTableConfig } from "@/configs/data-table";
+
 import type {
 	ExtendedColumnFilter,
 	ExtendedColumnSort,
@@ -11,21 +13,58 @@ const sortingItemSchema = z.object({
 	desc: z.boolean(),
 });
 
-export const getSortingStateParser = <TData>() => {
+export const getSortingStateParser = <TData>(
+	columnIds?: string[] | Set<string>,
+) => {
+	const validKeys = columnIds
+		? columnIds instanceof Set
+			? columnIds
+			: new Set(columnIds)
+		: null;
+
 	return createParser({
 		parse: (value) => {
+			if (!value) return null;
+
 			try {
-				const parsed = JSON.parse(value);
-				const result = z.array(sortingItemSchema).safeParse(parsed);
+				// Try parsing as JSON first for backward compatibility or if sent as JSON
+				if (value.startsWith("[") && value.endsWith("]")) {
+					const parsed = JSON.parse(value);
+					const result = z.array(sortingItemSchema).safeParse(parsed);
+					if (result.success) {
+						if (
+							validKeys &&
+							result.data.some((item) => !validKeys.has(item.id))
+						) {
+							return null;
+						}
+						return result.data as ExtendedColumnSort<TData>[];
+					}
+				}
+			} catch {}
 
-				if (!result.success) return null;
+			// Default: Parse "id.desc,id2.asc" format
+			const items = value.split(",");
+			const sorting: ExtendedColumnSort<TData>[] = [];
 
-				return result.data as ExtendedColumnSort<TData>[];
-			} catch {
-				return null;
+			for (const item of items) {
+				const [id, dir] = item.split(".");
+				if (!id) continue;
+				if (validKeys && !validKeys.has(id)) continue;
+
+				sorting.push({
+					id,
+					desc: dir === "desc",
+				} as ExtendedColumnSort<TData>);
 			}
+
+			return sorting.length > 0 ? sorting : null;
 		},
-		serialize: (value) => JSON.stringify(value),
+		serialize: (value) => {
+			return value
+				.map((item) => `${item.id}.${item.desc ? "desc" : "asc"}`)
+				.join(",");
+		},
 		eq: (a, b) =>
 			a.length === b.length &&
 			a.every(

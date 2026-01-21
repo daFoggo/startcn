@@ -8,6 +8,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { NuqsAdapter } from "nuqs/adapters/tanstack-router";
 import { SITE_CONFIG } from "@/configs/site";
+import { requestLogger } from "@/lib/logger";
 import { TanstackQueryProvider } from "@/providers/tanstack-query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ToasterProvider } from "@/providers/toaster-provider";
@@ -56,6 +57,9 @@ export const Route = createRootRouteWithContext<RootRouterContext>()({
 	}),
 
 	shellComponent: RootDocument,
+	server: {
+		middleware: [requestLogger],
+	},
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

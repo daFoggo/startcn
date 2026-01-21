@@ -1,11 +1,29 @@
 {
-	// allow biome js to sort on save
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit",
 		"source.fixAll.biome": "explicit"
 	},
-	// allow vscode to treat tailwindcss files as css
 	"files.associations": {
 		"*.css": "tailwindcss"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	}
 }

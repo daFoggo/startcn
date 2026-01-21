@@ -5,7 +5,6 @@ import type { FilterItemSchema } from "@/lib/parsers";
 declare module "@tanstack/react-table" {
 	// biome-ignore lint/correctness/noUnusedVariables: TData is used in the TableMeta interface
 	interface TableMeta<TData extends RowData> {
-		enableClientSide?: boolean;
 		queryKeys?: QueryKeys;
 	}
 
