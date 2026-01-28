@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getUserById, getUsers } from "../services/user.services";
+import { getUserById, getUsers } from "../services/users.services";
 
 export const USER_QUERY_KEY = "users";
 

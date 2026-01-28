@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/tanstackstart-react";
 import { Link, useRouter } from "@tanstack/react-router";
 import { AlertCircle } from "lucide-react";
 import { useEffect } from "react";
@@ -9,7 +8,6 @@ export function ErrorComponent({ error }: { error: Error }) {
 
 	useEffect(() => {
 		console.error(error);
-		Sentry.captureException(error);
 	}, [error]);
 
 	return (

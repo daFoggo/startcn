@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { ChartPie, SquareArrowUpRight, StickyNote, User2 } from "lucide-react";
+import { ChartPie, SquareArrowUpRight, User2 } from "lucide-react";
 import { GithubStarsCounter } from "@/components/common/github-stars-counter";
 import { ThemeSwitcher } from "@/components/common/theme-switcher";
 import { DashboardBreadcrumb } from "@/components/layouts/breadcrumb";
@@ -29,11 +29,6 @@ function DashboardLayout() {
 			title: "Users",
 			to: "/dashboard/users",
 			icon: User2,
-		},
-		{
-			title: "Posts",
-			to: "/dashboard/posts",
-			icon: StickyNote,
 		},
 	];
 

@@ -15,7 +15,7 @@ import {
 	ItemTitle,
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
-import type { User } from "../types/user.types";
+import type { User } from "../types/users.types";
 
 interface ListViewContentProps {
 	users: User[];

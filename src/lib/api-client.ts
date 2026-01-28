@@ -1,5 +1,5 @@
 import ky from "ky";
-import { BACKEND_API_URL } from "@/constants/backend";
+import { BACKEND_API_URL } from "@/constants/environment";
 
 /**
  * Main API Client

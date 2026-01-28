@@ -1,4 +1,3 @@
-import { sentryTanstackStart } from "@sentry/tanstackstart-react";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -18,11 +17,6 @@ const config = defineConfig({
 		tailwindcss(),
 		tanstackStart(),
 		viteReact(),
-		sentryTanstackStart({
-			org: "jsm-cep",
-			project: "startcn",
-			authToken: process.env.SENTRY_AUTH_TOKEN,
-		}),
 	],
 });
 

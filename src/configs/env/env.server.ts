@@ -25,9 +25,9 @@ const validateServerEnv = (): ServerEnv => {
 const env = validateServerEnv();
 
 export const SERVER_ENV_CONFIG = {
-	databaseUrl: env.DATABASE_URL,
 	clerkSecretKey: env.CLERK_SECRET_KEY,
 	nodeEnv: env.NODE_ENV,
+
 	isDev: env.NODE_ENV === "development",
 	isProd: env.NODE_ENV === "production",
 	isTest: env.NODE_ENV === "test",
