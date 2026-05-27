@@ -11,10 +11,12 @@ import {
 	FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { SITE_CONFIG } from "@/configs/site";
 import { getErrorMessage } from "@/lib/error";
 import { useAuthMutations } from "../queries";
-import { SignInSchema } from "../schemas";
+import { SignInSchema, type TSignInResponse } from "../schemas";
+import { TelegramLoginButton } from "./telegram-login-button";
 
 interface ISignInFormProps {
 	redirect?: string;
@@ -26,7 +28,29 @@ interface ISignInFormProps {
  */
 export const SignInForm = ({ redirect }: ISignInFormProps) => {
 	const navigate = useNavigate();
-	const { signIn: signInMutation } = useAuthMutations();
+	const { signIn: signInMutation, signInWithTelegram } = useAuthMutations();
+
+	const navigateAfterAuth = (response: TSignInResponse) => {
+		if (!response.user_info.profile_completed) {
+			navigate({ to: "/dashboard/overview" });
+			return;
+		}
+
+		if (redirect) {
+			try {
+				const url = new URL(redirect, window.location.origin);
+				if (url.origin === window.location.origin) {
+					navigate({ to: url.pathname + url.search });
+				} else {
+					window.location.href = redirect;
+				}
+			} catch {
+				navigate({ to: redirect });
+			}
+		} else {
+			navigate({ to: "/dashboard" });
+		}
+	};
 
 	const form = useForm({
 		defaultValues: {
@@ -44,21 +68,7 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 				localStorage.setItem("refresh_expiration", response.refresh_expiration);
 
 				toast.success("Signed in successfully");
-
-				if (redirect) {
-					try {
-						const url = new URL(redirect, window.location.origin);
-						if (url.origin === window.location.origin) {
-							navigate({ to: url.pathname + url.search });
-						} else {
-							window.location.href = redirect;
-						}
-					} catch {
-						navigate({ to: redirect });
-					}
-				} else {
-					navigate({ to: "/dashboard" });
-				}
+				navigateAfterAuth(response);
 			} catch (error) {
 				toast.error(
 					getErrorMessage(error, "Sign in failed. Please try again."),
@@ -85,6 +95,18 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 				</div>
 			</CardHeader>
 			<CardContent>
+				<div className="mb-5 space-y-4">
+					<TelegramLoginButton
+						isPending={signInWithTelegram.isPending}
+						redirect={redirect}
+						onError={(message) => toast.error(message)}
+					/>
+					<div className="flex items-center gap-3">
+						<Separator className="flex-1" />
+						<span className="text-xs text-muted-foreground">or</span>
+						<Separator className="flex-1" />
+					</div>
+				</div>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();

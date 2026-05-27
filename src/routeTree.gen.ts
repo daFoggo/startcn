@@ -13,17 +13,14 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardTeamIdRouteImport } from './routes/dashboard/$teamId'
+import { Route as AuthTelegramRouteImport } from './routes/auth/telegram'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as DashboardTeamIndexRouteImport } from './routes/dashboard/team/index'
 import { Route as DashboardSchedulesIndexRouteImport } from './routes/dashboard/schedules/index'
 import { Route as DashboardOverviewIndexRouteImport } from './routes/dashboard/overview/index'
 import { Route as DashboardInboxIndexRouteImport } from './routes/dashboard/inbox/index'
-import { Route as DashboardSettingsThemeRouteImport } from './routes/dashboard/settings/theme'
-import { Route as DashboardSettingsSecurityRouteImport } from './routes/dashboard/settings/security'
-import { Route as DashboardSettingsGeneralRouteImport } from './routes/dashboard/settings/general'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -45,15 +42,15 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/auth/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
 const DashboardTeamIdRoute = DashboardTeamIdRouteImport.update({
   id: '/$teamId',
   path: '/$teamId',
   getParentRoute: () => DashboardRouteRoute,
+} as any)
+const AuthTelegramRoute = AuthTelegramRouteImport.update({
+  id: '/auth/telegram',
+  path: '/auth/telegram',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignUpRoute = AuthSignUpRouteImport.update({
   id: '/auth/sign-up',
@@ -85,36 +82,16 @@ const DashboardInboxIndexRoute = DashboardInboxIndexRouteImport.update({
   path: '/inbox/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardSettingsThemeRoute = DashboardSettingsThemeRouteImport.update({
-  id: '/theme',
-  path: '/theme',
-  getParentRoute: () => DashboardSettingsRoute,
-} as any)
-const DashboardSettingsSecurityRoute =
-  DashboardSettingsSecurityRouteImport.update({
-    id: '/security',
-    path: '/security',
-    getParentRoute: () => DashboardSettingsRoute,
-  } as any)
-const DashboardSettingsGeneralRoute =
-  DashboardSettingsGeneralRouteImport.update({
-    id: '/general',
-    path: '/general',
-    getParentRoute: () => DashboardSettingsRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/telegram': typeof AuthTelegramRoute
   '/dashboard/$teamId': typeof DashboardTeamIdRoute
-  '/dashboard/settings': typeof DashboardSettingsRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/settings/general': typeof DashboardSettingsGeneralRoute
-  '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
-  '/dashboard/settings/theme': typeof DashboardSettingsThemeRoute
   '/dashboard/inbox/': typeof DashboardInboxIndexRoute
   '/dashboard/overview/': typeof DashboardOverviewIndexRoute
   '/dashboard/schedules/': typeof DashboardSchedulesIndexRoute
@@ -124,13 +101,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/telegram': typeof AuthTelegramRoute
   '/dashboard/$teamId': typeof DashboardTeamIdRoute
-  '/dashboard/settings': typeof DashboardSettingsRouteWithChildren
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
-  '/dashboard/settings/general': typeof DashboardSettingsGeneralRoute
-  '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
-  '/dashboard/settings/theme': typeof DashboardSettingsThemeRoute
   '/dashboard/inbox': typeof DashboardInboxIndexRoute
   '/dashboard/overview': typeof DashboardOverviewIndexRoute
   '/dashboard/schedules': typeof DashboardSchedulesIndexRoute
@@ -142,13 +116,10 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/telegram': typeof AuthTelegramRoute
   '/dashboard/$teamId': typeof DashboardTeamIdRoute
-  '/dashboard/settings': typeof DashboardSettingsRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/settings/general': typeof DashboardSettingsGeneralRoute
-  '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
-  '/dashboard/settings/theme': typeof DashboardSettingsThemeRoute
   '/dashboard/inbox/': typeof DashboardInboxIndexRoute
   '/dashboard/overview/': typeof DashboardOverviewIndexRoute
   '/dashboard/schedules/': typeof DashboardSchedulesIndexRoute
@@ -161,13 +132,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/auth/telegram'
     | '/dashboard/$teamId'
-    | '/dashboard/settings'
     | '/auth/'
     | '/dashboard/'
-    | '/dashboard/settings/general'
-    | '/dashboard/settings/security'
-    | '/dashboard/settings/theme'
     | '/dashboard/inbox/'
     | '/dashboard/overview/'
     | '/dashboard/schedules/'
@@ -177,13 +145,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/auth/telegram'
     | '/dashboard/$teamId'
-    | '/dashboard/settings'
     | '/auth'
     | '/dashboard'
-    | '/dashboard/settings/general'
-    | '/dashboard/settings/security'
-    | '/dashboard/settings/theme'
     | '/dashboard/inbox'
     | '/dashboard/overview'
     | '/dashboard/schedules'
@@ -194,13 +159,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/auth/telegram'
     | '/dashboard/$teamId'
-    | '/dashboard/settings'
     | '/auth/'
     | '/dashboard/'
-    | '/dashboard/settings/general'
-    | '/dashboard/settings/security'
-    | '/dashboard/settings/theme'
     | '/dashboard/inbox/'
     | '/dashboard/overview/'
     | '/dashboard/schedules/'
@@ -212,6 +174,7 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
+  AuthTelegramRoute: typeof AuthTelegramRoute
   AuthIndexRoute: typeof AuthIndexRoute
 }
 
@@ -245,19 +208,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
     '/dashboard/$teamId': {
       id: '/dashboard/$teamId'
       path: '/$teamId'
       fullPath: '/dashboard/$teamId'
       preLoaderRoute: typeof DashboardTeamIdRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/auth/telegram': {
+      id: '/auth/telegram'
+      path: '/auth/telegram'
+      fullPath: '/auth/telegram'
+      preLoaderRoute: typeof AuthTelegramRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth/sign-up': {
       id: '/auth/sign-up'
@@ -301,48 +264,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardInboxIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/settings/theme': {
-      id: '/dashboard/settings/theme'
-      path: '/theme'
-      fullPath: '/dashboard/settings/theme'
-      preLoaderRoute: typeof DashboardSettingsThemeRouteImport
-      parentRoute: typeof DashboardSettingsRoute
-    }
-    '/dashboard/settings/security': {
-      id: '/dashboard/settings/security'
-      path: '/security'
-      fullPath: '/dashboard/settings/security'
-      preLoaderRoute: typeof DashboardSettingsSecurityRouteImport
-      parentRoute: typeof DashboardSettingsRoute
-    }
-    '/dashboard/settings/general': {
-      id: '/dashboard/settings/general'
-      path: '/general'
-      fullPath: '/dashboard/settings/general'
-      preLoaderRoute: typeof DashboardSettingsGeneralRouteImport
-      parentRoute: typeof DashboardSettingsRoute
-    }
   }
 }
 
-interface DashboardSettingsRouteChildren {
-  DashboardSettingsGeneralRoute: typeof DashboardSettingsGeneralRoute
-  DashboardSettingsSecurityRoute: typeof DashboardSettingsSecurityRoute
-  DashboardSettingsThemeRoute: typeof DashboardSettingsThemeRoute
-}
-
-const DashboardSettingsRouteChildren: DashboardSettingsRouteChildren = {
-  DashboardSettingsGeneralRoute: DashboardSettingsGeneralRoute,
-  DashboardSettingsSecurityRoute: DashboardSettingsSecurityRoute,
-  DashboardSettingsThemeRoute: DashboardSettingsThemeRoute,
-}
-
-const DashboardSettingsRouteWithChildren =
-  DashboardSettingsRoute._addFileChildren(DashboardSettingsRouteChildren)
-
 interface DashboardRouteRouteChildren {
   DashboardTeamIdRoute: typeof DashboardTeamIdRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardInboxIndexRoute: typeof DashboardInboxIndexRoute
   DashboardOverviewIndexRoute: typeof DashboardOverviewIndexRoute
@@ -352,7 +278,6 @@ interface DashboardRouteRouteChildren {
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardTeamIdRoute: DashboardTeamIdRoute,
-  DashboardSettingsRoute: DashboardSettingsRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardInboxIndexRoute: DashboardInboxIndexRoute,
   DashboardOverviewIndexRoute: DashboardOverviewIndexRoute,
@@ -369,6 +294,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
+  AuthTelegramRoute: AuthTelegramRoute,
   AuthIndexRoute: AuthIndexRoute,
 }
 export const routeTree = rootRouteImport

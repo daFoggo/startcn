@@ -1,11 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import {
-	ChevronsUpDown,
-	Loader2,
-	LogOut,
-	Settings,
-	SquareUserRound,
-} from "lucide-react";
+import { ChevronsUpDown, Loader2, LogOut, SquareUserRound } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -87,13 +81,6 @@ export const UserProfile = ({ user, logoutMutation }: IUserProfileProps) => {
 						<DropdownMenuItem className="cursor-pointer">
 							<SquareUserRound />
 							My Profile
-						</DropdownMenuItem>
-						<DropdownMenuItem
-							className="cursor-pointer"
-							onClick={() => navigate({ to: "/dashboard/settings/general" })}
-						>
-							<Settings />
-							Settings
 						</DropdownMenuItem>
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />

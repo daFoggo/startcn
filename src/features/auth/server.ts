@@ -7,6 +7,7 @@ import type {
 	TSignInResponse,
 	TSignUpInput,
 	TSignUpResponse,
+	TTelegramLoginPayload,
 	TTokenResponse,
 } from "./schemas";
 
@@ -16,6 +17,15 @@ import type {
 export async function signIn(params: TSignInInput): Promise<TSignInResponse> {
 	const response = await api
 		.post("auth/sign-in", { json: params })
+		.json<TBaseResponse<TSignInResponse>>();
+	return response.data;
+}
+
+export async function signInWithTelegram(
+	params: TTelegramLoginPayload,
+): Promise<TSignInResponse> {
+	const response = await api
+		.post("auth/telegram", { json: params })
 		.json<TBaseResponse<TSignInResponse>>();
 	return response.data;
 }

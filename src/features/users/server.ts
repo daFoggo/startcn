@@ -6,6 +6,7 @@ import type {
 	SearchUsersInputSchema,
 	TStatsPeriod,
 	TUser,
+	TUserProfileUpdate,
 	TUserSearchResult,
 	TUserStats,
 } from "./schemas";
@@ -15,6 +16,15 @@ import type {
  */
 export async function getUserMe(): Promise<TUser> {
 	const response = await api.get("users/me").json<TBaseResponse<TUser>>();
+	return response.data;
+}
+
+export async function updateUserProfile(
+	params: TUserProfileUpdate,
+): Promise<TUser> {
+	const response = await api
+		.patch("users/me/profile", { json: params })
+		.json<TBaseResponse<TUser>>();
 	return response.data;
 }
 

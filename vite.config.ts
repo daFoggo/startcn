@@ -7,6 +7,9 @@ import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
+	server: {
+		allowedHosts: [".ngrok-free.app"],
+	},
 	plugins: [
 		devtools(),
 		nitro(),

@@ -19,7 +19,9 @@ export const API_ENDPOINTS = {
 const clientEnvSchema = z.object({
 	VITE_API_CORE_URL: z.string().url(),
 	VITE_API_AI_URL: z.string().url(),
-	VITE_APP_NAME: z.string().default("startcn"),
+	VITE_APP_NAME: z.string().default("anno_bot"),
+	VITE_TELEGRAM_BOT_USERNAME: z.string().optional(),
+	VITE_TELEGRAM_LOGIN_CLIENT_ID: z.coerce.number().optional(),
 });
 
 export const clientEnv = clientEnvSchema.parse(import.meta.env);

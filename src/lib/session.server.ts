@@ -14,7 +14,7 @@ type SessionData = {
  */
 export function useAppSession() {
 	return useSession<SessionData>({
-		name: "startcn_session",
+		name: "anno_bot_session",
 		password:
 			process.env.SESSION_SECRET ||
 			"default_development_secret_key_long_enough",

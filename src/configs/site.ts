@@ -4,13 +4,13 @@
  */
 export const SITE_CONFIG = {
 	metadata: {
-		title: "startcn",
-		description: "startcn",
-		keywords: ["startcn", "tanstack-start", "react"],
+		title: "AnnoBot",
+		description: "AnnoBot",
+		keywords: ["AnnoBot", "tanstack-start", "react"],
 	},
 	app: {
-		title: "startcn",
-		slogan: "startcn",
+		title: "AnnoBot",
+		slogan: "AnnoBot",
 	},
 } as const;
 

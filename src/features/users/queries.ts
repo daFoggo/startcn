@@ -1,11 +1,12 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
 	fetchUserStatsFn,
 	getUserGreetingFn,
 	getUserMeFn,
 	searchUsersFn,
+	updateUserProfileFn,
 } from "./functions";
-import type { TStatsPeriod } from "./schemas";
+import type { TStatsPeriod, TUserProfileUpdate } from "./schemas";
 
 export const userKeys = {
 	all: ["users"] as const,
@@ -58,3 +59,17 @@ export const userStatsQueryOptions = (period: TStatsPeriod = "weekly") =>
 		queryKey: userKeys.stats(period),
 		queryFn: () => fetchUserStatsFn({ data: { period } }),
 	});
+
+export const useUserMutations = () => {
+	const queryClient = useQueryClient();
+
+	const updateProfile = useMutation({
+		mutationFn: (variables: TUserProfileUpdate) =>
+			updateUserProfileFn({ data: variables }),
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({ queryKey: userKeys.me() });
+		},
+	});
+
+	return { updateProfile };
+};

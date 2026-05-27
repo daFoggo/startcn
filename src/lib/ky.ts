@@ -28,9 +28,14 @@ export const api = ky.create({
 				}
 
 				const alreadyRetried = request.headers.get(AUTH_RETRY_HEADER) === "1";
+				const isAuthRequest = isAuthEndpoint(request.url);
 				const isOnAuthPage =
 					typeof window !== "undefined" &&
 					window.location.pathname.startsWith("/auth/");
+
+				if (isAuthRequest) {
+					return response;
+				}
 
 				if (!alreadyRetried && !isOnAuthPage) {
 					const { refreshAuthToken } = await import("./auth-token");
@@ -90,6 +95,20 @@ export const aiApi = api.extend({
 const AUTH_RETRY_HEADER = "x-auth-retry";
 
 const BACKEND_ERROR_MESSAGE_KEYS = ["message", "detail", "error"] as const;
+
+const AUTH_ENDPOINTS_WITHOUT_REFRESH = [
+	"/auth/sign-in",
+	"/auth/sign-up",
+	"/auth/telegram",
+	"/auth/refresh",
+];
+
+function isAuthEndpoint(url: string) {
+	const pathname = new URL(url).pathname;
+	return AUTH_ENDPOINTS_WITHOUT_REFRESH.some((endpoint) =>
+		pathname.endsWith(endpoint),
+	);
+}
 
 function getBackendErrorMessage(data: unknown, fallback: string) {
 	if (typeof data === "string") {
