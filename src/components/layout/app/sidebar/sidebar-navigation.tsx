@@ -1,4 +1,4 @@
-import { Link, useParams } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import {
 	SidebarGroup,
 	SidebarGroupContent,
@@ -13,24 +13,9 @@ import { InboxBadge } from "./inbox-badge";
 
 interface ISidebarGroupSectionProps {
 	group: ISidebarGroup;
-	params?: Record<string, string>;
 }
 
-const sanitizeParams = (params: Record<string, string | undefined>) =>
-	Object.fromEntries(
-		Object.entries(params).filter(([, value]) => Boolean(value)),
-	) as Record<string, string>;
-
-export const SidebarGroupSection = ({
-	group,
-	params,
-}: ISidebarGroupSectionProps) => {
-	const { teamId } = useParams({ strict: false });
-	const linkParams = sanitizeParams({
-		teamId,
-		...params,
-	});
-
+export const SidebarGroupSection = ({ group }: ISidebarGroupSectionProps) => {
 	return (
 		<SidebarGroup key={group.label || "default"}>
 			{group.label && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
@@ -40,7 +25,6 @@ export const SidebarGroupSection = ({
 						<SidebarMenuItem key={item.to}>
 							<Link
 								to={item.to as any}
-								params={linkParams as any}
 								activeOptions={item.exactActive ? { exact: true } : undefined}
 							>
 								{({ isActive }) => (

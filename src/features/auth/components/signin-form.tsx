@@ -13,8 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { SITE_CONFIG } from "@/configs/site";
 import { getErrorMessage } from "@/lib/error";
-import { useDashboardStore } from "@/stores/use-dashboard-store";
-import { useViewModeListStore } from "@/stores/use-view-mode-list-store";
 import { useAuthMutations } from "../queries";
 import { SignInSchema } from "../schemas";
 
@@ -46,10 +44,6 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 				localStorage.setItem("refresh_expiration", response.refresh_expiration);
 
 				toast.success("Signed in successfully");
-
-				// Reset persistent stores and clear cache for the new user session
-				useDashboardStore.getState().reset();
-				useViewModeListStore.getState().resetAll();
 
 				if (redirect) {
 					try {

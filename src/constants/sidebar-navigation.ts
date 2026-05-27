@@ -2,12 +2,9 @@ import {
 	CalendarHeart,
 	ChevronLeft,
 	CircleDashed,
-	Flag,
 	Form,
 	Inbox,
 	LayoutTemplate,
-	ListChecks,
-	Tags,
 	Users,
 } from "lucide-react";
 import type { ISidebarContextMatch, ISidebarGroup } from "@/types/sidebar";
@@ -17,17 +14,17 @@ export const SIDEBAR_PERSONAL: ISidebarGroup = {
 	items: [
 		{
 			title: "Overview",
-			to: "/dashboard/$teamId/overview",
+			to: "/dashboard/overview",
 			icon: LayoutTemplate,
 		},
 		{
 			title: "Schedules",
-			to: "/dashboard/$teamId/schedules",
+			to: "/dashboard/schedules",
 			icon: CalendarHeart,
 		},
 		{
 			title: "Inbox",
-			to: "/dashboard/$teamId/inbox",
+			to: "/dashboard/inbox",
 			icon: Inbox,
 		},
 	],
@@ -38,7 +35,7 @@ export const SIDEBAR_TEAM: ISidebarGroup = {
 	items: [
 		{
 			title: "My Team",
-			to: "/dashboard/$teamId/team",
+			to: "/dashboard/team",
 			icon: Users,
 		},
 	],
@@ -49,70 +46,45 @@ export const SIDEBAR_NAVIGATION: ISidebarGroup[] = [
 	SIDEBAR_TEAM,
 ];
 
-export const SIDEBAR_PROJECT_SETTINGS: ISidebarGroup = {
+export const SIDEBAR_SETTINGS_MENU: ISidebarGroup = {
+	label: "System Settings",
 	items: [
 		{
-			title: "Project Settings",
-			to: "/dashboard/$teamId/projects/$projectId/dashboard",
+			title: "Back to Dashboard",
+			to: "/dashboard/overview",
 			icon: ChevronLeft,
 		},
 		{
-			title: "General",
-			to: "/dashboard/$teamId/projects/$projectId/settings",
+			title: "General Settings",
+			to: "/dashboard/settings/general",
 			icon: Form,
 			exactActive: true,
 		},
 		{
-			title: "Members",
-			to: "/dashboard/$teamId/projects/$projectId/settings/members",
+			title: "Security & Privacy",
+			to: "/dashboard/settings/security",
 			icon: Users,
 			exactActive: true,
 		},
 		{
-			title: "Task Status",
-			to: "/dashboard/$teamId/projects/$projectId/settings/task-statuses",
+			title: "Theme Preference",
+			to: "/dashboard/settings/theme",
 			icon: CircleDashed,
-			exactActive: true,
-		},
-		{
-			title: "Task Type",
-			to: "/dashboard/$teamId/projects/$projectId/settings/task-types",
-			icon: ListChecks,
-			exactActive: true,
-		},
-		{
-			title: "Task Priority",
-			to: "/dashboard/$teamId/projects/$projectId/settings/task-priorities",
-			icon: Flag,
-			exactActive: true,
-		},
-		{
-			title: "Task Tag",
-			to: "/dashboard/$teamId/projects/$projectId/settings/task-tags",
-			icon: Tags,
 			exactActive: true,
 		},
 	],
 };
 
-const PROJECT_SETTINGS_PATH_REGEX =
-	/^\/dashboard\/([^/]+)\/projects\/([^/]+)\/settings(?:\/.*)?\/?$/;
+const SETTINGS_PATH_REGEX = /^\/dashboard\/settings(?:\/.*)?\/?$/;
 
 export const resolveSidebarContextFromPathname = (
 	pathname: string,
 ): ISidebarContextMatch => {
 	const normalizedPathname = pathname.replace(/\/+$/, "") || "/";
-	const projectSettingsMatch = normalizedPathname.match(
-		PROJECT_SETTINGS_PATH_REGEX,
-	);
 
-	if (projectSettingsMatch) {
+	if (normalizedPathname.match(SETTINGS_PATH_REGEX)) {
 		return {
-			contextId: "project-settings",
-			params: {
-				teamId: projectSettingsMatch[1],
-				projectId: projectSettingsMatch[2],
-			},
+			contextId: "settings",
 		};
 	}
 

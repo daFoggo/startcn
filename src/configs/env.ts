@@ -19,7 +19,7 @@ export const API_ENDPOINTS = {
 const clientEnvSchema = z.object({
 	VITE_API_CORE_URL: z.string().url(),
 	VITE_API_AI_URL: z.string().url(),
-	VITE_APP_NAME: z.string().default("Agentick App"),
+	VITE_APP_NAME: z.string().default("startcn"),
 });
 
 export const clientEnv = clientEnvSchema.parse(import.meta.env);

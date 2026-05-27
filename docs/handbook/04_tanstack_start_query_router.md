@@ -1,6 +1,6 @@
 # TanStack Start, Router, Query, and Ky Patterns
 
-This is the canonical data-fetching pattern for Agentick-FE.
+This is the canonical data-fetching pattern for startcn.
 
 ## Approved Stack
 
@@ -26,7 +26,7 @@ Wrong:
 
 ```ts
 try {
-  const response = await api.get("projects").json<TBaseResponse<TProject[]>>()
+  const response = await api.get("users").json<TBaseResponse<TUser[]>>()
   return response.data
 } catch (error) {
   console.error(error)
@@ -37,7 +37,7 @@ try {
 Correct:
 
 ```ts
-const response = await api.get("projects").json<TBaseResponse<TProject[]>>()
+const response = await api.get("users").json<TBaseResponse<TUser[]>>()
 return response.data
 ```
 
@@ -47,7 +47,7 @@ Only catch known domain cases:
 
 ```ts
 try {
-  return await fetchProjectById(projectId)
+  return await fetchUserById(userId)
 } catch (error) {
   if (isHTTPError(error) && error.response.status === 404) {
     throw notFound()
@@ -57,19 +57,18 @@ try {
 }
 ```
 
-That pattern is used for detail resources in this repo: a missing project, task, team, or invitation becomes `notFound()`, while everything else still fails normally so the route or UI can show the real error state.
+That pattern is used for detail resources in this repo: a missing user or key resource becomes `notFound()`, while everything else still fails normally so the route or UI can show the real error state.
 
 ## Query Keys
 
 Each feature owns a key factory:
 
 ```ts
-export const projectKeys = {
-  all: ["projects"] as const,
-  lists: () => [...projectKeys.all, "list"] as const,
-  list: (params: TGetProjectsInput) => [...projectKeys.lists(), params] as const,
-  details: () => [...projectKeys.all, "detail"] as const,
-  detail: (id: string) => [...projectKeys.details(), id] as const,
+export const userKeys = {
+  all: ["users"] as const,
+  me: () => [...userKeys.all, "me"] as const,
+  searches: () => [...userKeys.all, "search"] as const,
+  search: (q: string) => [...userKeys.searches(), q] as const,
 }
 ```
 
@@ -80,19 +79,19 @@ Use key factory prefixes for invalidation.
 Export query options factories:
 
 ```ts
-export const projectQueryOptions = (projectId: string) =>
+export const searchUsersQueryOptions = (q: string) =>
   queryOptions({
-    queryKey: projectKeys.detail(projectId),
-    queryFn: () => getProjectByIdFn({ data: { projectId } }),
+    queryKey: userKeys.search(q),
+    queryFn: () => searchUsersFn({ data: { q } }),
   })
 ```
 
 Use the same options in loaders, components, and cache APIs:
 
 ```ts
-await context.queryClient.ensureQueryData(projectQueryOptions(projectId))
-const { data } = useSuspenseQuery(projectQueryOptions(projectId))
-queryClient.invalidateQueries({ queryKey: projectKeys.details() })
+await context.queryClient.ensureQueryData(searchUsersQueryOptions(query))
+const { data } = useSuspenseQuery(searchUsersQueryOptions(query))
+queryClient.invalidateQueries({ queryKey: userKeys.searches() })
 ```
 
 ## Route Loader Policy
@@ -125,12 +124,11 @@ Do not use `useSuspenseQuery` for data that is only fire-and-forget prefetched.
 ## Mutation Policy
 
 ```ts
-const update = useMutation({
-  mutationFn: updateProjectFn,
-  onSuccess: async (_, variables) => {
+const updateProfile = useMutation({
+  mutationFn: updateProfileFn,
+  onSuccess: async () => {
     await Promise.all([
-      queryClient.invalidateQueries({ queryKey: projectKeys.lists() }),
-      queryClient.invalidateQueries({ queryKey: projectKeys.detail(variables.projectId) }),
+      queryClient.invalidateQueries({ queryKey: userKeys.me() }),
     ])
   },
 })

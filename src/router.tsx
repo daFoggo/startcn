@@ -3,7 +3,6 @@ import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import type { ReactNode } from "react";
 import { createQueryClient } from "@/lib/query-client";
-import type { IViewModeDefinition } from "@/types/view-mode-list";
 import { routeTree } from "./routeTree.gen";
 
 export interface IRouterContext {
@@ -48,10 +47,6 @@ declare module "@tanstack/react-router" {
 		getTitle?: () => string;
 		hideHeader?: boolean;
 		header?: IRouteHeaderConfig;
-		viewModes?: IViewModeDefinition[];
-		viewModeScope?: string;
-		hideViewModes?: boolean;
-		allowViewModeCustomization?: boolean;
 		fixedHeight?: boolean;
 	}
 }

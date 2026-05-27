@@ -1,6 +1,6 @@
 # Quality Rules
 
-This document collects consistency and safety rules for Agentick-FE.
+This document collects consistency and safety rules for startcn.
 
 ## Checks
 
@@ -67,5 +67,4 @@ When reviewing code, prioritize:
 
 - Update handbook docs when a repeated pattern or project-wide rule changes.
 - Keep `AGENTS.md` as an entry point, not as the full detailed manual.
-- Keep `.agents/rules/` enforcement-oriented.
 - Keep historical docs in place until explicitly removed.

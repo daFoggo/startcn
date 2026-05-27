@@ -46,11 +46,8 @@ This checklist is focused on implementation and review. It intentionally avoids 
 Submit-critical examples:
 
 - current user id
-- team/project id dependency
-- member/search options
-- permission/role checks
-- config ordering/default values
-- participant lists
+- user search options
+- permission / authorization checks
 
 ## Mutations
 

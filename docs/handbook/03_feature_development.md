@@ -1,6 +1,6 @@
 # Feature Development
 
-This document describes how to add or refactor a feature module in Agentick-FE.
+This document describes how to add or refactor a feature module in startcn.
 
 ## Feature Checklist
 
@@ -99,12 +99,9 @@ Do not default failed cross-feature data to an empty list just to keep the featu
 
 Practical examples:
 
-- `TeamDetailsHeader` and `ProjectDetailsHeader` should not query members or current user. Routes should pass `members`, `currentUser`, loading/error flags, and invite callbacks.
-- `InviteTeamMemberDialog` and `InviteProjectMemberDialog` should not query users directly. Route/header wrappers should own search query state and pass user results into the dialog.
-- Member table cells should not call user/member queries. Build columns with factories such as `getColumns({ currentUserId, members })`.
-- Dashboard widgets such as project stats, workload, risk, and status updates should receive route-owned data when they participate in page-level composition.
-- Settings widgets for task statuses, types, priorities, and tags should receive route-loaded lists when order defaults or submit-critical config depend on that data.
-- Cross-feature actions such as accepting an invitation from inbox should be callbacks injected from the route/container, not direct imports of another feature's mutation hook.
+- Layout headers and sidebars should not query the current user or authentication status directly. The orchestration route (e.g. `routes/dashboard/route.tsx`) passes down user context, loading/error states, and logout callbacks.
+- User management table cells should not fetch user profiles inside each cell. Reusable table column setups should be generated with factories like `getColumns({ currentUserId })`.
+- Interactive settings forms (like theme, profile updates) receive default values and update callbacks via props from parent layouts or route loaders.
 
 ## Async UI Requirements
 

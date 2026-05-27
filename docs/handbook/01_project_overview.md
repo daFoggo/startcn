@@ -1,41 +1,31 @@
 # Project Overview
 
-Agentick-FE is the frontend application for Agentick, an AI-assisted project management platform. It supports project planning, task execution, schedules, team collaboration, inbox workflows, and AI-powered estimation/risk experiences.
+startcn Base Boilerplate is the clean, minimal dashboard base template featuring authentication (Auth) and user management (Users) features, combined with a highly responsive, dynamic context-switching sidebar layout. It serves as a modern, premium starter kit for building robust and beautiful SaaS frontend web applications.
 
-Agentick is designed to be proactive rather than only a passive task tracker. The product combines execution data, work schedules, effort tracking, and AI analysis to surface deadline risk early and improve estimation quality over time.
+It is fully equipped with advanced pre-built utility components (Big Calendar, Data Table, Markdown Editor/Renderer, Multi-select Combobox) ready to accelerate your dashboard application development.
 
 ## Frontend Responsibilities
 
-- Render the dashboard app shell and team/project navigation.
-- Provide task, project, team, schedule, inbox, and AI-agent user interfaces.
-- Integrate with core and AI APIs through Ky and TanStack Start server functions.
-- Use TanStack Router loaders to avoid request waterfalls.
-- Keep server-state behavior consistent through TanStack Query.
+- Render the base dashboard app shell and flexible sidebar context switcher.
+- Provide clean, robust user authentication (Login, Register, Session context, Logout).
+- Integrate with core APIs through Ky and TanStack Start server functions.
+- Use TanStack Router flat routing for optimal layout composition and loaders to avoid request waterfalls.
+- Keep server-state behavior consistent through TanStack Query queryOptions factories.
 - Keep UI state predictable with standardized loading, error, and empty states.
 
 ## Main Domains
 
-- Auth and current user context
-- Teams and team members
-- Projects and project members
-- Tasks, task detail, task lists, task board, and task config
-- Schedules and work-time patterns
-- Events and calendar views
-- Inbox and invitations
-- Agent, risk analysis, and estimation workflows
+- **Auth and User Context**: Pre-built authentication hooks (`src/features/auth/`), user session management, and current user retrieval.
+- **Dynamic Dashboard App Shell**: A responsive sidebar (`AppSidebar`) equipped with a context-switching store to switch navigation panels (Main Menu vs System Settings) dynamically.
+- **Flat Layout Routes**: Modern flat-structured routes directly under `/dashboard` (overview, schedules, inbox, team, and settings layouts) with clean redirection.
+- **Reusable Utility Components**: Core feature-agnostic widgets in `components/common` (Big Calendar, Data Table, Markdown Editor/Renderer, Multi-select Combobox) to be utilized anywhere.
 
 ## Product Capabilities
 
-- Team and project workspaces with role-based access.
-- Kanban board and list views for task execution.
-- Custom project metadata: statuses, task types, priorities, tags, and phases.
-- Effort tracking with estimated and actual hours.
-- Work schedule configuration to calculate realistic available working time.
-- Calendar and event surfaces for meetings, focus time, and task-linked events.
-- Inbox, notifications, and invitation flows.
-- AI estimation suggestions based on historical and semantic task context.
-- AI risk dashboard with risk scores, drivers, recommendations, and alerts.
-- Background AI workflows for morning scans, evening summaries, and outreach reminders.
+- **Auth & Sessions**: Seamless session persistence and automatic token redirection.
+- **Context-Switching Sidebar**: Sleek collapsible navigation sidebar with custom user profile card, team/organization switcher placeholders, and dynamic sub-menu panels.
+- **Flat Redirections**: Unified `/dashboard` routing with `/dashboard/overview`, `/dashboard/schedules`, `/dashboard/inbox`, `/dashboard/team`, and a dedicated layout under `/dashboard/settings/*` (general, security, theme settings).
+- **Asynchronous Standard UI**: Every data-bound container clearly defines and handles loading (custom skeletons), error (error alert boxes), and valid empty states.
 
 ## Tech Stack
 
@@ -63,7 +53,7 @@ Client environment variables are validated in `src/configs/env.ts`.
 ```env
 VITE_API_CORE_URL=http://localhost:8000
 VITE_API_AI_URL=http://localhost:8001
-VITE_APP_NAME="Agentick"
+VITE_APP_NAME="startcn"
 ```
 
 ## External References

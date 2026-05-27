@@ -4,21 +4,13 @@
  */
 export const SITE_CONFIG = {
 	metadata: {
-		title: "Agentick",
-		description:
-			"An intelligent task management platform powered by AI Agents. Actively tracks progress, analyzes personal schedules, and delivers proactive risk forecasting to prevent project delays.",
-		keywords: [
-			"AI",
-			"Project Management",
-			"AI Agent",
-			"Task Management",
-			"Risk Forecasting",
-			"Smart Productivity",
-		],
+		title: "startcn",
+		description: "startcn",
+		keywords: ["startcn", "tanstack-start", "react"],
 	},
 	app: {
-		title: "Agentick",
-		slogan: "Smart Project Management with AI Active Tracking",
+		title: "startcn",
+		slogan: "startcn",
 	},
 } as const;
 

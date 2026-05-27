@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Sticker } from "lucide-react";
+import { Package } from "lucide-react";
 import {
 	SidebarMenu,
 	SidebarMenuButton,
@@ -13,7 +13,7 @@ export const HeaderContent = () => {
 			<SidebarMenuItem>
 				<Link to="/dashboard">
 					<SidebarMenuButton>
-						<Sticker className="size-5!" />
+						<Package className="size-5!" />
 						<span className="text-lg font-semibold">
 							{SITE_CONFIG.app.title}
 						</span>

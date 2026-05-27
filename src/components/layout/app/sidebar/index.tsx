@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "@tanstack/react-router";
 import { Suspense, useEffect } from "react";
 import {
@@ -14,107 +13,50 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import {
 	SIDEBAR_PERSONAL,
-	SIDEBAR_PROJECT_SETTINGS,
+	SIDEBAR_SETTINGS_MENU,
 	SIDEBAR_TEAM,
 } from "@/constants/sidebar-navigation";
-import { inboxStatsQueryOptions } from "@/features/inbox";
-import {
-	projectQueryOptions,
-	projectsQueryOptions,
-	SidebarProjectList,
-} from "@/features/projects";
-import { teamMembersQueryOptions } from "@/features/team-members";
-import { getTeamPermissions } from "@/features/teams";
-import { userMeQueryOptions } from "@/features/users";
+import type { TUser } from "@/features/users";
 import { useSidebarContextStore } from "@/stores/use-sidebar-context-store";
 import { HeaderContent } from "./header-content";
 import { SidebarGroupSection } from "./sidebar-navigation";
-import { TeamSwitcher } from "./team-switcher";
 import { ThemeToggleWrapper } from "./theme-toggle-wrapper";
-import { TimezoneViewer } from "./timezone-viewer";
 import { UserProfile } from "./user-profile";
+
+export interface IAppSidebarProps {
+	currentUser?: TUser;
+	isCurrentUserLoading: boolean;
+	userProfileProps: {
+		user?: TUser;
+		logoutMutation: {
+			mutateAsync: () => Promise<void>;
+			isPending: boolean;
+		};
+	};
+}
 
 /**
  * Thành phần Sidebar chính của ứng dụng Dashboard.
- * Quản lý Navigation, chuyển đổi Workspace (Team Switcher), danh sách Projects và thông tin User.
+ * Quản lý Navigation, tự động chuyển đổi Menu theo ngữ cảnh hoạt động (chính vs cài đặt).
  */
-export const AppSidebar = () => {
+export const AppSidebar = ({
+	currentUser: _currentUser,
+	isCurrentUserLoading: _isCurrentUserLoading,
+	userProfileProps,
+}: IAppSidebarProps) => {
 	const { pathname } = useLocation();
 	const activeContextId = useSidebarContextStore(
 		(state) => state.activeContextId,
 	);
-	const routeParams = useSidebarContextStore((state) => state.routeParams);
 	const syncWithPathname = useSidebarContextStore(
 		(state) => state.syncWithPathname,
 	);
-
-	const { data: inboxStats } = useQuery(inboxStatsQueryOptions());
-	const unreadCount = inboxStats?.unread_count ?? 0;
 
 	useEffect(() => {
 		syncWithPathname(pathname);
 	}, [pathname, syncWithPathname]);
 
-	const isProjectSettingsContext = activeContextId === "project-settings";
-
-	const personalNavigation = {
-		...SIDEBAR_PERSONAL,
-		items: SIDEBAR_PERSONAL.items.map((item) => {
-			if (item.title === "Inbox") {
-				return { ...item, badge: unreadCount };
-			}
-			return item;
-		}),
-	};
-
-	const projectMatch = pathname.match(
-		/^\/dashboard\/([^/]+)\/projects\/([^/]+)/,
-	);
-	const teamMatch = pathname.match(/^\/dashboard\/([^/]+)/);
-	const teamId = teamMatch ? teamMatch[1] : "";
-	const isTeamContext = Boolean(teamId && teamId !== "personal");
-	const projectId = projectMatch ? projectMatch[2] : undefined;
-
-	const { data: project } = useQuery({
-		...projectQueryOptions(projectId || ""),
-		enabled: !!projectId,
-	});
-	const timezone = project?.timezone;
-	const {
-		data: projectsData,
-		isLoading: isProjectsLoading,
-		error: projectsError,
-	} = useQuery({
-		...projectsQueryOptions({ team_id__eq: teamId }),
-		enabled: isTeamContext,
-	});
-	const {
-		data: currentUser,
-		isLoading: isCurrentUserLoading,
-		isError: isCurrentUserError,
-		error: currentUserError,
-	} = useQuery(userMeQueryOptions());
-	const {
-		data: membersData,
-		isLoading: isMembersLoading,
-		isError: isMembersError,
-		error: membersError,
-	} = useQuery({
-		...teamMembersQueryOptions(teamId),
-		enabled: isTeamContext,
-	});
-	const permissions = getTeamPermissions(
-		membersData?.founds ?? [],
-		currentUser?.id,
-	);
-	const isPermissionLoading =
-		isTeamContext && (isCurrentUserLoading || isMembersLoading);
-	const permissionError =
-		isTeamContext && (isCurrentUserError || isMembersError)
-			? (currentUserError ?? membersError)
-			: undefined;
-	const canCreateProject =
-		permissions.canCreateProjects && !isPermissionLoading && !permissionError;
+	const isSettingsContext = activeContextId === "settings";
 
 	return (
 		<Sidebar variant="inset">
@@ -122,40 +64,21 @@ export const AppSidebar = () => {
 				<HeaderContent />
 			</SidebarHeader>
 			<SidebarContent>
-				{/* Tiện ích Header */}
-				<SidebarGroup>
-					<SidebarMenu>
-						<TeamSwitcher />
-					</SidebarMenu>
-				</SidebarGroup>
-
-				{isProjectSettingsContext ? (
-					<SidebarGroupSection
-						group={SIDEBAR_PROJECT_SETTINGS}
-						params={routeParams}
-					/>
+				{isSettingsContext ? (
+					/* Nhóm Menu Settings hệ thống */
+					<SidebarGroupSection group={SIDEBAR_SETTINGS_MENU} />
 				) : (
 					<>
-						<SidebarGroupSection group={personalNavigation} />
+						{/* Nhóm Menu cá nhân */}
+						<SidebarGroupSection group={SIDEBAR_PERSONAL} />
 
-						<SidebarProjectList
-							teamId={teamId}
-							projects={projectsData?.founds ?? []}
-							isProjectsLoading={isTeamContext && isProjectsLoading}
-							projectsError={projectsError}
-							canCreateProject={canCreateProject}
-							isPermissionLoading={isPermissionLoading}
-							permissionError={permissionError}
-						/>
-
+						{/* Nhóm Menu Team */}
 						<SidebarGroupSection group={SIDEBAR_TEAM} />
 					</>
 				)}
 
-				{/* Tiện ích Footer */}
 				<SidebarGroup className="mt-auto">
 					<SidebarMenu>
-						<TimezoneViewer timezone={timezone} />
 						<ThemeToggleWrapper />
 					</SidebarMenu>
 				</SidebarGroup>
@@ -177,7 +100,7 @@ export const AppSidebar = () => {
 							</SidebarMenuItem>
 						}
 					>
-						<UserProfile />
+						<UserProfile {...userProfileProps} />
 					</Suspense>
 				</SidebarMenu>
 			</SidebarFooter>

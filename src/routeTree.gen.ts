@@ -13,39 +13,17 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
-import { Route as InviteAcceptRouteImport } from './routes/invite/accept'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardTeamIdRouteImport } from './routes/dashboard/$teamId'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
-import { Route as DashboardTeamIdTeamRouteRouteImport } from './routes/dashboard/$teamId/team/route'
-import { Route as DashboardTeamIdInboxRouteRouteImport } from './routes/dashboard/$teamId/inbox/route'
-import { Route as DashboardTeamIdTeamIndexRouteImport } from './routes/dashboard/$teamId/team/index'
-import { Route as DashboardTeamIdSchedulesIndexRouteImport } from './routes/dashboard/$teamId/schedules/index'
-import { Route as DashboardTeamIdProfileIndexRouteImport } from './routes/dashboard/$teamId/profile/index'
-import { Route as DashboardTeamIdOverviewIndexRouteImport } from './routes/dashboard/$teamId/overview/index'
-import { Route as DashboardTeamIdInboxIndexRouteImport } from './routes/dashboard/$teamId/inbox/index'
-import { Route as DashboardTeamIdTeamSettingsRouteImport } from './routes/dashboard/$teamId/team/settings'
-import { Route as DashboardTeamIdTeamOverviewRouteImport } from './routes/dashboard/$teamId/team/overview'
-import { Route as DashboardTeamIdTeamMembersRouteImport } from './routes/dashboard/$teamId/team/members'
-import { Route as DashboardTeamIdInboxBookmarksRouteImport } from './routes/dashboard/$teamId/inbox/bookmarks'
-import { Route as DashboardTeamIdInboxArchiveRouteImport } from './routes/dashboard/$teamId/inbox/archive'
-import { Route as DashboardTeamIdInboxActiveRouteImport } from './routes/dashboard/$teamId/inbox/active'
-import { Route as DashboardTeamIdProjectsProjectIdRouteRouteImport } from './routes/dashboard/$teamId/projects/$projectId/route'
-import { Route as DashboardTeamIdProjectsProjectIdIndexRouteImport } from './routes/dashboard/$teamId/projects/$projectId/index'
-import { Route as DashboardTeamIdProjectsProjectIdTimelineRouteImport } from './routes/dashboard/$teamId/projects/$projectId/timeline'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings'
-import { Route as DashboardTeamIdProjectsProjectIdMembersRouteImport } from './routes/dashboard/$teamId/projects/$projectId/members'
-import { Route as DashboardTeamIdProjectsProjectIdListRouteImport } from './routes/dashboard/$teamId/projects/$projectId/list'
-import { Route as DashboardTeamIdProjectsProjectIdDashboardRouteImport } from './routes/dashboard/$teamId/projects/$projectId/dashboard'
-import { Route as DashboardTeamIdProjectsProjectIdBoardRouteImport } from './routes/dashboard/$teamId/projects/$projectId/board'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsIndexRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings.index'
-import { Route as DashboardTeamIdProjectsProjectIdTasksCreateRouteImport } from './routes/dashboard/$teamId/projects/$projectId/tasks.create'
-import { Route as DashboardTeamIdProjectsProjectIdTasksTaskIdRouteImport } from './routes/dashboard/$teamId/projects/$projectId/tasks.$taskId'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsTaskTypesRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings.task-types'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsTaskTagsRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings.task-tags'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings.task-statuses'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings.task-priorities'
-import { Route as DashboardTeamIdProjectsProjectIdSettingsMembersRouteImport } from './routes/dashboard/$teamId/projects/$projectId/settings.members'
+import { Route as DashboardTeamIndexRouteImport } from './routes/dashboard/team/index'
+import { Route as DashboardSchedulesIndexRouteImport } from './routes/dashboard/schedules/index'
+import { Route as DashboardOverviewIndexRouteImport } from './routes/dashboard/overview/index'
+import { Route as DashboardInboxIndexRouteImport } from './routes/dashboard/inbox/index'
+import { Route as DashboardSettingsThemeRouteImport } from './routes/dashboard/settings/theme'
+import { Route as DashboardSettingsSecurityRouteImport } from './routes/dashboard/settings/security'
+import { Route as DashboardSettingsGeneralRouteImport } from './routes/dashboard/settings/general'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -67,10 +45,10 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/auth/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InviteAcceptRoute = InviteAcceptRouteImport.update({
-  id: '/invite/accept',
-  path: '/invite/accept',
-  getParentRoute: () => rootRouteImport,
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardTeamIdRoute = DashboardTeamIdRouteImport.update({
   id: '/$teamId',
@@ -87,179 +65,42 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardTeamIdTeamRouteRoute =
-  DashboardTeamIdTeamRouteRouteImport.update({
-    id: '/team',
-    path: '/team',
-    getParentRoute: () => DashboardTeamIdRoute,
+const DashboardTeamIndexRoute = DashboardTeamIndexRouteImport.update({
+  id: '/team/',
+  path: '/team/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSchedulesIndexRoute = DashboardSchedulesIndexRouteImport.update({
+  id: '/schedules/',
+  path: '/schedules/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardOverviewIndexRoute = DashboardOverviewIndexRouteImport.update({
+  id: '/overview/',
+  path: '/overview/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardInboxIndexRoute = DashboardInboxIndexRouteImport.update({
+  id: '/inbox/',
+  path: '/inbox/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSettingsThemeRoute = DashboardSettingsThemeRouteImport.update({
+  id: '/theme',
+  path: '/theme',
+  getParentRoute: () => DashboardSettingsRoute,
+} as any)
+const DashboardSettingsSecurityRoute =
+  DashboardSettingsSecurityRouteImport.update({
+    id: '/security',
+    path: '/security',
+    getParentRoute: () => DashboardSettingsRoute,
   } as any)
-const DashboardTeamIdInboxRouteRoute =
-  DashboardTeamIdInboxRouteRouteImport.update({
-    id: '/inbox',
-    path: '/inbox',
-    getParentRoute: () => DashboardTeamIdRoute,
-  } as any)
-const DashboardTeamIdTeamIndexRoute =
-  DashboardTeamIdTeamIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => DashboardTeamIdTeamRouteRoute,
-  } as any)
-const DashboardTeamIdSchedulesIndexRoute =
-  DashboardTeamIdSchedulesIndexRouteImport.update({
-    id: '/schedules/',
-    path: '/schedules/',
-    getParentRoute: () => DashboardTeamIdRoute,
-  } as any)
-const DashboardTeamIdProfileIndexRoute =
-  DashboardTeamIdProfileIndexRouteImport.update({
-    id: '/profile/',
-    path: '/profile/',
-    getParentRoute: () => DashboardTeamIdRoute,
-  } as any)
-const DashboardTeamIdOverviewIndexRoute =
-  DashboardTeamIdOverviewIndexRouteImport.update({
-    id: '/overview/',
-    path: '/overview/',
-    getParentRoute: () => DashboardTeamIdRoute,
-  } as any)
-const DashboardTeamIdInboxIndexRoute =
-  DashboardTeamIdInboxIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => DashboardTeamIdInboxRouteRoute,
-  } as any)
-const DashboardTeamIdTeamSettingsRoute =
-  DashboardTeamIdTeamSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => DashboardTeamIdTeamRouteRoute,
-  } as any)
-const DashboardTeamIdTeamOverviewRoute =
-  DashboardTeamIdTeamOverviewRouteImport.update({
-    id: '/overview',
-    path: '/overview',
-    getParentRoute: () => DashboardTeamIdTeamRouteRoute,
-  } as any)
-const DashboardTeamIdTeamMembersRoute =
-  DashboardTeamIdTeamMembersRouteImport.update({
-    id: '/members',
-    path: '/members',
-    getParentRoute: () => DashboardTeamIdTeamRouteRoute,
-  } as any)
-const DashboardTeamIdInboxBookmarksRoute =
-  DashboardTeamIdInboxBookmarksRouteImport.update({
-    id: '/bookmarks',
-    path: '/bookmarks',
-    getParentRoute: () => DashboardTeamIdInboxRouteRoute,
-  } as any)
-const DashboardTeamIdInboxArchiveRoute =
-  DashboardTeamIdInboxArchiveRouteImport.update({
-    id: '/archive',
-    path: '/archive',
-    getParentRoute: () => DashboardTeamIdInboxRouteRoute,
-  } as any)
-const DashboardTeamIdInboxActiveRoute =
-  DashboardTeamIdInboxActiveRouteImport.update({
-    id: '/active',
-    path: '/active',
-    getParentRoute: () => DashboardTeamIdInboxRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdRouteRoute =
-  DashboardTeamIdProjectsProjectIdRouteRouteImport.update({
-    id: '/projects/$projectId',
-    path: '/projects/$projectId',
-    getParentRoute: () => DashboardTeamIdRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdIndexRoute =
-  DashboardTeamIdProjectsProjectIdIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdTimelineRoute =
-  DashboardTeamIdProjectsProjectIdTimelineRouteImport.update({
-    id: '/timeline',
-    path: '/timeline',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsRoute =
-  DashboardTeamIdProjectsProjectIdSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdMembersRoute =
-  DashboardTeamIdProjectsProjectIdMembersRouteImport.update({
-    id: '/members',
-    path: '/members',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdListRoute =
-  DashboardTeamIdProjectsProjectIdListRouteImport.update({
-    id: '/list',
-    path: '/list',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdDashboardRoute =
-  DashboardTeamIdProjectsProjectIdDashboardRouteImport.update({
-    id: '/dashboard',
-    path: '/dashboard',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdBoardRoute =
-  DashboardTeamIdProjectsProjectIdBoardRouteImport.update({
-    id: '/board',
-    path: '/board',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsIndexRoute =
-  DashboardTeamIdProjectsProjectIdSettingsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdSettingsRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdTasksCreateRoute =
-  DashboardTeamIdProjectsProjectIdTasksCreateRouteImport.update({
-    id: '/tasks/create',
-    path: '/tasks/create',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdTasksTaskIdRoute =
-  DashboardTeamIdProjectsProjectIdTasksTaskIdRouteImport.update({
-    id: '/tasks/$taskId',
-    path: '/tasks/$taskId',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdRouteRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute =
-  DashboardTeamIdProjectsProjectIdSettingsTaskTypesRouteImport.update({
-    id: '/task-types',
-    path: '/task-types',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdSettingsRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute =
-  DashboardTeamIdProjectsProjectIdSettingsTaskTagsRouteImport.update({
-    id: '/task-tags',
-    path: '/task-tags',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdSettingsRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute =
-  DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRouteImport.update({
-    id: '/task-statuses',
-    path: '/task-statuses',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdSettingsRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute =
-  DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRouteImport.update({
-    id: '/task-priorities',
-    path: '/task-priorities',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdSettingsRoute,
-  } as any)
-const DashboardTeamIdProjectsProjectIdSettingsMembersRoute =
-  DashboardTeamIdProjectsProjectIdSettingsMembersRouteImport.update({
-    id: '/members',
-    path: '/members',
-    getParentRoute: () => DashboardTeamIdProjectsProjectIdSettingsRoute,
+const DashboardSettingsGeneralRoute =
+  DashboardSettingsGeneralRouteImport.update({
+    id: '/general',
+    path: '/general',
+    getParentRoute: () => DashboardSettingsRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -267,73 +108,33 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/dashboard/$teamId': typeof DashboardTeamIdRouteWithChildren
-  '/invite/accept': typeof InviteAcceptRoute
+  '/dashboard/$teamId': typeof DashboardTeamIdRoute
+  '/dashboard/settings': typeof DashboardSettingsRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/$teamId/inbox': typeof DashboardTeamIdInboxRouteRouteWithChildren
-  '/dashboard/$teamId/team': typeof DashboardTeamIdTeamRouteRouteWithChildren
-  '/dashboard/$teamId/projects/$projectId': typeof DashboardTeamIdProjectsProjectIdRouteRouteWithChildren
-  '/dashboard/$teamId/inbox/active': typeof DashboardTeamIdInboxActiveRoute
-  '/dashboard/$teamId/inbox/archive': typeof DashboardTeamIdInboxArchiveRoute
-  '/dashboard/$teamId/inbox/bookmarks': typeof DashboardTeamIdInboxBookmarksRoute
-  '/dashboard/$teamId/team/members': typeof DashboardTeamIdTeamMembersRoute
-  '/dashboard/$teamId/team/overview': typeof DashboardTeamIdTeamOverviewRoute
-  '/dashboard/$teamId/team/settings': typeof DashboardTeamIdTeamSettingsRoute
-  '/dashboard/$teamId/inbox/': typeof DashboardTeamIdInboxIndexRoute
-  '/dashboard/$teamId/overview/': typeof DashboardTeamIdOverviewIndexRoute
-  '/dashboard/$teamId/profile/': typeof DashboardTeamIdProfileIndexRoute
-  '/dashboard/$teamId/schedules/': typeof DashboardTeamIdSchedulesIndexRoute
-  '/dashboard/$teamId/team/': typeof DashboardTeamIdTeamIndexRoute
-  '/dashboard/$teamId/projects/$projectId/board': typeof DashboardTeamIdProjectsProjectIdBoardRoute
-  '/dashboard/$teamId/projects/$projectId/dashboard': typeof DashboardTeamIdProjectsProjectIdDashboardRoute
-  '/dashboard/$teamId/projects/$projectId/list': typeof DashboardTeamIdProjectsProjectIdListRoute
-  '/dashboard/$teamId/projects/$projectId/members': typeof DashboardTeamIdProjectsProjectIdMembersRoute
-  '/dashboard/$teamId/projects/$projectId/settings': typeof DashboardTeamIdProjectsProjectIdSettingsRouteWithChildren
-  '/dashboard/$teamId/projects/$projectId/timeline': typeof DashboardTeamIdProjectsProjectIdTimelineRoute
-  '/dashboard/$teamId/projects/$projectId/': typeof DashboardTeamIdProjectsProjectIdIndexRoute
-  '/dashboard/$teamId/projects/$projectId/settings/members': typeof DashboardTeamIdProjectsProjectIdSettingsMembersRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-priorities': typeof DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-statuses': typeof DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-tags': typeof DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-types': typeof DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute
-  '/dashboard/$teamId/projects/$projectId/tasks/$taskId': typeof DashboardTeamIdProjectsProjectIdTasksTaskIdRoute
-  '/dashboard/$teamId/projects/$projectId/tasks/create': typeof DashboardTeamIdProjectsProjectIdTasksCreateRoute
-  '/dashboard/$teamId/projects/$projectId/settings/': typeof DashboardTeamIdProjectsProjectIdSettingsIndexRoute
+  '/dashboard/settings/general': typeof DashboardSettingsGeneralRoute
+  '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
+  '/dashboard/settings/theme': typeof DashboardSettingsThemeRoute
+  '/dashboard/inbox/': typeof DashboardInboxIndexRoute
+  '/dashboard/overview/': typeof DashboardOverviewIndexRoute
+  '/dashboard/schedules/': typeof DashboardSchedulesIndexRoute
+  '/dashboard/team/': typeof DashboardTeamIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/dashboard/$teamId': typeof DashboardTeamIdRouteWithChildren
-  '/invite/accept': typeof InviteAcceptRoute
+  '/dashboard/$teamId': typeof DashboardTeamIdRoute
+  '/dashboard/settings': typeof DashboardSettingsRouteWithChildren
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
-  '/dashboard/$teamId/inbox/active': typeof DashboardTeamIdInboxActiveRoute
-  '/dashboard/$teamId/inbox/archive': typeof DashboardTeamIdInboxArchiveRoute
-  '/dashboard/$teamId/inbox/bookmarks': typeof DashboardTeamIdInboxBookmarksRoute
-  '/dashboard/$teamId/team/members': typeof DashboardTeamIdTeamMembersRoute
-  '/dashboard/$teamId/team/overview': typeof DashboardTeamIdTeamOverviewRoute
-  '/dashboard/$teamId/team/settings': typeof DashboardTeamIdTeamSettingsRoute
-  '/dashboard/$teamId/inbox': typeof DashboardTeamIdInboxIndexRoute
-  '/dashboard/$teamId/overview': typeof DashboardTeamIdOverviewIndexRoute
-  '/dashboard/$teamId/profile': typeof DashboardTeamIdProfileIndexRoute
-  '/dashboard/$teamId/schedules': typeof DashboardTeamIdSchedulesIndexRoute
-  '/dashboard/$teamId/team': typeof DashboardTeamIdTeamIndexRoute
-  '/dashboard/$teamId/projects/$projectId/board': typeof DashboardTeamIdProjectsProjectIdBoardRoute
-  '/dashboard/$teamId/projects/$projectId/dashboard': typeof DashboardTeamIdProjectsProjectIdDashboardRoute
-  '/dashboard/$teamId/projects/$projectId/list': typeof DashboardTeamIdProjectsProjectIdListRoute
-  '/dashboard/$teamId/projects/$projectId/members': typeof DashboardTeamIdProjectsProjectIdMembersRoute
-  '/dashboard/$teamId/projects/$projectId/timeline': typeof DashboardTeamIdProjectsProjectIdTimelineRoute
-  '/dashboard/$teamId/projects/$projectId': typeof DashboardTeamIdProjectsProjectIdIndexRoute
-  '/dashboard/$teamId/projects/$projectId/settings/members': typeof DashboardTeamIdProjectsProjectIdSettingsMembersRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-priorities': typeof DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-statuses': typeof DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-tags': typeof DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-types': typeof DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute
-  '/dashboard/$teamId/projects/$projectId/tasks/$taskId': typeof DashboardTeamIdProjectsProjectIdTasksTaskIdRoute
-  '/dashboard/$teamId/projects/$projectId/tasks/create': typeof DashboardTeamIdProjectsProjectIdTasksCreateRoute
-  '/dashboard/$teamId/projects/$projectId/settings': typeof DashboardTeamIdProjectsProjectIdSettingsIndexRoute
+  '/dashboard/settings/general': typeof DashboardSettingsGeneralRoute
+  '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
+  '/dashboard/settings/theme': typeof DashboardSettingsThemeRoute
+  '/dashboard/inbox': typeof DashboardInboxIndexRoute
+  '/dashboard/overview': typeof DashboardOverviewIndexRoute
+  '/dashboard/schedules': typeof DashboardSchedulesIndexRoute
+  '/dashboard/team': typeof DashboardTeamIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -341,39 +142,17 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/dashboard/$teamId': typeof DashboardTeamIdRouteWithChildren
-  '/invite/accept': typeof InviteAcceptRoute
+  '/dashboard/$teamId': typeof DashboardTeamIdRoute
+  '/dashboard/settings': typeof DashboardSettingsRouteWithChildren
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/$teamId/inbox': typeof DashboardTeamIdInboxRouteRouteWithChildren
-  '/dashboard/$teamId/team': typeof DashboardTeamIdTeamRouteRouteWithChildren
-  '/dashboard/$teamId/projects/$projectId': typeof DashboardTeamIdProjectsProjectIdRouteRouteWithChildren
-  '/dashboard/$teamId/inbox/active': typeof DashboardTeamIdInboxActiveRoute
-  '/dashboard/$teamId/inbox/archive': typeof DashboardTeamIdInboxArchiveRoute
-  '/dashboard/$teamId/inbox/bookmarks': typeof DashboardTeamIdInboxBookmarksRoute
-  '/dashboard/$teamId/team/members': typeof DashboardTeamIdTeamMembersRoute
-  '/dashboard/$teamId/team/overview': typeof DashboardTeamIdTeamOverviewRoute
-  '/dashboard/$teamId/team/settings': typeof DashboardTeamIdTeamSettingsRoute
-  '/dashboard/$teamId/inbox/': typeof DashboardTeamIdInboxIndexRoute
-  '/dashboard/$teamId/overview/': typeof DashboardTeamIdOverviewIndexRoute
-  '/dashboard/$teamId/profile/': typeof DashboardTeamIdProfileIndexRoute
-  '/dashboard/$teamId/schedules/': typeof DashboardTeamIdSchedulesIndexRoute
-  '/dashboard/$teamId/team/': typeof DashboardTeamIdTeamIndexRoute
-  '/dashboard/$teamId/projects/$projectId/board': typeof DashboardTeamIdProjectsProjectIdBoardRoute
-  '/dashboard/$teamId/projects/$projectId/dashboard': typeof DashboardTeamIdProjectsProjectIdDashboardRoute
-  '/dashboard/$teamId/projects/$projectId/list': typeof DashboardTeamIdProjectsProjectIdListRoute
-  '/dashboard/$teamId/projects/$projectId/members': typeof DashboardTeamIdProjectsProjectIdMembersRoute
-  '/dashboard/$teamId/projects/$projectId/settings': typeof DashboardTeamIdProjectsProjectIdSettingsRouteWithChildren
-  '/dashboard/$teamId/projects/$projectId/timeline': typeof DashboardTeamIdProjectsProjectIdTimelineRoute
-  '/dashboard/$teamId/projects/$projectId/': typeof DashboardTeamIdProjectsProjectIdIndexRoute
-  '/dashboard/$teamId/projects/$projectId/settings/members': typeof DashboardTeamIdProjectsProjectIdSettingsMembersRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-priorities': typeof DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-statuses': typeof DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-tags': typeof DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute
-  '/dashboard/$teamId/projects/$projectId/settings/task-types': typeof DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute
-  '/dashboard/$teamId/projects/$projectId/tasks/$taskId': typeof DashboardTeamIdProjectsProjectIdTasksTaskIdRoute
-  '/dashboard/$teamId/projects/$projectId/tasks/create': typeof DashboardTeamIdProjectsProjectIdTasksCreateRoute
-  '/dashboard/$teamId/projects/$projectId/settings/': typeof DashboardTeamIdProjectsProjectIdSettingsIndexRoute
+  '/dashboard/settings/general': typeof DashboardSettingsGeneralRoute
+  '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
+  '/dashboard/settings/theme': typeof DashboardSettingsThemeRoute
+  '/dashboard/inbox/': typeof DashboardInboxIndexRoute
+  '/dashboard/overview/': typeof DashboardOverviewIndexRoute
+  '/dashboard/schedules/': typeof DashboardSchedulesIndexRoute
+  '/dashboard/team/': typeof DashboardTeamIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -383,72 +162,32 @@ export interface FileRouteTypes {
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/dashboard/$teamId'
-    | '/invite/accept'
+    | '/dashboard/settings'
     | '/auth/'
     | '/dashboard/'
-    | '/dashboard/$teamId/inbox'
-    | '/dashboard/$teamId/team'
-    | '/dashboard/$teamId/projects/$projectId'
-    | '/dashboard/$teamId/inbox/active'
-    | '/dashboard/$teamId/inbox/archive'
-    | '/dashboard/$teamId/inbox/bookmarks'
-    | '/dashboard/$teamId/team/members'
-    | '/dashboard/$teamId/team/overview'
-    | '/dashboard/$teamId/team/settings'
-    | '/dashboard/$teamId/inbox/'
-    | '/dashboard/$teamId/overview/'
-    | '/dashboard/$teamId/profile/'
-    | '/dashboard/$teamId/schedules/'
-    | '/dashboard/$teamId/team/'
-    | '/dashboard/$teamId/projects/$projectId/board'
-    | '/dashboard/$teamId/projects/$projectId/dashboard'
-    | '/dashboard/$teamId/projects/$projectId/list'
-    | '/dashboard/$teamId/projects/$projectId/members'
-    | '/dashboard/$teamId/projects/$projectId/settings'
-    | '/dashboard/$teamId/projects/$projectId/timeline'
-    | '/dashboard/$teamId/projects/$projectId/'
-    | '/dashboard/$teamId/projects/$projectId/settings/members'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-priorities'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-statuses'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-tags'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-types'
-    | '/dashboard/$teamId/projects/$projectId/tasks/$taskId'
-    | '/dashboard/$teamId/projects/$projectId/tasks/create'
-    | '/dashboard/$teamId/projects/$projectId/settings/'
+    | '/dashboard/settings/general'
+    | '/dashboard/settings/security'
+    | '/dashboard/settings/theme'
+    | '/dashboard/inbox/'
+    | '/dashboard/overview/'
+    | '/dashboard/schedules/'
+    | '/dashboard/team/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/dashboard/$teamId'
-    | '/invite/accept'
+    | '/dashboard/settings'
     | '/auth'
     | '/dashboard'
-    | '/dashboard/$teamId/inbox/active'
-    | '/dashboard/$teamId/inbox/archive'
-    | '/dashboard/$teamId/inbox/bookmarks'
-    | '/dashboard/$teamId/team/members'
-    | '/dashboard/$teamId/team/overview'
-    | '/dashboard/$teamId/team/settings'
-    | '/dashboard/$teamId/inbox'
-    | '/dashboard/$teamId/overview'
-    | '/dashboard/$teamId/profile'
-    | '/dashboard/$teamId/schedules'
-    | '/dashboard/$teamId/team'
-    | '/dashboard/$teamId/projects/$projectId/board'
-    | '/dashboard/$teamId/projects/$projectId/dashboard'
-    | '/dashboard/$teamId/projects/$projectId/list'
-    | '/dashboard/$teamId/projects/$projectId/members'
-    | '/dashboard/$teamId/projects/$projectId/timeline'
-    | '/dashboard/$teamId/projects/$projectId'
-    | '/dashboard/$teamId/projects/$projectId/settings/members'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-priorities'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-statuses'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-tags'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-types'
-    | '/dashboard/$teamId/projects/$projectId/tasks/$taskId'
-    | '/dashboard/$teamId/projects/$projectId/tasks/create'
-    | '/dashboard/$teamId/projects/$projectId/settings'
+    | '/dashboard/settings/general'
+    | '/dashboard/settings/security'
+    | '/dashboard/settings/theme'
+    | '/dashboard/inbox'
+    | '/dashboard/overview'
+    | '/dashboard/schedules'
+    | '/dashboard/team'
   id:
     | '__root__'
     | '/'
@@ -456,38 +195,16 @@ export interface FileRouteTypes {
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/dashboard/$teamId'
-    | '/invite/accept'
+    | '/dashboard/settings'
     | '/auth/'
     | '/dashboard/'
-    | '/dashboard/$teamId/inbox'
-    | '/dashboard/$teamId/team'
-    | '/dashboard/$teamId/projects/$projectId'
-    | '/dashboard/$teamId/inbox/active'
-    | '/dashboard/$teamId/inbox/archive'
-    | '/dashboard/$teamId/inbox/bookmarks'
-    | '/dashboard/$teamId/team/members'
-    | '/dashboard/$teamId/team/overview'
-    | '/dashboard/$teamId/team/settings'
-    | '/dashboard/$teamId/inbox/'
-    | '/dashboard/$teamId/overview/'
-    | '/dashboard/$teamId/profile/'
-    | '/dashboard/$teamId/schedules/'
-    | '/dashboard/$teamId/team/'
-    | '/dashboard/$teamId/projects/$projectId/board'
-    | '/dashboard/$teamId/projects/$projectId/dashboard'
-    | '/dashboard/$teamId/projects/$projectId/list'
-    | '/dashboard/$teamId/projects/$projectId/members'
-    | '/dashboard/$teamId/projects/$projectId/settings'
-    | '/dashboard/$teamId/projects/$projectId/timeline'
-    | '/dashboard/$teamId/projects/$projectId/'
-    | '/dashboard/$teamId/projects/$projectId/settings/members'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-priorities'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-statuses'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-tags'
-    | '/dashboard/$teamId/projects/$projectId/settings/task-types'
-    | '/dashboard/$teamId/projects/$projectId/tasks/$taskId'
-    | '/dashboard/$teamId/projects/$projectId/tasks/create'
-    | '/dashboard/$teamId/projects/$projectId/settings/'
+    | '/dashboard/settings/general'
+    | '/dashboard/settings/security'
+    | '/dashboard/settings/theme'
+    | '/dashboard/inbox/'
+    | '/dashboard/overview/'
+    | '/dashboard/schedules/'
+    | '/dashboard/team/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -495,7 +212,6 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
-  InviteAcceptRoute: typeof InviteAcceptRoute
   AuthIndexRoute: typeof AuthIndexRoute
 }
 
@@ -529,12 +245,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/invite/accept': {
-      id: '/invite/accept'
-      path: '/invite/accept'
-      fullPath: '/invite/accept'
-      preLoaderRoute: typeof InviteAcceptRouteImport
-      parentRoute: typeof rootRouteImport
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/$teamId': {
       id: '/dashboard/$teamId'
@@ -557,352 +273,91 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/$teamId/team': {
-      id: '/dashboard/$teamId/team'
+    '/dashboard/team/': {
+      id: '/dashboard/team/'
       path: '/team'
-      fullPath: '/dashboard/$teamId/team'
-      preLoaderRoute: typeof DashboardTeamIdTeamRouteRouteImport
-      parentRoute: typeof DashboardTeamIdRoute
+      fullPath: '/dashboard/team/'
+      preLoaderRoute: typeof DashboardTeamIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/$teamId/inbox': {
-      id: '/dashboard/$teamId/inbox'
-      path: '/inbox'
-      fullPath: '/dashboard/$teamId/inbox'
-      preLoaderRoute: typeof DashboardTeamIdInboxRouteRouteImport
-      parentRoute: typeof DashboardTeamIdRoute
-    }
-    '/dashboard/$teamId/team/': {
-      id: '/dashboard/$teamId/team/'
-      path: '/'
-      fullPath: '/dashboard/$teamId/team/'
-      preLoaderRoute: typeof DashboardTeamIdTeamIndexRouteImport
-      parentRoute: typeof DashboardTeamIdTeamRouteRoute
-    }
-    '/dashboard/$teamId/schedules/': {
-      id: '/dashboard/$teamId/schedules/'
+    '/dashboard/schedules/': {
+      id: '/dashboard/schedules/'
       path: '/schedules'
-      fullPath: '/dashboard/$teamId/schedules/'
-      preLoaderRoute: typeof DashboardTeamIdSchedulesIndexRouteImport
-      parentRoute: typeof DashboardTeamIdRoute
+      fullPath: '/dashboard/schedules/'
+      preLoaderRoute: typeof DashboardSchedulesIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/$teamId/profile/': {
-      id: '/dashboard/$teamId/profile/'
-      path: '/profile'
-      fullPath: '/dashboard/$teamId/profile/'
-      preLoaderRoute: typeof DashboardTeamIdProfileIndexRouteImport
-      parentRoute: typeof DashboardTeamIdRoute
-    }
-    '/dashboard/$teamId/overview/': {
-      id: '/dashboard/$teamId/overview/'
+    '/dashboard/overview/': {
+      id: '/dashboard/overview/'
       path: '/overview'
-      fullPath: '/dashboard/$teamId/overview/'
-      preLoaderRoute: typeof DashboardTeamIdOverviewIndexRouteImport
-      parentRoute: typeof DashboardTeamIdRoute
+      fullPath: '/dashboard/overview/'
+      preLoaderRoute: typeof DashboardOverviewIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/$teamId/inbox/': {
-      id: '/dashboard/$teamId/inbox/'
-      path: '/'
-      fullPath: '/dashboard/$teamId/inbox/'
-      preLoaderRoute: typeof DashboardTeamIdInboxIndexRouteImport
-      parentRoute: typeof DashboardTeamIdInboxRouteRoute
+    '/dashboard/inbox/': {
+      id: '/dashboard/inbox/'
+      path: '/inbox'
+      fullPath: '/dashboard/inbox/'
+      preLoaderRoute: typeof DashboardInboxIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/$teamId/team/settings': {
-      id: '/dashboard/$teamId/team/settings'
-      path: '/settings'
-      fullPath: '/dashboard/$teamId/team/settings'
-      preLoaderRoute: typeof DashboardTeamIdTeamSettingsRouteImport
-      parentRoute: typeof DashboardTeamIdTeamRouteRoute
+    '/dashboard/settings/theme': {
+      id: '/dashboard/settings/theme'
+      path: '/theme'
+      fullPath: '/dashboard/settings/theme'
+      preLoaderRoute: typeof DashboardSettingsThemeRouteImport
+      parentRoute: typeof DashboardSettingsRoute
     }
-    '/dashboard/$teamId/team/overview': {
-      id: '/dashboard/$teamId/team/overview'
-      path: '/overview'
-      fullPath: '/dashboard/$teamId/team/overview'
-      preLoaderRoute: typeof DashboardTeamIdTeamOverviewRouteImport
-      parentRoute: typeof DashboardTeamIdTeamRouteRoute
+    '/dashboard/settings/security': {
+      id: '/dashboard/settings/security'
+      path: '/security'
+      fullPath: '/dashboard/settings/security'
+      preLoaderRoute: typeof DashboardSettingsSecurityRouteImport
+      parentRoute: typeof DashboardSettingsRoute
     }
-    '/dashboard/$teamId/team/members': {
-      id: '/dashboard/$teamId/team/members'
-      path: '/members'
-      fullPath: '/dashboard/$teamId/team/members'
-      preLoaderRoute: typeof DashboardTeamIdTeamMembersRouteImport
-      parentRoute: typeof DashboardTeamIdTeamRouteRoute
-    }
-    '/dashboard/$teamId/inbox/bookmarks': {
-      id: '/dashboard/$teamId/inbox/bookmarks'
-      path: '/bookmarks'
-      fullPath: '/dashboard/$teamId/inbox/bookmarks'
-      preLoaderRoute: typeof DashboardTeamIdInboxBookmarksRouteImport
-      parentRoute: typeof DashboardTeamIdInboxRouteRoute
-    }
-    '/dashboard/$teamId/inbox/archive': {
-      id: '/dashboard/$teamId/inbox/archive'
-      path: '/archive'
-      fullPath: '/dashboard/$teamId/inbox/archive'
-      preLoaderRoute: typeof DashboardTeamIdInboxArchiveRouteImport
-      parentRoute: typeof DashboardTeamIdInboxRouteRoute
-    }
-    '/dashboard/$teamId/inbox/active': {
-      id: '/dashboard/$teamId/inbox/active'
-      path: '/active'
-      fullPath: '/dashboard/$teamId/inbox/active'
-      preLoaderRoute: typeof DashboardTeamIdInboxActiveRouteImport
-      parentRoute: typeof DashboardTeamIdInboxRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId': {
-      id: '/dashboard/$teamId/projects/$projectId'
-      path: '/projects/$projectId'
-      fullPath: '/dashboard/$teamId/projects/$projectId'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdRouteRouteImport
-      parentRoute: typeof DashboardTeamIdRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/': {
-      id: '/dashboard/$teamId/projects/$projectId/'
-      path: '/'
-      fullPath: '/dashboard/$teamId/projects/$projectId/'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdIndexRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/timeline': {
-      id: '/dashboard/$teamId/projects/$projectId/timeline'
-      path: '/timeline'
-      fullPath: '/dashboard/$teamId/projects/$projectId/timeline'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdTimelineRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings': {
-      id: '/dashboard/$teamId/projects/$projectId/settings'
-      path: '/settings'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/members': {
-      id: '/dashboard/$teamId/projects/$projectId/members'
-      path: '/members'
-      fullPath: '/dashboard/$teamId/projects/$projectId/members'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdMembersRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/list': {
-      id: '/dashboard/$teamId/projects/$projectId/list'
-      path: '/list'
-      fullPath: '/dashboard/$teamId/projects/$projectId/list'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdListRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/dashboard': {
-      id: '/dashboard/$teamId/projects/$projectId/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard/$teamId/projects/$projectId/dashboard'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdDashboardRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/board': {
-      id: '/dashboard/$teamId/projects/$projectId/board'
-      path: '/board'
-      fullPath: '/dashboard/$teamId/projects/$projectId/board'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdBoardRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings/': {
-      id: '/dashboard/$teamId/projects/$projectId/settings/'
-      path: '/'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings/'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsIndexRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/tasks/create': {
-      id: '/dashboard/$teamId/projects/$projectId/tasks/create'
-      path: '/tasks/create'
-      fullPath: '/dashboard/$teamId/projects/$projectId/tasks/create'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdTasksCreateRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/tasks/$taskId': {
-      id: '/dashboard/$teamId/projects/$projectId/tasks/$taskId'
-      path: '/tasks/$taskId'
-      fullPath: '/dashboard/$teamId/projects/$projectId/tasks/$taskId'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdTasksTaskIdRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdRouteRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings/task-types': {
-      id: '/dashboard/$teamId/projects/$projectId/settings/task-types'
-      path: '/task-types'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings/task-types'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskTypesRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings/task-tags': {
-      id: '/dashboard/$teamId/projects/$projectId/settings/task-tags'
-      path: '/task-tags'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings/task-tags'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskTagsRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings/task-statuses': {
-      id: '/dashboard/$teamId/projects/$projectId/settings/task-statuses'
-      path: '/task-statuses'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings/task-statuses'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings/task-priorities': {
-      id: '/dashboard/$teamId/projects/$projectId/settings/task-priorities'
-      path: '/task-priorities'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings/task-priorities'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRoute
-    }
-    '/dashboard/$teamId/projects/$projectId/settings/members': {
-      id: '/dashboard/$teamId/projects/$projectId/settings/members'
-      path: '/members'
-      fullPath: '/dashboard/$teamId/projects/$projectId/settings/members'
-      preLoaderRoute: typeof DashboardTeamIdProjectsProjectIdSettingsMembersRouteImport
-      parentRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRoute
+    '/dashboard/settings/general': {
+      id: '/dashboard/settings/general'
+      path: '/general'
+      fullPath: '/dashboard/settings/general'
+      preLoaderRoute: typeof DashboardSettingsGeneralRouteImport
+      parentRoute: typeof DashboardSettingsRoute
     }
   }
 }
 
-interface DashboardTeamIdInboxRouteRouteChildren {
-  DashboardTeamIdInboxActiveRoute: typeof DashboardTeamIdInboxActiveRoute
-  DashboardTeamIdInboxArchiveRoute: typeof DashboardTeamIdInboxArchiveRoute
-  DashboardTeamIdInboxBookmarksRoute: typeof DashboardTeamIdInboxBookmarksRoute
-  DashboardTeamIdInboxIndexRoute: typeof DashboardTeamIdInboxIndexRoute
+interface DashboardSettingsRouteChildren {
+  DashboardSettingsGeneralRoute: typeof DashboardSettingsGeneralRoute
+  DashboardSettingsSecurityRoute: typeof DashboardSettingsSecurityRoute
+  DashboardSettingsThemeRoute: typeof DashboardSettingsThemeRoute
 }
 
-const DashboardTeamIdInboxRouteRouteChildren: DashboardTeamIdInboxRouteRouteChildren =
-  {
-    DashboardTeamIdInboxActiveRoute: DashboardTeamIdInboxActiveRoute,
-    DashboardTeamIdInboxArchiveRoute: DashboardTeamIdInboxArchiveRoute,
-    DashboardTeamIdInboxBookmarksRoute: DashboardTeamIdInboxBookmarksRoute,
-    DashboardTeamIdInboxIndexRoute: DashboardTeamIdInboxIndexRoute,
-  }
-
-const DashboardTeamIdInboxRouteRouteWithChildren =
-  DashboardTeamIdInboxRouteRoute._addFileChildren(
-    DashboardTeamIdInboxRouteRouteChildren,
-  )
-
-interface DashboardTeamIdTeamRouteRouteChildren {
-  DashboardTeamIdTeamMembersRoute: typeof DashboardTeamIdTeamMembersRoute
-  DashboardTeamIdTeamOverviewRoute: typeof DashboardTeamIdTeamOverviewRoute
-  DashboardTeamIdTeamSettingsRoute: typeof DashboardTeamIdTeamSettingsRoute
-  DashboardTeamIdTeamIndexRoute: typeof DashboardTeamIdTeamIndexRoute
+const DashboardSettingsRouteChildren: DashboardSettingsRouteChildren = {
+  DashboardSettingsGeneralRoute: DashboardSettingsGeneralRoute,
+  DashboardSettingsSecurityRoute: DashboardSettingsSecurityRoute,
+  DashboardSettingsThemeRoute: DashboardSettingsThemeRoute,
 }
 
-const DashboardTeamIdTeamRouteRouteChildren: DashboardTeamIdTeamRouteRouteChildren =
-  {
-    DashboardTeamIdTeamMembersRoute: DashboardTeamIdTeamMembersRoute,
-    DashboardTeamIdTeamOverviewRoute: DashboardTeamIdTeamOverviewRoute,
-    DashboardTeamIdTeamSettingsRoute: DashboardTeamIdTeamSettingsRoute,
-    DashboardTeamIdTeamIndexRoute: DashboardTeamIdTeamIndexRoute,
-  }
-
-const DashboardTeamIdTeamRouteRouteWithChildren =
-  DashboardTeamIdTeamRouteRoute._addFileChildren(
-    DashboardTeamIdTeamRouteRouteChildren,
-  )
-
-interface DashboardTeamIdProjectsProjectIdSettingsRouteChildren {
-  DashboardTeamIdProjectsProjectIdSettingsMembersRoute: typeof DashboardTeamIdProjectsProjectIdSettingsMembersRoute
-  DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute
-  DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute
-  DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute
-  DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute: typeof DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute
-  DashboardTeamIdProjectsProjectIdSettingsIndexRoute: typeof DashboardTeamIdProjectsProjectIdSettingsIndexRoute
-}
-
-const DashboardTeamIdProjectsProjectIdSettingsRouteChildren: DashboardTeamIdProjectsProjectIdSettingsRouteChildren =
-  {
-    DashboardTeamIdProjectsProjectIdSettingsMembersRoute:
-      DashboardTeamIdProjectsProjectIdSettingsMembersRoute,
-    DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute:
-      DashboardTeamIdProjectsProjectIdSettingsTaskPrioritiesRoute,
-    DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute:
-      DashboardTeamIdProjectsProjectIdSettingsTaskStatusesRoute,
-    DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute:
-      DashboardTeamIdProjectsProjectIdSettingsTaskTagsRoute,
-    DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute:
-      DashboardTeamIdProjectsProjectIdSettingsTaskTypesRoute,
-    DashboardTeamIdProjectsProjectIdSettingsIndexRoute:
-      DashboardTeamIdProjectsProjectIdSettingsIndexRoute,
-  }
-
-const DashboardTeamIdProjectsProjectIdSettingsRouteWithChildren =
-  DashboardTeamIdProjectsProjectIdSettingsRoute._addFileChildren(
-    DashboardTeamIdProjectsProjectIdSettingsRouteChildren,
-  )
-
-interface DashboardTeamIdProjectsProjectIdRouteRouteChildren {
-  DashboardTeamIdProjectsProjectIdBoardRoute: typeof DashboardTeamIdProjectsProjectIdBoardRoute
-  DashboardTeamIdProjectsProjectIdDashboardRoute: typeof DashboardTeamIdProjectsProjectIdDashboardRoute
-  DashboardTeamIdProjectsProjectIdListRoute: typeof DashboardTeamIdProjectsProjectIdListRoute
-  DashboardTeamIdProjectsProjectIdMembersRoute: typeof DashboardTeamIdProjectsProjectIdMembersRoute
-  DashboardTeamIdProjectsProjectIdSettingsRoute: typeof DashboardTeamIdProjectsProjectIdSettingsRouteWithChildren
-  DashboardTeamIdProjectsProjectIdTimelineRoute: typeof DashboardTeamIdProjectsProjectIdTimelineRoute
-  DashboardTeamIdProjectsProjectIdIndexRoute: typeof DashboardTeamIdProjectsProjectIdIndexRoute
-  DashboardTeamIdProjectsProjectIdTasksTaskIdRoute: typeof DashboardTeamIdProjectsProjectIdTasksTaskIdRoute
-  DashboardTeamIdProjectsProjectIdTasksCreateRoute: typeof DashboardTeamIdProjectsProjectIdTasksCreateRoute
-}
-
-const DashboardTeamIdProjectsProjectIdRouteRouteChildren: DashboardTeamIdProjectsProjectIdRouteRouteChildren =
-  {
-    DashboardTeamIdProjectsProjectIdBoardRoute:
-      DashboardTeamIdProjectsProjectIdBoardRoute,
-    DashboardTeamIdProjectsProjectIdDashboardRoute:
-      DashboardTeamIdProjectsProjectIdDashboardRoute,
-    DashboardTeamIdProjectsProjectIdListRoute:
-      DashboardTeamIdProjectsProjectIdListRoute,
-    DashboardTeamIdProjectsProjectIdMembersRoute:
-      DashboardTeamIdProjectsProjectIdMembersRoute,
-    DashboardTeamIdProjectsProjectIdSettingsRoute:
-      DashboardTeamIdProjectsProjectIdSettingsRouteWithChildren,
-    DashboardTeamIdProjectsProjectIdTimelineRoute:
-      DashboardTeamIdProjectsProjectIdTimelineRoute,
-    DashboardTeamIdProjectsProjectIdIndexRoute:
-      DashboardTeamIdProjectsProjectIdIndexRoute,
-    DashboardTeamIdProjectsProjectIdTasksTaskIdRoute:
-      DashboardTeamIdProjectsProjectIdTasksTaskIdRoute,
-    DashboardTeamIdProjectsProjectIdTasksCreateRoute:
-      DashboardTeamIdProjectsProjectIdTasksCreateRoute,
-  }
-
-const DashboardTeamIdProjectsProjectIdRouteRouteWithChildren =
-  DashboardTeamIdProjectsProjectIdRouteRoute._addFileChildren(
-    DashboardTeamIdProjectsProjectIdRouteRouteChildren,
-  )
-
-interface DashboardTeamIdRouteChildren {
-  DashboardTeamIdInboxRouteRoute: typeof DashboardTeamIdInboxRouteRouteWithChildren
-  DashboardTeamIdTeamRouteRoute: typeof DashboardTeamIdTeamRouteRouteWithChildren
-  DashboardTeamIdProjectsProjectIdRouteRoute: typeof DashboardTeamIdProjectsProjectIdRouteRouteWithChildren
-  DashboardTeamIdOverviewIndexRoute: typeof DashboardTeamIdOverviewIndexRoute
-  DashboardTeamIdProfileIndexRoute: typeof DashboardTeamIdProfileIndexRoute
-  DashboardTeamIdSchedulesIndexRoute: typeof DashboardTeamIdSchedulesIndexRoute
-}
-
-const DashboardTeamIdRouteChildren: DashboardTeamIdRouteChildren = {
-  DashboardTeamIdInboxRouteRoute: DashboardTeamIdInboxRouteRouteWithChildren,
-  DashboardTeamIdTeamRouteRoute: DashboardTeamIdTeamRouteRouteWithChildren,
-  DashboardTeamIdProjectsProjectIdRouteRoute:
-    DashboardTeamIdProjectsProjectIdRouteRouteWithChildren,
-  DashboardTeamIdOverviewIndexRoute: DashboardTeamIdOverviewIndexRoute,
-  DashboardTeamIdProfileIndexRoute: DashboardTeamIdProfileIndexRoute,
-  DashboardTeamIdSchedulesIndexRoute: DashboardTeamIdSchedulesIndexRoute,
-}
-
-const DashboardTeamIdRouteWithChildren = DashboardTeamIdRoute._addFileChildren(
-  DashboardTeamIdRouteChildren,
-)
+const DashboardSettingsRouteWithChildren =
+  DashboardSettingsRoute._addFileChildren(DashboardSettingsRouteChildren)
 
 interface DashboardRouteRouteChildren {
-  DashboardTeamIdRoute: typeof DashboardTeamIdRouteWithChildren
+  DashboardTeamIdRoute: typeof DashboardTeamIdRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardInboxIndexRoute: typeof DashboardInboxIndexRoute
+  DashboardOverviewIndexRoute: typeof DashboardOverviewIndexRoute
+  DashboardSchedulesIndexRoute: typeof DashboardSchedulesIndexRoute
+  DashboardTeamIndexRoute: typeof DashboardTeamIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
-  DashboardTeamIdRoute: DashboardTeamIdRouteWithChildren,
+  DashboardTeamIdRoute: DashboardTeamIdRoute,
+  DashboardSettingsRoute: DashboardSettingsRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardInboxIndexRoute: DashboardInboxIndexRoute,
+  DashboardOverviewIndexRoute: DashboardOverviewIndexRoute,
+  DashboardSchedulesIndexRoute: DashboardSchedulesIndexRoute,
+  DashboardTeamIndexRoute: DashboardTeamIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -914,7 +369,6 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
-  InviteAcceptRoute: InviteAcceptRoute,
   AuthIndexRoute: AuthIndexRoute,
 }
 export const routeTree = rootRouteImport

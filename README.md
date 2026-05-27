@@ -1,6 +1,7 @@
-# Agentick-FE
+# startcn Base Boilerplate
 
-Agentick-FE is the frontend application for Agentick, an AI-assisted project management platform. The app focuses on team/project operations, task execution, schedules, inbox workflows, and AI-supported risk/estimation experiences.
+startcn Base Boilerplate is a clean, minimal dashboard base template featuring authentication (Auth) and user management (Users) features, combined with a highly responsive, dynamic context-switching sidebar layout. It is equipped with advanced pre-built utility components (Big Calendar, Data Table, Markdown Editor/Renderer, Multi-select Combobox) ready to accelerate your dashboard application development.
+
 
 ## Tech Stack
 
@@ -36,8 +37,8 @@ npm install -g pnpm
 ### Install
 
 ```bash
-git clone https://github.com/daFoggo/Agentick-FE.git
-cd Agentick-FE
+git clone https://github.com/daFoggo/startcn.git
+cd startcn
 pnpm install
 ```
 
@@ -48,7 +49,7 @@ Create `.env` from `.env.example` and configure the backend URLs:
 ```env
 VITE_API_CORE_URL=http://localhost:8000
 VITE_API_AI_URL=http://localhost:8001
-VITE_APP_NAME="Agentick"
+VITE_APP_NAME="startcn"
 ```
 
 The frontend builds API roots in `src/configs/env.ts`:

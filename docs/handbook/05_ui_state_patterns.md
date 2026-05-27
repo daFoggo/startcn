@@ -28,31 +28,31 @@ Use this for pages, lists, tables, grids, cards, and large content panels.
 Example:
 
 ```tsx
-if (isLoading) return <ProjectListSkeleton />
+if (isLoading) return <UserListSkeleton />
 
 if (isError) {
   return (
     <Alert variant="destructive">
       <AlertCircle className="size-4" />
       <AlertDescription>
-        {getErrorMessage(error, "Could not load projects.")}
+        {getErrorMessage(error, "Could not load users.")}
       </AlertDescription>
     </Alert>
   )
 }
 
-if (projects.length === 0) {
+if (users.length === 0) {
   return (
     <Empty>
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <FolderOpen />
+          <UsersIcon />
         </EmptyMedia>
-        <EmptyTitle>No projects yet</EmptyTitle>
-        <EmptyDescription>Create a project to start planning work.</EmptyDescription>
+        <EmptyTitle>No users yet</EmptyTitle>
+        <EmptyDescription>Add or invite users to start collaborating.</EmptyDescription>
       </EmptyHeader>
       <EmptyContent> // only display when you have action button, dont display if only has description
-        <Button>Create project</Button>
+        <Button>Invite user</Button>
       </EmptyContent>
     </Empty>
   )
@@ -83,14 +83,14 @@ Compact error:
 ```tsx
 <div className="flex items-center gap-1.5 text-xs text-destructive">
   <AlertCircle className="size-3.5 shrink-0" />
-  <span>{getErrorMessage(error, "Could not load members.")}</span>
+  <span>{getErrorMessage(error, "Could not load data.")}</span>
 </div>
 ```
 
 Compact empty:
 
 ```tsx
-<p className="text-xs text-muted-foreground">No members yet.</p>
+<p className="text-xs text-muted-foreground">No items yet.</p>
 ```
 
 ## Submit-Critical Query Rule
@@ -100,12 +100,8 @@ Some optional-looking queries still feed critical form data. These must block ac
 Examples:
 
 - current user for `user_id`
-- active `teamId` or `projectId`
-- member/user search options
-- permission/role checks
-- task config order defaults
-- default status/type/priority choices
-- calendar participant lists
+- user search options
+- permission / authorization checks
 
 Rule:
 

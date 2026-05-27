@@ -1,4 +1,3 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import {
 	ChevronsUpDown,
@@ -18,26 +17,25 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { useAuthMutations } from "@/features/auth";
-import { userMeQueryOptions } from "@/features/users";
+import type { TUser } from "@/features/users";
 import { getErrorMessage } from "@/lib/error";
-import { useDashboardStore } from "@/stores/use-dashboard-store";
-import { useViewModeListStore } from "@/stores/use-view-mode-list-store";
 
-export const UserProfile = () => {
+interface IUserProfileProps {
+	user?: TUser;
+	logoutMutation: {
+		mutateAsync: () => Promise<void>;
+		isPending: boolean;
+	};
+}
+
+export const UserProfile = ({ user, logoutMutation }: IUserProfileProps) => {
 	const navigate = useNavigate();
-	const { data: user } = useSuspenseQuery(userMeQueryOptions());
-	const { signOut: logoutMutation } = useAuthMutations();
 
 	const handleLogout = async () => {
 		try {
 			await logoutMutation.mutateAsync();
 			const { deleteAuthToken } = await import("@/lib/auth-token");
 			await deleteAuthToken();
-
-			// Clear client-side data
-			useDashboardStore.getState().reset();
-			useViewModeListStore.getState().resetAll();
 
 			toast.success("Logged out successfully");
 			navigate({ to: "/auth/sign-in" });
@@ -47,7 +45,7 @@ export const UserProfile = () => {
 	};
 
 	const initials =
-		user.name
+		user?.name
 			?.split(" ")
 			.map((n) => n[0])
 			.join("")
@@ -88,22 +86,14 @@ export const UserProfile = () => {
 					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
 					<DropdownMenuGroup>
-						<DropdownMenuItem
-							className="cursor-pointer"
-							onClick={() =>
-								navigate({
-									to: "/dashboard/$teamId/profile",
-									params: {
-										teamId:
-											useDashboardStore.getState().last_team_id || "personal",
-									},
-								})
-							}
-						>
+						<DropdownMenuItem className="cursor-pointer">
 							<SquareUserRound />
 							My Profile
 						</DropdownMenuItem>
-						<DropdownMenuItem className="cursor-pointer">
+						<DropdownMenuItem
+							className="cursor-pointer"
+							onClick={() => navigate({ to: "/dashboard/settings/general" })}
+						>
 							<Settings />
 							Settings
 						</DropdownMenuItem>

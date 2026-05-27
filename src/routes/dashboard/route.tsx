@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import {
 	createFileRoute,
 	Outlet,
@@ -7,8 +8,7 @@ import {
 import { AppPageHeader } from "@/components/layout/app/page-header";
 import { AppSidebar } from "@/components/layout/app/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { inboxStatsQueryOptions } from "@/features/inbox";
-import { myTeamsQueryOptions } from "@/features/teams";
+import { useAuthMutations } from "@/features/auth";
 import { userMeQueryOptions } from "@/features/users";
 import { cn } from "@/lib/utils";
 
@@ -26,11 +26,7 @@ export const Route = createFileRoute("/dashboard")({
 		}
 	},
 	loader: async ({ context }) => {
-		await Promise.all([
-			context.queryClient.ensureQueryData(userMeQueryOptions()),
-			context.queryClient.ensureQueryData(myTeamsQueryOptions()),
-		]);
-		void context.queryClient.prefetchQuery(inboxStatsQueryOptions());
+		await context.queryClient.ensureQueryData(userMeQueryOptions());
 	},
 	component: DashboardLayout,
 	staticData: {
@@ -42,9 +38,30 @@ function DashboardLayout() {
 	const matches = useMatches();
 	const isFixedHeight = matches.some((m) => m.staticData.fixedHeight);
 
+	// 1. Thông tin user hiện tại
+	const { data: currentUser, isLoading: isCurrentUserLoading } = useQuery(
+		userMeQueryOptions(),
+	);
+
+	// 2. Sign out mutation (cho UserProfile)
+	const { signOut: logoutMutation } = useAuthMutations();
+
+	// Chuẩn bị props cho UserProfile
+	const userProfileProps = {
+		user: currentUser,
+		logoutMutation: {
+			mutateAsync: logoutMutation.mutateAsync,
+			isPending: logoutMutation.isPending,
+		},
+	};
+
 	return (
 		<SidebarProvider className="h-svh overflow-hidden" disableKeyboardShortcut>
-			<AppSidebar />
+			<AppSidebar
+				currentUser={currentUser}
+				isCurrentUserLoading={isCurrentUserLoading}
+				userProfileProps={userProfileProps}
+			/>
 			<SidebarInset
 				className={cn("h-full min-w-0", !isFixedHeight && "overflow-y-auto")}
 			>

@@ -17,7 +17,7 @@ export interface ISidebarGroup {
 
 export type TSidebarNavigation = ISidebarGroup[];
 
-export type TSidebarContextId = "default" | "project-settings";
+export type TSidebarContextId = "default" | "project-settings" | "settings";
 
 export interface ISidebarContextMatch {
 	contextId: TSidebarContextId;

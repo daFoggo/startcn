@@ -1,19 +1,19 @@
-# Agentick-FE Agent Instructions
+# startcn Base Agent Instructions
 
-This file is the fast entry point for agents working in Agentick-FE. Keep it short. The detailed source of truth lives in `.agents/rules/` and `docs/handbook/`.
+This file is the fast entry point for agents working in startcn Base. Keep it short. The detailed source of truth lives in `docs/handbook/`.
+
 
 ## Read Order
 
-1. `.agents/rules/1_development_and_architecture.md`
-2. `.agents/rules/2_ui-design-system.md`
-3. `.agents/rules/4_tanstack_query_start_router.md`
-4. `docs/handbook/00_index.md`
-5. The handbook page that matches the task:
+1. `docs/handbook/00_index.md`
+2. The handbook page that matches the task:
+   - `docs/handbook/01_project_overview.md`
    - `docs/handbook/02_architecture.md`
    - `docs/handbook/03_feature_development.md`
    - `docs/handbook/04_tanstack_start_query_router.md`
    - `docs/handbook/05_ui_state_patterns.md`
    - `docs/handbook/06_quality_rules.md`
+   - `docs/handbook/07_development_checklist.md`
 
 ## Core Architecture Rules
 

@@ -1,0 +1,18 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/dashboard/settings/theme")({
+	component: ThemePlaceholder,
+});
+
+function ThemePlaceholder() {
+	return (
+		<div className="flex h-[calc(100vh-8rem)] items-center justify-center rounded-xl border border-dashed border-border p-8 text-center">
+			<div className="flex max-w-[420px] flex-col items-center justify-center text-center">
+				<h3 className="mt-4 text-lg font-semibold">Theme Preferences</h3>
+				<p className="mt-2 mb-4 text-sm text-muted-foreground">
+					This is a placeholder page for theme preferences settings.
+				</p>
+			</div>
+		</div>
+	);
+}

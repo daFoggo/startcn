@@ -1,6 +1,7 @@
 {
 	"name": "startcn",
 	"private": true,
+
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev --mode dev --port 3000",

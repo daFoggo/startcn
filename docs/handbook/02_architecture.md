@@ -1,6 +1,6 @@
 # Architecture
 
-Agentick-FE uses feature-based frontend architecture with route-level orchestration.
+startcn uses feature-based frontend architecture with route-level orchestration.
 
 ## Directory Map
 
@@ -61,13 +61,13 @@ Feature internals are private by default.
 Use:
 
 ```ts
-import { projectQueryOptions } from "@/features/projects"
+import { userMeQueryOptions } from "@/features/users"
 ```
 
 Avoid:
 
 ```ts
-import { projectQueryOptions } from "@/features/projects/queries"
+import { userMeQueryOptions } from "@/features/users/queries"
 ```
 
 Exception: direct imports may be used when there is an intentional internal boundary, but do not make that the default.
@@ -97,23 +97,23 @@ If a component in `src/features/[feature]/components` needs data owned by anothe
 - error object, when UI copy needs `getErrorMessage`
 - callbacks for cross-feature actions
 
-Avoid this in feature components:
+Avoid fetching cross-feature data directly in layout/presentation components:
 
 ```tsx
-const { data: members } = useQuery(teamMembersQueryOptions(teamId))
+const { data: user } = useQuery(userMeQueryOptions)
 ```
 
-Prefer route/layout orchestration:
+Prefer route/layout orchestration (e.g. in `routes/dashboard/route.tsx`):
 
 ```tsx
-const members = useQuery(teamMembersQueryOptions(teamId))
+const user = useQuery(userMeQueryOptions)
 
 return (
-  <EventActionBar
-    members={members.data?.founds ?? []}
-    isMembersLoading={members.isLoading}
-    isMembersError={members.isError}
-    membersError={members.error}
+  <AppSidebar
+    user={user.data}
+    isUserLoading={user.isLoading}
+    isUserError={user.isError}
+    userError={user.error}
   />
 )
 ```
@@ -131,13 +131,9 @@ When a feature component renders a cross-feature workflow, such as a member invi
 
 Common boundary patterns:
 
-- Team/project headers receive members, current user, permissions, and invite callbacks through props.
-- App shell/layout components may compose navigation data across teams, projects, inbox, and users.
-- Invite dialogs receive search results, loading/error state, and search callbacks from the route/header wrapper.
-- Table columns that need current user, role, or membership context are created by column factory functions.
-- Dashboard cards receive their chart/list data and period state from route-owned dashboard containers.
-- Task config settings routes load task statuses, types, priorities, or tags and pass the list plus next-order defaults to feature components.
-- Inbox item content receives invitation accept/decline callbacks from the inbox route container.
+- App shell sidebar (`AppSidebar`) and `UserProfile` receive user context and logout callbacks via props from `routes/dashboard/route.tsx`.
+- Feature components receive user-specific options, roles, or configurations from route loaders/containers.
+- Table columns that need global user context or specific configuration values are created by column factory functions, receiving context as arguments.
 
 ## QueryClient Lifecycle
 
@@ -157,8 +153,8 @@ Use nested route boundaries for important app areas so one section failure does 
 Recommended areas:
 
 - `/dashboard`
-- `/dashboard/$teamId`
-- `/dashboard/$teamId/team`
-- `/dashboard/$teamId/projects/$projectId`
-- `/dashboard/$teamId/inbox`
-- `/dashboard/$teamId/schedules`
+- `/dashboard/overview`
+- `/dashboard/team`
+- `/dashboard/inbox`
+- `/dashboard/schedules`
+- `/dashboard/settings`

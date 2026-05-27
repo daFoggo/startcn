@@ -1,4 +1,4 @@
-# Agentick-FE Handbook
+# startcn Handbook
 
 This folder is the canonical documentation set for the current frontend architecture and development rules.
 
@@ -18,12 +18,7 @@ This handbook replaces the older root-level `docs/*.md` set. Prefer this handboo
 
 ## Mandatory Agent Rule Files
 
-The `.agents/rules/` files are enforcement-oriented and should stay aligned with this handbook:
-
-- `.agents/rules/1_development_and_architecture.md`
-- `.agents/rules/2_ui-design-system.md`
-- `.agents/rules/3_code_quality_and_standards.md`
-- `.agents/rules/4_tanstack_query_start_router.md`
+Automation agents and coding assistants should read `AGENTS.md` at the project root first, which points directly to this handbook.
 
 ## Core Decisions
 
