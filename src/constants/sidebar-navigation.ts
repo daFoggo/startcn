@@ -1,10 +1,19 @@
 import {
 	IconCalendarHeart as CalendarHeart,
+	IconAdjustments,
+	IconCreditCard,
+	IconLock,
+	IconUser,
+	IconUserPlus,
 	IconInbox as Inbox,
 	IconLayout2 as LayoutTemplate,
 	IconUsers as Users,
 } from "@tabler/icons-react";
-import type { ISidebarContextMatch, ISidebarGroup } from "@/types/sidebar";
+import type {
+	ISidebarContextMatch,
+	ISidebarGroup,
+	TSidebarContextId,
+} from "@/types/sidebar";
 
 export const SIDEBAR_PERSONAL: ISidebarGroup = {
 	label: "Personal",
@@ -38,14 +47,104 @@ export const SIDEBAR_TEAM: ISidebarGroup = {
 	],
 };
 
-export const SIDEBAR_NAVIGATION: ISidebarGroup[] = [
-	SIDEBAR_PERSONAL,
-	SIDEBAR_TEAM,
-];
+export const SIDEBAR_SETTINGS: ISidebarGroup = {
+	label: "Settings",
+	items: [
+		{
+			title: "Profile",
+			to: "/dashboard/settings",
+			icon: IconUser,
+			exactActive: true,
+		},
+		{
+			title: "Security",
+			to: "/dashboard/settings/security",
+			icon: IconLock,
+		},
+		{
+			title: "Preferences",
+			to: "/dashboard/settings/preferences",
+			icon: IconAdjustments,
+		},
+		{
+			title: "Billing",
+			to: "/dashboard/settings/billing",
+			icon: IconCreditCard,
+		},
+	],
+};
+
+export const SIDEBAR_TEAM_CONTEXT: ISidebarGroup = {
+	label: "Team Tools",
+	items: [
+		{
+			title: "Overview",
+			to: "/dashboard/team",
+			icon: Users,
+			exactActive: true,
+		},
+		{
+			title: "Members",
+			to: "/dashboard/team/members",
+			icon: IconUserPlus,
+		},
+		{
+			title: "Configurations",
+			to: "/dashboard/team/configurations",
+			icon: IconAdjustments,
+		},
+	],
+};
+
+export const SIDEBAR_GROUPS_BY_CONTEXT: Record<TSidebarContextId, ISidebarGroup[]> = {
+	default: [SIDEBAR_PERSONAL, SIDEBAR_TEAM, SIDEBAR_SETTINGS],
+	team: [SIDEBAR_TEAM_CONTEXT, SIDEBAR_SETTINGS],
+	settings: [SIDEBAR_SETTINGS],
+};
+
+export const getSidebarGroupsForContext = (
+	contextId: TSidebarContextId,
+): ISidebarGroup[] => {
+	return SIDEBAR_GROUPS_BY_CONTEXT[contextId] ?? SIDEBAR_GROUPS_BY_CONTEXT.default;
+};
 
 export const resolveSidebarContextFromPathname = (
-	_pathname: string,
+	pathname: string,
 ): ISidebarContextMatch => {
+	if (pathname.startsWith("/dashboard/settings")) {
+		return {
+			contextId: "settings",
+		};
+	}
+
+	const teamContextMatch = pathname.match(/^\/dashboard\/([^/]+)$/);
+	if (teamContextMatch) {
+		const [, teamId] = teamContextMatch;
+		if (!teamId || ["overview", "schedules", "inbox", "team"].includes(teamId)) {
+			return {
+				contextId: "default",
+			};
+		}
+
+		return {
+			contextId: "team",
+			params: {
+				teamId,
+			},
+		};
+	}
+
+	if (
+		pathname.startsWith("/dashboard/team") ||
+		(/^\/dashboard\/[^/]+$/.test(pathname) &&
+			!pathname.endsWith("/overview") &&
+			!pathname.endsWith("/schedules") &&
+			!pathname.endsWith("/inbox"))
+	) {
+		return {
+			contextId: "team",
+		};
+	}
 	return {
 		contextId: "default",
 	};

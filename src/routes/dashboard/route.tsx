@@ -5,6 +5,8 @@ import {
 	redirect,
 	useMatches,
 } from "@tanstack/react-router";
+import React from "react";
+import { AppHeader } from "@/components/layout/app/header";
 import { AppPageHeader } from "@/components/layout/app/page-header";
 import { AppSidebar } from "@/components/layout/app/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -37,44 +39,54 @@ export const Route = createFileRoute("/dashboard")({
 function DashboardLayout() {
 	const matches = useMatches();
 	const isFixedHeight = matches.some((m) => m.staticData.fixedHeight);
+	
+	// Dynamic layout parameter from route configuration to hide sidebar completely
+	const hideSidebar = matches.some((m) => (m.staticData as any).hideSidebar);
 
-	// 1. Thông tin user hiện tại
+	// 1. Current user information
 	const { data: currentUser, isLoading: isCurrentUserLoading } = useQuery(
 		userMeQueryOptions(),
 	);
 
-	// 2. Sign out mutation (cho UserProfile)
+	// 2. Sign out mutation
 	const { signOut: logoutMutation } = useAuthMutations();
 
-	// Chuẩn bị props cho UserProfile
-	const userProfileProps = {
-		user: currentUser,
-		logoutMutation: {
-			mutateAsync: logoutMutation.mutateAsync,
-			isPending: logoutMutation.isPending,
-		},
-	};
-
 	return (
-		<SidebarProvider className="h-svh overflow-hidden">
-			<AppSidebar
-				currentUser={currentUser}
-				isCurrentUserLoading={isCurrentUserLoading}
-				userProfileProps={userProfileProps}
-			/>
-			<SidebarInset
-				className={cn("h-full min-w-0", !isFixedHeight && "overflow-y-auto")}
-			>
-				<main
+		<SidebarProvider
+			className="flex flex-col h-svh w-full overflow-hidden bg-background"
+			style={{ "--header-height": "3rem" } as React.CSSProperties}
+		>
+			{/* 1. Global Top Sticky Header */}
+			<AppHeader user={currentUser} logoutMutation={logoutMutation} />
+
+			{/* 2. Main Content & Sidebar Partition */}
+			<div className="flex flex-1 min-h-0 w-full overflow-hidden bg-background">
+				{/* The Single Collapsible Sidebar */}
+				{!hideSidebar && (
+					<AppSidebar
+						currentUser={currentUser}
+						isCurrentUserLoading={isCurrentUserLoading}
+					/>
+				)}
+
+				{/* Content Inset Wrapper */}
+				<SidebarInset
 					className={cn(
-						"flex flex-col gap-4 p-4 min-w-0",
-						isFixedHeight && "h-full overflow-hidden",
+						"h-full min-w-0 bg-background",
+						!isFixedHeight && "overflow-y-auto",
 					)}
 				>
-					<AppPageHeader />
-					<Outlet />
-				</main>
-			</SidebarInset>
+					<main
+						className={cn(
+							"flex flex-col gap-4 p-6 min-w-0 bg-background",
+							isFixedHeight && "h-full overflow-hidden",
+						)}
+					>
+						<AppPageHeader />
+						<Outlet />
+					</main>
+				</SidebarInset>
+			</div>
 		</SidebarProvider>
 	);
 }

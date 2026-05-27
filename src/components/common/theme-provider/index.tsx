@@ -7,10 +7,13 @@ import {
 	useState,
 	useTransition,
 } from "react";
-import { setThemeServerFn, type TTheme } from "@/lib/theme";
+import { resolveTheme, setThemeServerFn, type TTheme } from "@/lib/theme";
+
+type TResolvedTheme = "light" | "dark";
 
 type TThemeContextVal = {
 	theme: TTheme;
+	resolvedTheme: TResolvedTheme;
 	setTheme: (val: TTheme) => void;
 	isPending: boolean;
 };
@@ -28,18 +31,52 @@ export const ThemeProvider = ({
 }: TThemeProviderProps) => {
 	const router = useRouter();
 	const [theme, setThemeState] = useState<TTheme>(initialTheme);
+	const [resolvedTheme, setResolvedTheme] = useState<TResolvedTheme>(() => {
+		if (typeof window === "undefined") {
+			return initialTheme === "dark" ? "dark" : "light";
+		}
+
+		return resolveTheme(
+			initialTheme,
+			window.matchMedia("(prefers-color-scheme: dark)").matches,
+		);
+	});
 	const [isPending, startTransition] = useTransition();
 
 	// Đồng bộ local state khi server side theme thay đổi
 	useEffect(() => {
 		setThemeState(initialTheme);
+		setResolvedTheme(
+			resolveTheme(
+				initialTheme,
+				window.matchMedia("(prefers-color-scheme: dark)").matches,
+			),
+		);
 	}, [initialTheme]);
 
 	// Cập nhật class list ngay lập tức để animation mượt mà
 	useEffect(() => {
 		const root = window.document.documentElement;
 		root.classList.remove("light", "dark");
-		root.classList.add(theme);
+		root.classList.add(resolvedTheme);
+	}, [resolvedTheme]);
+
+	// Nếu theme đang theo hệ thống, lắng nghe thay đổi từ OS và cập nhật ngay
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+		const syncResolvedTheme = () => {
+			setResolvedTheme(resolveTheme(theme, mediaQuery.matches));
+		};
+
+		syncResolvedTheme();
+
+		if (theme !== "system") {
+			return;
+		}
+
+		mediaQuery.addEventListener("change", syncResolvedTheme);
+		return () => mediaQuery.removeEventListener("change", syncResolvedTheme);
 	}, [theme]);
 
 	const setTheme = (val: TTheme) => {
@@ -60,7 +97,7 @@ export const ThemeProvider = ({
 	};
 
 	return (
-		<ThemeContext value={{ theme, setTheme, isPending }}>
+		<ThemeContext value={{ theme, resolvedTheme, setTheme, isPending }}>
 			{children}
 		</ThemeContext>
 	);

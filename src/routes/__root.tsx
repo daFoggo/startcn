@@ -12,7 +12,7 @@ import { ThemeProvider } from "@/components/common/theme-provider";
 import { ToasterProvider } from "@/components/common/toaster-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SITE_CONFIG } from "@/configs/site";
-import { getThemeServerFn } from "@/lib/theme";
+import { getThemeServerFn, storageKey } from "@/lib/theme";
 import type { IRouterContext } from "@/router";
 import appCss from "../styles.css?url";
 
@@ -64,9 +64,29 @@ export const Route = createRootRouteWithContext<IRouterContext>()({
 function RootDocument({ children }: { children: React.ReactNode }) {
 	const theme = Route.useLoaderData();
 	const { queryClient } = Route.useRouteContext();
+	const initialThemeScript = `
+		(() => {
+			try {
+				const cookieKey = ${JSON.stringify(storageKey)};
+				const cookie = document.cookie.split('; ').find((row) => row.startsWith(cookieKey + '='));
+				const storedTheme = cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : 'system';
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const resolvedTheme = storedTheme === 'system' ? (prefersDark ? 'dark' : 'light') : storedTheme;
+				const root = document.documentElement;
+				root.classList.remove('light', 'dark');
+				root.classList.add(resolvedTheme);
+			} catch (error) {
+			}
+		})();
+	`;
 	return (
-		<html lang="en" className={theme} suppressHydrationWarning>
+		<html
+			lang="en"
+			className={theme === "dark" ? "dark" : "light"}
+			suppressHydrationWarning
+		>
 			<head>
+				<script dangerouslySetInnerHTML={{ __html: initialThemeScript }} />
 				<HeadContent />
 			</head>
 			<body suppressHydrationWarning>

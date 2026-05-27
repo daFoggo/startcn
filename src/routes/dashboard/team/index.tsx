@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/team/")({
 	component: TeamPlaceholder,
+	staticData: {
+		getTitle: () => "My Team",
+	},
 });
 
 function TeamPlaceholder() {

@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/radix-switch";
 import { useTheme } from ".";
 
 export const ThemeToggle = () => {
-	const { theme, setTheme, isPending } = useTheme();
+	const { resolvedTheme, setTheme, isPending } = useTheme();
 
 	const toggleTheme = (checked: boolean) => {
 		setTheme(checked ? "dark" : "light");
@@ -18,7 +18,7 @@ export const ThemeToggle = () => {
 			className="w-12"
 			leftIcon={<Sun className="size-3.5!" />}
 			rightIcon={<Moon className="size-3.5!" />}
-			checked={theme === "dark"}
+			checked={resolvedTheme === "dark"}
 			onCheckedChange={toggleTheme}
 			thumbIcon={
 				isPending && (

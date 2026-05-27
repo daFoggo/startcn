@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/overview/")({
 	component: OverviewPlaceholder,
+	staticData: {
+		getTitle: () => "Overview",
+	},
 });
 
 function OverviewPlaceholder() {

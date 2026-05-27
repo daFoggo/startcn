@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/inbox/")({
 	component: InboxPlaceholder,
+	staticData: {
+		getTitle: () => "Inbox",
+	},
 });
 
 function InboxPlaceholder() {
