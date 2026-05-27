@@ -55,21 +55,19 @@ export const UserProfile = ({ user, logoutMutation }: IUserProfileProps) => {
 	return (
 		<SidebarMenuItem>
 			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<SidebarMenuButton size="lg">
-						<Avatar size="sm">
-							{user?.avatar_url && (
-								<AvatarImage src={user.avatar_url} alt={user.name} />
-							)}
-							<AvatarFallback>{initials}</AvatarFallback>
-						</Avatar>
-						<div className="flex w-full items-center justify-between text-sm">
-							<span className="line-clamp-1 max-w-37.5 truncate font-semibold">
-								{user?.name}
-							</span>
-							<ChevronsUpDown className="size-4" />
-						</div>
-					</SidebarMenuButton>
+				<DropdownMenuTrigger render={<SidebarMenuButton size="lg" />}>
+					<Avatar size="sm">
+						{user?.avatar_url && (
+							<AvatarImage src={user.avatar_url} alt={user.name} />
+						)}
+						<AvatarFallback>{initials}</AvatarFallback>
+					</Avatar>
+					<div className="flex w-full items-center justify-between text-sm">
+						<span className="line-clamp-1 max-w-37.5 truncate font-semibold">
+							{user?.name}
+						</span>
+						<ChevronsUpDown className="size-4" />
+					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end" side="top">
 					<DropdownMenuGroup>

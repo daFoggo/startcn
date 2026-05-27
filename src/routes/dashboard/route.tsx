@@ -56,7 +56,7 @@ function DashboardLayout() {
 	};
 
 	return (
-		<SidebarProvider className="h-svh overflow-hidden" disableKeyboardShortcut>
+		<SidebarProvider className="h-svh overflow-hidden">
 			<AppSidebar
 				currentUser={currentUser}
 				isCurrentUserLoading={isCurrentUserLoading}

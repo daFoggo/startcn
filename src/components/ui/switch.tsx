@@ -1,113 +1,30 @@
-"use client";
+import { Switch as SwitchPrimitive } from "@base-ui/react/switch"
 
-import { type HTMLMotionProps, motion } from "motion/react";
-import { Switch as SwitchPrimitives } from "radix-ui";
-import * as React from "react";
-
-import { cn } from "@/lib/utils";
-
-type SwitchProps = React.ComponentProps<typeof SwitchPrimitives.Root> &
-	HTMLMotionProps<"button"> & {
-		leftIcon?: React.ReactNode;
-		rightIcon?: React.ReactNode;
-		thumbIcon?: React.ReactNode;
-	};
+import { cn } from "@/lib/utils"
 
 function Switch({
-	className,
-	leftIcon,
-	rightIcon,
-	thumbIcon,
-	onCheckedChange,
-	...props
-}: SwitchProps) {
-	const [isChecked, setIsChecked] = React.useState(
-		props?.checked ?? props?.defaultChecked ?? false,
-	);
-	const [isTapped, setIsTapped] = React.useState(false);
-
-	React.useEffect(() => {
-		if (props?.checked !== undefined) setIsChecked(props.checked);
-	}, [props?.checked]);
-
-	const handleCheckedChange = React.useCallback(
-		(checked: boolean) => {
-			setIsChecked(checked);
-			onCheckedChange?.(checked);
-		},
-		[onCheckedChange],
-	);
-
-	return (
-		<SwitchPrimitives.Root
-			{...props}
-			onCheckedChange={handleCheckedChange}
-			asChild
-		>
-			<motion.button
-				data-slot="switch"
-				className={cn(
-					"relative flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full p-[3px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:justify-end data-[state=checked]:bg-primary data-[state=unchecked]:justify-start data-[state=unchecked]:bg-input",
-					className,
-				)}
-				whileTap="tap"
-				initial={false}
-				onTapStart={() => setIsTapped(true)}
-				onTapCancel={() => setIsTapped(false)}
-				onTap={() => setIsTapped(false)}
-				{...props}
-			>
-				{leftIcon && (
-					<motion.div
-						data-slot="switch-left-icon"
-						animate={
-							isChecked ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }
-						}
-						transition={{ type: "spring", bounce: 0 }}
-						className="absolute top-1/2 left-1 -translate-y-1/2 text-neutral-400 dark:text-neutral-500 [&_svg]:size-3"
-					>
-						{leftIcon}
-					</motion.div>
-				)}
-
-				{rightIcon && (
-					<motion.div
-						data-slot="switch-right-icon"
-						animate={
-							isChecked ? { scale: 0, opacity: 0 } : { scale: 1, opacity: 1 }
-						}
-						transition={{ type: "spring", bounce: 0 }}
-						className="absolute top-1/2 right-1 -translate-y-1/2 text-neutral-500 dark:text-neutral-400 [&_svg]:size-3"
-					>
-						{rightIcon}
-					</motion.div>
-				)}
-
-				<SwitchPrimitives.Thumb asChild>
-					<motion.div
-						data-slot="switch-thumb"
-						whileTap="tab"
-						className={cn(
-							"relative z-1 flex items-center justify-center rounded-full bg-background text-neutral-500 shadow-lg ring-0 dark:text-neutral-400 [&_svg]:size-3",
-						)}
-						layout
-						transition={{ type: "spring", stiffness: 300, damping: 25 }}
-						style={{
-							width: 18,
-							height: 18,
-						}}
-						animate={
-							isTapped
-								? { width: 21, transition: { duration: 0.1 } }
-								: { width: 18, transition: { duration: 0.1 } }
-						}
-					>
-						{thumbIcon}
-					</motion.div>
-				</SwitchPrimitives.Thumb>
-			</motion.button>
-		</SwitchPrimitives.Root>
-	);
+  className,
+  size = "default",
+  ...props
+}: SwitchPrimitive.Root.Props & {
+  size?: "sm" | "default"
+}) {
+  return (
+    <SwitchPrimitive.Root
+      data-slot="switch"
+      data-size={size}
+      className={cn(
+        "peer group/switch relative inline-flex shrink-0 items-center rounded-full border border-transparent transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:bg-primary data-unchecked:bg-input dark:data-unchecked:bg-input/80 data-disabled:cursor-not-allowed data-disabled:opacity-50",
+        className
+      )}
+      {...props}
+    >
+      <SwitchPrimitive.Thumb
+        data-slot="switch-thumb"
+        className="pointer-events-none block rounded-full bg-background ring-0 transition-transform group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] dark:data-checked:bg-primary-foreground group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 dark:data-unchecked:bg-foreground"
+      />
+    </SwitchPrimitive.Root>
+  )
 }
 
-export { Switch, type SwitchProps };
+export { Switch }

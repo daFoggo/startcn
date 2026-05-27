@@ -24,8 +24,8 @@ export const NotFound = () => {
 					<p className="text-xl text-muted-foreground">
 						Oops! The page you are looking for does not exist.
 					</p>
-					<Button asChild>
-						<Link to="/">Go back home</Link>
+					<Button render={<Link to="/" />}>
+						Go back home
 					</Button>
 				</main>
 			</div>
@@ -59,11 +59,9 @@ export const ErrorFallback = ({ reset }: { reset: () => void }) => {
 							Try again
 							<RotateCcw className="size-4" />
 						</Button>
-						<Button asChild>
-							<Link to="/">
-								Go back home
-								<Home className="size-4" />
-							</Link>
+						<Button render={<Link to="/" />}>
+							Go back home
+							<Home className="size-4" />
 						</Button>
 					</div>
 				</main>

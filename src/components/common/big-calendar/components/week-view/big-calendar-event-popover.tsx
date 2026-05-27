@@ -94,19 +94,18 @@ export function BigCalendarEventPopover({
 
 	return (
 		<Popover open={open} onOpenChange={onOpenChange}>
-			<PopoverTrigger asChild>
-				{/* Wrapper div full height/width để bắt click event,
-            cho phép trigger popover mà không cần forwardRef từ children */}
-				<div className="h-full w-full cursor-pointer ring-offset-background outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-					{children}
-				</div>
+			<PopoverTrigger
+				render={
+					<div className="h-full w-full cursor-pointer ring-offset-background outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" />
+				}
+			>
+				{children}
 			</PopoverTrigger>
 			<PopoverContent
 				className={cn("w-80", className)}
 				align="start"
 				side="right"
 				sideOffset={8}
-				collisionPadding={16}
 				onClick={(e) => e.stopPropagation()} // Ngăn click lan ra ngoài làm trigger các action khác của calendar
 			>
 				<PopoverHeader className="gap-2">

@@ -78,22 +78,25 @@ export function DateTimePicker({
 	return (
 		<div className={cn("flex flex-col gap-2", className)}>
 			<Popover modal={false}>
-				<PopoverTrigger asChild disabled={disabled}>
-					<Button
-						variant={"outline"}
-						className={cn(
-							"w-full justify-start text-left font-normal",
-							!selectedDate && "text-muted-foreground",
-							triggerClassName,
-						)}
-					>
-						{!hideIcon && <CalendarIcon className="mr-2 size-4" />}
-						{selectedDate && !Number.isNaN(selectedDate.getTime()) ? (
-							format(selectedDate, "PPP HH:mm")
-						) : (
-							<span>{label || "Pick a date"}</span>
-						)}
-					</Button>
+				<PopoverTrigger
+					render={
+						<Button
+							variant={"outline"}
+							disabled={disabled}
+							className={cn(
+								"w-full justify-start text-left font-normal",
+								!selectedDate && "text-muted-foreground",
+								triggerClassName,
+							)}
+						/>
+					}
+				>
+					{!hideIcon && <CalendarIcon className="mr-2 size-4" />}
+					{selectedDate && !Number.isNaN(selectedDate.getTime()) ? (
+						format(selectedDate, "PPP HH:mm")
+					) : (
+						<span>{label || "Pick a date"}</span>
+					)}
 				</PopoverTrigger>
 				<PopoverContent className="w-auto p-0" align="start">
 					<div className="flex flex-col">

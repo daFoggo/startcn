@@ -145,13 +145,8 @@ const DataTableInner = <TData,>({
 				},
 				header: ({ table }) => (
 					<Checkbox
-						checked={
-							table.getIsAllPageRowsSelected()
-								? true
-								: table.getIsSomePageRowsSelected()
-									? "indeterminate"
-									: false
-						}
+						checked={table.getIsAllPageRowsSelected()}
+						indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
 						onCheckedChange={(value) =>
 							table.toggleAllPageRowsSelected(!!value)
 						}

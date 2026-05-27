@@ -65,15 +65,17 @@ export const DataTablePagination = <TData,>({
 					<div className="flex items-center gap-2">
 						<span className="text-xs">Rows per page</span>
 						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<Button
-									variant="outline"
-									size="sm"
-									className="flex h-7 w-16 justify-between px-2 text-xs font-normal"
-								>
-									<span>{pageSize}</span>
-									<ChevronDown className="size-3 text-muted-foreground/70" />
-								</Button>
+							<DropdownMenuTrigger
+								render={
+									<Button
+										variant="outline"
+										size="sm"
+										className="flex h-7 w-16 justify-between px-2 text-xs font-normal"
+									/>
+								}
+							>
+								<span>{pageSize}</span>
+								<ChevronDown className="size-3 text-muted-foreground/70" />
 							</DropdownMenuTrigger>
 							<DropdownMenuContent align="start" className="min-w-16">
 								{pageSizeOptions.map((size) => (

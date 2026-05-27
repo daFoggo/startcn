@@ -253,7 +253,7 @@ function ActionBarItem({
 }: ActionBarItemProps) {
 	const { onOpenChange, orientation } = useActionBarContext("ActionBarItem");
 
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleClick = (event: any) => {
 		onClick?.(event);
 		if (event.defaultPrevented) return;
 
