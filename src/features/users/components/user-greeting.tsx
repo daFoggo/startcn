@@ -1,9 +1,9 @@
 import {
-	AlertCircle,
-	PackageCheck,
-	SlidersHorizontal,
-	Users,
-} from "lucide-react";
+	IconAlertCircle as AlertCircle,
+	IconPackage as PackageCheck,
+	IconAdjustmentsHorizontal as SlidersHorizontal,
+	IconUsers as Users,
+} from "@tabler/icons-react";
 import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import {

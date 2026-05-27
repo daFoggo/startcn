@@ -1,11 +1,11 @@
-import type { Table } from "@tanstack/react-table";
 import {
-	ChevronDown,
-	ChevronFirst,
-	ChevronLast,
-	ChevronLeft,
-	ChevronRight,
-} from "lucide-react";
+	IconChevronDown as ChevronDown,
+	IconChevronsLeft as ChevronFirst,
+	IconChevronsRight as ChevronLast,
+	IconChevronLeft as ChevronLeft,
+	IconChevronRight as ChevronRight,
+} from "@tabler/icons-react";
+import type { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,

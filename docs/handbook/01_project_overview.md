@@ -40,7 +40,7 @@ It is fully equipped with advanced pre-built utility components (Big Calendar, D
 | Validation | Zod |
 | UI | React 19, shadcn/ui, Base UI/Radix-style components |
 | Styling | Tailwind CSS v4 |
-| Icons | lucide-react |
+| Icons | @tabler/icons-react |
 | Client state | Zustand |
 | Testing | Vitest |
 | Formatting/linting | Biome |
@@ -68,4 +68,4 @@ VITE_APP_NAME="startcn"
 - Tailwind CSS: https://tailwindcss.com/docs
 - shadcn/ui: https://ui.shadcn.com/docs
 - Base UI: https://base-ui.com/react/overview/quick-start
-- Lucide React: https://lucide.dev/guide/packages/lucide-react
+- Tabler Icons: https://tabler.io/docs/quickstart/react

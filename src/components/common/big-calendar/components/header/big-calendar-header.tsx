@@ -1,5 +1,10 @@
+import {
+	IconChevronLeft as ChevronLeft,
+	IconChevronRight as ChevronRight,
+	IconLayoutColumns as Columns4,
+	IconLayoutRows as Rows4,
+} from "@tabler/icons-react";
 import { format, isToday } from "date-fns";
-import { ChevronLeft, ChevronRight, Columns4, Rows4 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {

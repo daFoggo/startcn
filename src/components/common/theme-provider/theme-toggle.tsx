@@ -1,4 +1,8 @@
-import { Loader2, Moon, Sun } from "lucide-react";
+import {
+	IconLoader2 as Loader2,
+	IconMoon as Moon,
+	IconSun as Sun,
+} from "@tabler/icons-react";
 import { Switch } from "@/components/ui/radix-switch";
 import { useTheme } from ".";
 

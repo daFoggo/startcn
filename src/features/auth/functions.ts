@@ -1,6 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requestLoggerMiddleware } from "@/lib/middleware";
-import { SignInSchema, SignUpSchema, TelegramLoginPayloadSchema } from "./schemas";
+import {
+	SignInSchema,
+	SignUpSchema,
+	TelegramLoginPayloadSchema,
+} from "./schemas";
 import { refreshToken, signIn, signInWithTelegram, signUp } from "./server";
 
 export const signInFn = createServerFn({ method: "POST" })

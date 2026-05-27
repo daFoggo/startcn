@@ -1,5 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signInFn, signInWithTelegramFn, signOutFn, signUpFn } from "./functions";
+import {
+	signInFn,
+	signInWithTelegramFn,
+	signOutFn,
+	signUpFn,
+} from "./functions";
 import type {
 	TSignInInput,
 	TSignUpInput,

@@ -1,5 +1,8 @@
+import {
+	IconCalendar as CalendarIcon,
+	IconClock as Clock,
+} from "@tabler/icons-react";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon, Clock } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";

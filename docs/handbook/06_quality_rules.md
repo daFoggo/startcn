@@ -30,7 +30,7 @@ Do not run expensive checks repeatedly for every tiny edit unless requested.
 - Do not hardcode custom font sizes such as `text-[15px]`.
 - Do not hardcode custom z-index values such as `z-[999]`.
 - Use Tailwind design tokens and project CSS variables.
-- Use lucide-react only for icons.
+- Use @tabler/icons-react only for icons.
 - Do not mix English and Vietnamese in the same UI surface except proper nouns and technical terms.
 - Do not use `<Badge>` for filters because badges do not provide interactive state.
 

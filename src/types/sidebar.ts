@@ -1,9 +1,9 @@
-import type { LucideIcon } from "lucide-react";
+import type { Icon as TablerIcon } from "@tabler/icons-react";
 
 export interface ISidebarNavigationItem {
 	title: string;
 	to: string;
-	icon?: LucideIcon;
+	icon?: TablerIcon;
 	children?: ISidebarNavigationItem[];
 	isActive?: boolean;
 	exactActive?: boolean;

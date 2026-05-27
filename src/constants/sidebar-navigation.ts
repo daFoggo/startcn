@@ -1,4 +1,9 @@
-import { CalendarHeart, Inbox, LayoutTemplate, Users } from "lucide-react";
+import {
+	IconCalendarHeart as CalendarHeart,
+	IconInbox as Inbox,
+	IconLayout2 as LayoutTemplate,
+	IconUsers as Users,
+} from "@tabler/icons-react";
 import type { ISidebarContextMatch, ISidebarGroup } from "@/types/sidebar";
 
 export const SIDEBAR_PERSONAL: ISidebarGroup = {

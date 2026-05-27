@@ -1,8 +1,11 @@
 import type { DragDropManager } from "@dnd-kit/dom";
 import { Sortable } from "@dnd-kit/dom/sortable";
+import {
+	IconGripVertical as GripVertical,
+	IconPin as PinIcon,
+} from "@tabler/icons-react";
 import type { Header, Table } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
-import { GripVertical, PinIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TableHead } from "@/components/ui/table";

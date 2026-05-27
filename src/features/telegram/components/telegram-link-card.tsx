@@ -1,4 +1,8 @@
-import { ExternalLink, Loader2, Send } from "lucide-react";
+import {
+	IconExternalLink as ExternalLink,
+	IconLoader2 as Loader2,
+	IconBrandTelegram as Send,
+} from "@tabler/icons-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

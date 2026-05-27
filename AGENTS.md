@@ -81,7 +81,7 @@ For compact spaces such as sidebars, headers, inline rows, badges, small widgets
 ## UI System Rules
 
 - Use existing components from `@/components/ui`, `@/components/common`, `@/components/layout`, and `@/components/decorations` before creating new components.
-- Use lucide-react only for icons.
+- Use @tabler/icons-react only for icons.
 - Do not hardcode raw colors, custom spacing, custom font sizes, or custom z-indexes.
 - Do not use `<Badge>` for interactive filters.
 - Do not use `window.confirm()`; use `AlertDialog`.

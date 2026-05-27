@@ -1,3 +1,4 @@
+import { IconAlertCircle as AlertCircle } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
 import parse, {
 	type DOMNode,
@@ -5,7 +6,6 @@ import parse, {
 	Element,
 	type HTMLReactParserOptions,
 } from "html-react-parser";
-import { AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getErrorMessage } from "@/lib/error";

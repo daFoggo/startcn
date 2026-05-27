@@ -1,5 +1,5 @@
+import { IconSubtitlesAi } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
-import { Package } from "lucide-react";
 import {
 	SidebarMenu,
 	SidebarMenuButton,
@@ -13,7 +13,7 @@ export const HeaderContent = () => {
 			<SidebarMenuItem>
 				<Link to="/dashboard">
 					<SidebarMenuButton>
-						<Package className="size-5!" />
+						<IconSubtitlesAi className="size-5!" />
 						<span className="text-lg font-semibold">
 							{SITE_CONFIG.app.title}
 						</span>

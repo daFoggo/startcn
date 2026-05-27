@@ -1,5 +1,9 @@
+import {
+	IconHome as Home,
+	IconRotate2 as RotateCcw,
+	IconAlertTriangle as TriangleAlert,
+} from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
-import { Home, RotateCcw, TriangleAlert } from "lucide-react";
 import { PixelBackground } from "@/components/decorations/pixel-background";
 import { AuthPageHeader } from "@/components/layout/auth/page-header";
 import { Button } from "@/components/ui/button";
@@ -24,9 +28,7 @@ export const NotFound = () => {
 					<p className="text-xl text-muted-foreground">
 						Oops! The page you are looking for does not exist.
 					</p>
-					<Button render={<Link to="/" />}>
-						Go back home
-					</Button>
+					<Button render={<Link to="/" />}>Go back home</Button>
 				</main>
 			</div>
 		</PixelBackground>

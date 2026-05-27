@@ -1,17 +1,17 @@
-import { type Editor, useEditorState } from "@tiptap/react";
 import {
-	BoldIcon,
-	CheckSquareIcon,
-	CodeIcon,
-	Heading1Icon,
-	Heading2Icon,
-	Heading3Icon,
-	ItalicIcon,
-	ListIcon,
-	ListOrderedIcon,
-	QuoteIcon,
-	StrikethroughIcon,
-} from "lucide-react";
+	IconBold as BoldIcon,
+	IconSquareCheck as CheckSquareIcon,
+	IconCode as CodeIcon,
+	IconH1 as Heading1Icon,
+	IconH2 as Heading2Icon,
+	IconH3 as Heading3Icon,
+	IconItalic as ItalicIcon,
+	IconList as ListIcon,
+	IconListNumbers as ListOrderedIcon,
+	IconQuote as QuoteIcon,
+	IconStrikethrough as StrikethroughIcon,
+} from "@tabler/icons-react";
+import { type Editor, useEditorState } from "@tiptap/react";
 import { memo } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Toggle } from "@/components/ui/toggle";

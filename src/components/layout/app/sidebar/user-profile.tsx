@@ -1,5 +1,10 @@
+import {
+	IconSelector as ChevronsUpDown,
+	IconLoader2 as Loader2,
+	IconLogout as LogOut,
+	IconUserSquareRounded as SquareUserRound,
+} from "@tabler/icons-react";
 import { useNavigate } from "@tanstack/react-router";
-import { ChevronsUpDown, Loader2, LogOut, SquareUserRound } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {

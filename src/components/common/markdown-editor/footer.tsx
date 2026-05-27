@@ -1,4 +1,7 @@
-import { ArrowUp, Loader2 } from "lucide-react";
+import {
+	IconArrowUp as ArrowUp,
+	IconLoader2 as Loader2,
+} from "@tabler/icons-react";
 import { memo } from "react";
 import { InputGroupButton } from "@/components/ui/input-group";
 

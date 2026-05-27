@@ -1,6 +1,9 @@
+import {
+	IconArrowRight as ArrowRight,
+	IconLoader2 as Loader2,
+} from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

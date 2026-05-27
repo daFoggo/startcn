@@ -1,4 +1,7 @@
-import { Loader2, Send } from "lucide-react";
+import {
+	IconLoader2 as Loader2,
+	IconBrandTelegram as Send,
+} from "@tabler/icons-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { clientEnv } from "@/configs/env";
@@ -24,7 +27,9 @@ export const TelegramLoginButton = ({
 
 		const redirectUri = `${window.location.origin}/auth/telegram`;
 		const state = crypto.randomUUID();
-		const codeVerifier = base64UrlEncode(crypto.getRandomValues(new Uint8Array(32)));
+		const codeVerifier = base64UrlEncode(
+			crypto.getRandomValues(new Uint8Array(32)),
+		);
 		const codeChallenge = await createCodeChallenge(codeVerifier);
 
 		const loginState = JSON.stringify({
@@ -94,6 +99,11 @@ async function createCodeChallenge(codeVerifier: string) {
 }
 
 function base64UrlEncode(bytes: Uint8Array) {
-	const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("");
-	return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+	const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join(
+		"",
+	);
+	return btoa(binary)
+		.replace(/\+/g, "-")
+		.replace(/\//g, "_")
+		.replace(/=+$/g, "");
 }

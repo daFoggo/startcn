@@ -1,5 +1,8 @@
+import {
+	IconChevronDown as ChevronDown,
+	IconChevronRight as ChevronRight,
+} from "@tabler/icons-react";
 import type { Row } from "@tanstack/react-table";
-import { ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 

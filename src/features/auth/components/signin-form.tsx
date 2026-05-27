@@ -1,6 +1,9 @@
+import {
+	IconLoader2 as Loader2,
+	IconLogin as LogIn,
+} from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Loader2, LogIn } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

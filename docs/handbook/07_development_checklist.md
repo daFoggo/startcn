@@ -76,7 +76,7 @@ Submit-critical examples:
 
 ## UI System
 
-- Use lucide-react only.
+- Use @tabler/icons-react only.
 - Do not hardcode raw colors, arbitrary spacing, arbitrary font sizes, or arbitrary z-indexes.
 - Use design tokens and Tailwind scale.
 - Icon-only buttons require accessible labels.

@@ -42,7 +42,11 @@ export function TimePicker({
 	}, [value]);
 
 	return (
-		<Select value={value} onValueChange={(val) => val && onChange?.(val)} disabled={disabled}>
+		<Select
+			value={value}
+			onValueChange={(val) => val && onChange?.(val)}
+			disabled={disabled}
+		>
 			<SelectTrigger
 				size={size}
 				className={cn(

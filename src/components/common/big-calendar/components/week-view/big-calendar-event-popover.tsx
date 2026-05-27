@@ -1,4 +1,4 @@
-import { Clock, MapPin } from "lucide-react";
+import { IconClock as Clock, IconMapPin as MapPin } from "@tabler/icons-react";
 import type React from "react";
 import {
 	Popover,

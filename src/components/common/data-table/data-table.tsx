@@ -1,5 +1,6 @@
 import { DragDropManager } from "@dnd-kit/dom";
 import { isSortable, type SortableDraggable } from "@dnd-kit/dom/sortable";
+import { IconX as X } from "@tabler/icons-react";
 import {
 	type ColumnDef,
 	type ColumnOrderState,
@@ -16,7 +17,6 @@ import {
 	type Table as TanStackTable,
 	useReactTable,
 } from "@tanstack/react-table";
-import { X } from "lucide-react";
 import { memo, useEffect, useMemo, useState } from "react";
 import {
 	ActionBar,
@@ -146,7 +146,10 @@ const DataTableInner = <TData,>({
 				header: ({ table }) => (
 					<Checkbox
 						checked={table.getIsAllPageRowsSelected()}
-						indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
+						indeterminate={
+							table.getIsSomePageRowsSelected() &&
+							!table.getIsAllPageRowsSelected()
+						}
 						onCheckedChange={(value) =>
 							table.toggleAllPageRowsSelected(!!value)
 						}

@@ -129,7 +129,7 @@ The current canonical documentation lives in `docs/handbook/`.
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [shadcn/ui](https://ui.shadcn.com/docs)
 - [Base UI](https://base-ui.com/react/overview/quick-start)
-- [Lucide React](https://lucide.dev/guide/packages/lucide-react)
+- [Tabler Icons React](https://tabler.io/docs/quickstart/react)
 
 ## Agent Instructions
 

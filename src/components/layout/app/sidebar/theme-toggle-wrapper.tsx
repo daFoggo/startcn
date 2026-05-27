@@ -6,7 +6,9 @@ export const ThemeToggleWrapper = () => {
 	const { theme } = useTheme();
 	return (
 		<SidebarMenuItem>
-			<SidebarMenuButton render={<div className="flex w-full items-center justify-between" />}>
+			<SidebarMenuButton
+				render={<div className="flex w-full items-center justify-between" />}
+			>
 				<span className="text-sm font-medium">
 					{theme === "dark" ? "Dark" : "Light"} mode
 				</span>

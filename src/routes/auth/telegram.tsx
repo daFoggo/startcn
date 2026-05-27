@@ -1,5 +1,9 @@
+import {
+	IconLoader2 as Loader2,
+	IconBrandTelegram as Send,
+	IconAlertTriangle as TriangleAlert,
+} from "@tabler/icons-react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Loader2, Send, TriangleAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";

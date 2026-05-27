@@ -15,6 +15,7 @@ This handbook replaces the older root-level `docs/*.md` set. Prefer this handboo
 | 5 | `05_ui_state_patterns.md` | Loading, error, empty, compact UI, and form action states |
 | 6 | `06_quality_rules.md` | Consistency rules, checks, and review expectations |
 | 7 | `07_development_checklist.md` | Practical development and review checklist |
+| 8 | `08_telegram_login.md` | Telegram OIDC sign-in and account linking flow |
 
 ## Mandatory Agent Rule Files
 
@@ -30,6 +31,7 @@ Automation agents and coding assistants should read `AGENTS.md` at the project r
 - Critical data uses Suspense and route error boundaries.
 - Optional widgets use local `useQuery` states.
 - Ky v2 error normalization is centralized in `src/lib/ky.ts`.
+- Telegram sign-in uses a callback route plus server function session update; account linking code is separate from settings pages.
 - UI state handling is mandatory for every async UI surface.
 - Compact UI is allowed only when full `Alert` or `Empty` would break layout flow.
 - Submit-critical dependency queries must block actions while loading or errored.
