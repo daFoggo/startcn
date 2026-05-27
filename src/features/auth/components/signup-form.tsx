@@ -80,7 +80,7 @@ export const SignUpForm = () => {
 						e.stopPropagation();
 						form.handleSubmit();
 					}}
-					className="space-y-4"
+					className="flex flex-col gap-6"
 				>
 					<FieldGroup className="gap-6">
 						<form.Field
@@ -216,12 +216,12 @@ export const SignUpForm = () => {
 								{isSubmitting ? (
 									<>
 										<span>Processing...</span>
-										<Loader2 className="size-4 animate-spin" />
+										<Loader2 className="animate-spin" data-icon="inline-end" />
 									</>
 								) : (
 									<>
 										<span>Sign up</span>
-										<ArrowRight className="size-4" />
+										<ArrowRight data-icon="inline-end" />
 									</>
 								)}
 							</Button>

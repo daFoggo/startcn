@@ -48,18 +48,14 @@ export const DataTableGroupRow = <TData,>({
 					<Button
 						variant="ghost"
 						size="sm"
-						className="flex items-center gap-2 rounded-md px-1 py-1 text-left transition-colors duration-300 ease-in-out hover:bg-accent"
+						className="flex items-center gap-2 rounded-md px-2 py-1 text-left transition-colors duration-300 ease-in-out hover:bg-accent"
 						onClick={(e) => {
 							e.stopPropagation();
 							row.getToggleExpandedHandler()();
 						}}
 					>
 						<span className="text-muted-foreground/60">
-							{isExpanded ? (
-								<ChevronDown className="size-4" />
-							) : (
-								<ChevronRight className="size-4" />
-							)}
+							{isExpanded ? <ChevronDown /> : <ChevronRight />}
 						</span>
 						{renderedValue}
 						<span className="text-xs font-medium text-muted-foreground/50 tabular-nums">

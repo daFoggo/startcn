@@ -96,9 +96,9 @@ export const UserProfile = ({ user, logoutMutation }: IUserProfileProps) => {
 							disabled={logoutMutation.isPending}
 						>
 							{logoutMutation.isPending ? (
-								<Loader2 className="size-4 animate-spin" />
+								<Loader2 className="animate-spin" />
 							) : (
-								<LogOut className="size-4" />
+								<LogOut />
 							)}
 							Log out
 						</DropdownMenuItem>

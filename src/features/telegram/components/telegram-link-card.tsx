@@ -32,7 +32,7 @@ export const TelegramLinkCard = () => {
 					Telegram account
 				</CardTitle>
 			</CardHeader>
-			<CardContent className="space-y-4">
+			<CardContent className="flex flex-col gap-4">
 				<p className="text-sm text-muted-foreground">
 					Connect this web account to the Telegram bot so mobile chat actions
 					can open and authenticate the web app.
@@ -44,9 +44,9 @@ export const TelegramLinkCard = () => {
 					disabled={startLink.isPending}
 				>
 					{startLink.isPending ? (
-						<Loader2 className="size-4 animate-spin" />
+						<Loader2 className="animate-spin" data-icon="inline-start" />
 					) : (
-						<ExternalLink className="size-4" />
+						<ExternalLink data-icon="inline-start" />
 					)}
 					<span>Connect Telegram</span>
 				</Button>

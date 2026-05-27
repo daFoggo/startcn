@@ -162,25 +162,25 @@ function TelegramAuthCallbackPage() {
 			<Card className="w-full max-w-sm">
 				<CardHeader>
 					<CardTitle className="flex items-center gap-2 text-xl">
-						<Send className="size-5" />
+						<Send className="size-5 shrink-0" />
 						Telegram sign in
 					</CardTitle>
 				</CardHeader>
 				<CardContent>
 					{search.error || callbackError ? (
 						<Alert variant="destructive">
-							<TriangleAlert className="size-4" />
+							<TriangleAlert />
 							<AlertTitle>Telegram sign in failed</AlertTitle>
 							<AlertDescription>{errorMessage}</AlertDescription>
 						</Alert>
 					) : hasPayload ? (
 						<div className="flex items-center gap-3 text-sm text-muted-foreground">
-							<Loader2 className="size-4 animate-spin" />
+							<Loader2 className="size-4 shrink-0 animate-spin" />
 							<span>Verifying Telegram account...</span>
 						</div>
 					) : (
 						<Alert variant="destructive">
-							<TriangleAlert className="size-4" />
+							<TriangleAlert />
 							<AlertTitle>Missing Telegram payload</AlertTitle>
 							<AlertDescription>
 								Open this page from a Telegram login button or login URL.

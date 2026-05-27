@@ -105,7 +105,7 @@ export function MultiSelectCombobox<T>({
 				<ComboboxContent anchor={anchor} className="min-w-64">
 					<ComboboxEmpty className="py-4 text-center text-sm text-muted-foreground">
 						{isLoading ? (
-							<div className="flex flex-col gap-2 px-2">
+							<div className="flex flex-col gap-2 px-3">
 								<Skeleton className="h-4 w-full" />
 								<Skeleton className="h-4 w-3/4" />
 							</div>

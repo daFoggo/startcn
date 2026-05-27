@@ -75,7 +75,7 @@ export const DataTablePagination = <TData,>({
 								}
 							>
 								<span>{pageSize}</span>
-								<ChevronDown className="size-3 text-muted-foreground/70" />
+								<ChevronDown className="text-muted-foreground/70" />
 							</DropdownMenuTrigger>
 							<DropdownMenuContent align="start" className="min-w-16">
 								{pageSizeOptions.map((size) => (
@@ -113,7 +113,7 @@ export const DataTablePagination = <TData,>({
 							disabled={!table.getCanPreviousPage()}
 							aria-label="First page"
 						>
-							<ChevronFirst className="size-3.5" />
+							<ChevronFirst />
 						</Button>
 						<Button
 							variant="outline"
@@ -123,7 +123,7 @@ export const DataTablePagination = <TData,>({
 							disabled={!table.getCanPreviousPage()}
 							aria-label="Previous page"
 						>
-							<ChevronLeft className="size-3.5" />
+							<ChevronLeft />
 						</Button>
 						<Button
 							variant="outline"
@@ -133,7 +133,7 @@ export const DataTablePagination = <TData,>({
 							disabled={!table.getCanNextPage()}
 							aria-label="Next page"
 						>
-							<ChevronRight className="size-3.5" />
+							<ChevronRight />
 						</Button>
 						<Button
 							variant="outline"
@@ -143,7 +143,7 @@ export const DataTablePagination = <TData,>({
 							disabled={!table.getCanNextPage()}
 							aria-label="Last page"
 						>
-							<ChevronLast className="size-3.5" />
+							<ChevronLast />
 						</Button>
 					</div>
 				)}

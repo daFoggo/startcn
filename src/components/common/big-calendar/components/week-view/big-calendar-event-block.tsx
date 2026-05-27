@@ -163,7 +163,7 @@ export function BigCalendarEventContent({
 
 	return (
 		<div
-			className="flex h-full w-full flex-col overflow-hidden rounded-md border px-2 py-1.5 transition-all hover:brightness-95"
+			className="flex h-full w-full flex-col overflow-hidden rounded-md border px-2 py-1 transition-all hover:brightness-95"
 			style={{
 				borderColor: `color-mix(in oklch, ${finalColor} 15%, transparent)`,
 				backgroundColor: `color-mix(in oklch, ${finalColor} 25%, transparent)`,

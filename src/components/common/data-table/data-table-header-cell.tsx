@@ -172,7 +172,7 @@ export const DataTableHeaderCell = <TData,>({
 									: "Pin to right"
 						}
 					>
-						<PinIcon className={cn("size-3", isPinned && "fill-current")} />
+						<PinIcon className={cn(isPinned && "fill-current")} />
 					</Button>
 				)}
 			</div>

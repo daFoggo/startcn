@@ -1,7 +1,4 @@
-import {
-	IconLoader2 as Loader2,
-	IconLogin as LogIn,
-} from "@tabler/icons-react";
+import { IconArrowRight, IconLoader2 as Loader2 } from "@tabler/icons-react";
 import { useForm } from "@tanstack/react-form";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
@@ -98,7 +95,7 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 				</div>
 			</CardHeader>
 			<CardContent>
-				<div className="mb-5 space-y-4">
+				<div className="mb-6 flex flex-col gap-4">
 					<TelegramLoginButton
 						isPending={signInWithTelegram.isPending}
 						redirect={redirect}
@@ -116,7 +113,7 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 						e.stopPropagation();
 						form.handleSubmit();
 					}}
-					className="space-y-4"
+					className="flex flex-col gap-6"
 				>
 					<FieldGroup className="gap-6">
 						<form.Field
@@ -182,12 +179,12 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 								{isSubmitting ? (
 									<>
 										<span>Processing...</span>
-										<Loader2 className="size-4 animate-spin" />
+										<Loader2 className="animate-spin" data-icon="inline-end" />
 									</>
 								) : (
 									<>
 										<span>Sign in</span>
-										<LogIn className="size-4" />
+										<IconArrowRight data-icon="inline-end" />
 									</>
 								)}
 							</Button>

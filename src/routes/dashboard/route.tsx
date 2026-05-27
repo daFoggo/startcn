@@ -5,9 +5,9 @@ import {
 	redirect,
 	useMatches,
 } from "@tanstack/react-router";
-import React from "react";
+import type React from "react";
 import { AppHeader } from "@/components/layout/app/header";
-import { AppPageHeader } from "@/components/layout/app/page-header";
+import { AppPageContainer } from "@/components/layout/app/page-container";
 import { AppSidebar } from "@/components/layout/app/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useAuthMutations } from "@/features/auth";
@@ -39,7 +39,10 @@ export const Route = createFileRoute("/dashboard")({
 function DashboardLayout() {
 	const matches = useMatches();
 	const isFixedHeight = matches.some((m) => m.staticData.fixedHeight);
-	
+	const pageContainerSize =
+		[...matches].reverse().find((m) => m.staticData.pageContainerSize)
+			?.staticData.pageContainerSize ?? "default";
+
 	// Dynamic layout parameter from route configuration to hide sidebar completely
 	const hideSidebar = matches.some((m) => (m.staticData as any).hideSidebar);
 
@@ -78,12 +81,16 @@ function DashboardLayout() {
 				>
 					<main
 						className={cn(
-							"flex flex-col gap-4 p-6 min-w-0 bg-background",
+							"min-w-0 bg-background",
 							isFixedHeight && "h-full overflow-hidden",
 						)}
 					>
-						<AppPageHeader />
-						<Outlet />
+						<AppPageContainer
+							fixedHeight={isFixedHeight}
+							size={pageContainerSize}
+						>
+							<Outlet />
+						</AppPageContainer>
 					</main>
 				</SidebarInset>
 			</div>

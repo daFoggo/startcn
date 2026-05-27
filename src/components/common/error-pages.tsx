@@ -23,7 +23,7 @@ export const NotFound = () => {
 		>
 			<div className="flex h-full flex-col p-6">
 				<AuthPageHeader />
-				<main className="flex flex-1 flex-col items-center justify-center space-y-4 text-center">
+				<main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
 					<p className="font-mono text-6xl font-bold text-foreground">404</p>
 					<p className="text-xl text-muted-foreground">
 						Oops! The page you are looking for does not exist.
@@ -51,7 +51,7 @@ export const ErrorFallback = ({ reset }: { reset: () => void }) => {
 		>
 			<div className="flex h-full flex-col p-6">
 				<AuthPageHeader />
-				<main className="flex flex-1 flex-col items-center justify-center space-y-4 text-center">
+				<main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
 					<p className="font-mono text-6xl font-bold text-foreground">500</p>
 					<p className="text-xl text-muted-foreground">
 						Something went wrong on our end.
@@ -59,11 +59,11 @@ export const ErrorFallback = ({ reset }: { reset: () => void }) => {
 					<div className="flex gap-2">
 						<Button onClick={() => reset()} variant="outline">
 							Try again
-							<RotateCcw className="size-4" />
+							<RotateCcw data-icon="inline-end" />
 						</Button>
 						<Button render={<Link to="/" />}>
 							Go back home
-							<Home className="size-4" />
+							<Home data-icon="inline-end" />
 						</Button>
 					</div>
 				</main>
@@ -84,15 +84,15 @@ export const NestedErrorFallback = ({
 	error?: any;
 }) => {
 	return (
-		<div className="flex flex-1 flex-col items-center justify-center space-y-4 p-8 text-center min-h-[300px] h-full w-full">
+		<div className="flex h-full min-h-80 w-full flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
 			<div className="rounded-full bg-destructive/10 p-3 text-destructive shadow-inner">
 				<TriangleAlert className="size-8" />
 			</div>
-			<div className="space-y-2 max-w-md mx-auto">
+			<div className="mx-auto flex max-w-md flex-col gap-2">
 				<h3 className="text-lg font-semibold tracking-tight text-foreground">
 					Failed to load section
 				</h3>
-				<p className="text-sm text-muted-foreground leading-relaxed">
+				<p className="text-sm leading-relaxed text-muted-foreground">
 					{error?.message ||
 						"An unexpected error occurred while rendering this view."}
 				</p>
@@ -101,9 +101,9 @@ export const NestedErrorFallback = ({
 				onClick={() => reset()}
 				variant="outline"
 				size="sm"
-				className="mt-2 shadow-sm hover:shadow-md transition-all"
+				className="mt-2 shadow-sm transition-all hover:shadow-md"
 			>
-				<RotateCcw className="size-3.5 mr-2" />
+				<RotateCcw data-icon="inline-start" />
 				Try reloading section
 			</Button>
 		</div>

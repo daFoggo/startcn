@@ -25,6 +25,8 @@ Do not run expensive checks repeatedly for every tiny edit unless requested.
 
 ## Styling Rules
 
+- Detailed design, spacing, and dashboard container rules live in `09_web_design_guide.md`.
+- Product UX principles live in `10_ux_principles.md`.
 - Do not hardcode raw colors such as `#fff`, `rgb(...)`, or `bg-[#...]`.
 - Do not hardcode custom spacing such as `p-[15px]`.
 - Do not hardcode custom font sizes such as `text-[15px]`.
@@ -66,5 +68,7 @@ When reviewing code, prioritize:
 ## Documentation Rules
 
 - Update handbook docs when a repeated pattern or project-wide rule changes.
+- Keep design-system details centralized in `09_web_design_guide.md`.
+- Keep product UX heuristics centralized in `10_ux_principles.md`.
 - Keep `AGENTS.md` as an entry point, not as the full detailed manual.
 - Keep historical docs in place until explicitly removed.

@@ -1,4 +1,12 @@
+import { IconLayoutDashboard } from "@tabler/icons-react";
 import { createFileRoute } from "@tanstack/react-router";
+import {
+	Empty,
+	EmptyDescription,
+	EmptyHeader,
+	EmptyMedia,
+	EmptyTitle,
+} from "@/components/ui/empty";
 
 export const Route = createFileRoute("/dashboard/overview/")({
 	component: OverviewPlaceholder,
@@ -9,13 +17,16 @@ export const Route = createFileRoute("/dashboard/overview/")({
 
 function OverviewPlaceholder() {
 	return (
-		<div className="flex h-[calc(100vh-8rem)] items-center justify-center rounded-xl border border-dashed border-border p-8 text-center">
-			<div className="flex max-w-[420px] flex-col items-center justify-center text-center">
-				<h3 className="mt-4 text-lg font-semibold">Overview Page</h3>
-				<p className="mt-2 mb-4 text-sm text-muted-foreground">
+		<Empty className="min-h-96 border">
+			<EmptyHeader>
+				<EmptyMedia variant="icon">
+					<IconLayoutDashboard />
+				</EmptyMedia>
+				<EmptyTitle>Overview Page</EmptyTitle>
+				<EmptyDescription>
 					This is a placeholder page for the overview.
-				</p>
-			</div>
-		</div>
+				</EmptyDescription>
+			</EmptyHeader>
+		</Empty>
 	);
 }

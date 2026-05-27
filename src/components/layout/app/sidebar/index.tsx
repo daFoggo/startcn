@@ -43,23 +43,25 @@ export const AppSidebar = ({
 			side={isMobile ? "right" : "left"}
 			variant="sidebar"
 			collapsible="icon"
-			className="md:top-12 md:h-[calc(100vh-3rem)] border-r  bg-background shrink-0"
+			className="shrink-0 border-r bg-background md:top-12 md:h-[calc(100vh-3rem)]"
 		>
-			<SidebarContent className="py-2 bg-background">
+			<SidebarContent className="bg-background py-2">
 				{sidebarGroups.map((group) => (
 					<SidebarGroupSection key={group.label || "default"} group={group} />
 				))}
 			</SidebarContent>
-			<SidebarFooter className="mt-auto p-2">
-				<SidebarMenu>
-					<SidebarMenuItem>
-						<SidebarMenuButton
-							render={<SidebarTrigger className="w-full justify-start" />}
-							tooltip="Toggle sidebar"
-						/>
-					</SidebarMenuItem>
-				</SidebarMenu>
-			</SidebarFooter>
+			{!isMobile && (
+				<SidebarFooter className="mt-auto p-2">
+					<SidebarMenu>
+						<SidebarMenuItem>
+							<SidebarMenuButton
+								render={<SidebarTrigger className="w-full justify-start" />}
+								tooltip="Toggle sidebar"
+							/>
+						</SidebarMenuItem>
+					</SidebarMenu>
+				</SidebarFooter>
+			)}
 		</Sidebar>
 	);
 };

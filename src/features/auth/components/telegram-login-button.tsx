@@ -67,7 +67,7 @@ export const TelegramLoginButton = ({
 	if (!clientId) {
 		return (
 			<Alert>
-				<Send className="size-4" />
+				<Send />
 				<AlertDescription>
 					Telegram OIDC login is not configured for this environment.
 				</AlertDescription>
@@ -79,14 +79,14 @@ export const TelegramLoginButton = ({
 		return (
 			<Button type="button" className="w-full" disabled>
 				<span>Signing in with Telegram</span>
-				<Loader2 className="size-4 animate-spin" />
+				<Loader2 className="animate-spin" data-icon="inline-end" />
 			</Button>
 		);
 	}
 
 	return (
 		<Button type="button" className="w-full" onClick={handleLogin}>
-			<Send className="size-4" />
+			<Send data-icon="inline-start" />
 			<span>Continue with Telegram</span>
 		</Button>
 	);

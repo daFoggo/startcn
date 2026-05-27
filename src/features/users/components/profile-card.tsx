@@ -31,7 +31,7 @@ export function ProfileCard({ user }: IProfileCardProps) {
 					<span>Personal Details</span>
 				</CardTitle>
 			</CardHeader>
-			<CardContent className="flex flex-1 flex-col items-center justify-center gap-4">
+			<CardContent className="flex flex-1 flex-col items-center justify-center gap-6">
 				<Avatar className="size-24">
 					{user?.avatar_url && user.avatar_url !== "" && (
 						<AvatarImage src={user.avatar_url} alt={user.name} />
@@ -41,8 +41,8 @@ export function ProfileCard({ user }: IProfileCardProps) {
 					</AvatarFallback>
 				</Avatar>
 
-				<div className="flex w-full flex-col gap-2">
-					<div className="flex items-center gap-2 rounded-lg border bg-muted p-2">
+				<div className="flex w-full flex-col gap-3">
+					<div className="flex items-center gap-3 rounded-lg border bg-muted px-3 py-2">
 						<UserIcon className="size-4 text-muted-foreground" />
 						<div className="flex flex-col">
 							<span className="text-xs text-muted-foreground">Name</span>
@@ -50,7 +50,7 @@ export function ProfileCard({ user }: IProfileCardProps) {
 						</div>
 					</div>
 
-					<div className="flex items-center gap-3 rounded-lg border bg-muted p-2">
+					<div className="flex items-center gap-3 rounded-lg border bg-muted px-3 py-2">
 						<Mail className="size-4 text-muted-foreground" />
 						<div className="flex flex-col">
 							<span className="text-xs text-muted-foreground">
@@ -60,7 +60,7 @@ export function ProfileCard({ user }: IProfileCardProps) {
 						</div>
 					</div>
 
-					<div className="flex items-center gap-3 rounded-lg border bg-muted p-2">
+					<div className="flex items-center gap-3 rounded-lg border bg-muted px-3 py-2">
 						<Calendar className="size-4 text-muted-foreground" />
 						<div className="flex flex-col">
 							<span className="text-xs text-muted-foreground">Joined Date</span>

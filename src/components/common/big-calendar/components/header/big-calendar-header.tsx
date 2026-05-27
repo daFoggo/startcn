@@ -44,7 +44,9 @@ export function BigCalendarHeader({ className }: IBigCalendarHeaderProps) {
 			: format(currentDate, "EEEE, MMM d, yyyy");
 
 	return (
-		<div className={cn("flex items-center gap-2 border-b p-2", className)}>
+		<div
+			className={cn("flex items-center gap-2 border-b px-3 py-2", className)}
+		>
 			{/* Today button */}
 			<Button
 				variant={hasToday ? "default" : "outline"}
@@ -62,10 +64,10 @@ export function BigCalendarHeader({ className }: IBigCalendarHeaderProps) {
 					onClick={goPrev}
 					aria-label="Previous"
 				>
-					<ChevronLeft className="size-3.5" />
+					<ChevronLeft />
 				</Button>
 				<Button variant="ghost" size="icon" onClick={goNext} aria-label="Next">
-					<ChevronRight className="size-3.5" />
+					<ChevronRight />
 				</Button>
 			</div>
 
@@ -79,11 +81,11 @@ export function BigCalendarHeader({ className }: IBigCalendarHeaderProps) {
 			<Tabs value={view} onValueChange={(v) => setView(v as TCalendarView)}>
 				<TabsList>
 					<TabsTrigger value="day" className="text-xs">
-						<Rows4 className="size-3.5" />
+						<Rows4 />
 						<span>Day</span>
 					</TabsTrigger>
 					<TabsTrigger value="week" className="text-xs">
-						<Columns4 className="size-3.5" />
+						<Columns4 />
 						<span>Week</span>
 					</TabsTrigger>
 				</TabsList>

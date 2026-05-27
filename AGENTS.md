@@ -14,6 +14,8 @@ This file is the fast entry point for agents working in startcn Base. Keep it sh
    - `docs/handbook/05_ui_state_patterns.md`
    - `docs/handbook/06_quality_rules.md`
    - `docs/handbook/07_development_checklist.md`
+   - `docs/handbook/09_web_design_guide.md`
+   - `docs/handbook/10_ux_principles.md`
 
 ## Core Architecture Rules
 
@@ -81,6 +83,8 @@ For compact spaces such as sidebars, headers, inline rows, badges, small widgets
 ## UI System Rules
 
 - Use existing components from `@/components/ui`, `@/components/common`, `@/components/layout`, and `@/components/decorations` before creating new components.
+- Follow `docs/handbook/09_web_design_guide.md` for design, spacing, and dashboard page container rules.
+- Follow `docs/handbook/10_ux_principles.md` for product UX principles and interaction heuristics.
 - Use @tabler/icons-react only for icons.
 - Do not hardcode raw colors, custom spacing, custom font sizes, or custom z-indexes.
 - Do not use `<Badge>` for interactive filters.
@@ -111,3 +115,5 @@ For compact spaces such as sidebars, headers, inline rows, badges, small widgets
 - UI state patterns: `docs/handbook/05_ui_state_patterns.md`
 - Quality rules: `docs/handbook/06_quality_rules.md`
 - Development checklist: `docs/handbook/07_development_checklist.md`
+- Design system rules: `docs/handbook/09_web_design_guide.md`
+- UX principles: `docs/handbook/10_ux_principles.md`

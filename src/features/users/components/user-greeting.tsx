@@ -47,10 +47,10 @@ export const UserGreeting = memo(
 			: undefined;
 
 		return (
-			<div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+			<div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
 				<p className="text-xl font-light">{greeting}</p>
 
-				<div className="flex items-center gap-2">
+				<div className="flex flex-wrap items-center gap-3">
 					<ButtonGroup className="rounded-full border-none bg-muted">
 						<Select
 							value={period}
@@ -117,7 +117,7 @@ export const UserGreeting = memo(
 					</ButtonGroup>
 
 					<Button variant="outline">
-						<SlidersHorizontal />
+						<SlidersHorizontal data-icon="inline-start" />
 						Customize
 					</Button>
 				</div>

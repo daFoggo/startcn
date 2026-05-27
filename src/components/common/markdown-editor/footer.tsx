@@ -14,7 +14,7 @@ interface IMarkdownEditorFooterProps {
 export const MarkdownEditorFooter = memo(
 	({ onSubmit, isPending, disabled }: IMarkdownEditorFooterProps) => {
 		return (
-			<div className="flex justify-end w-full">
+			<div className="flex w-full justify-end">
 				<InputGroupButton
 					type="button"
 					variant="default"

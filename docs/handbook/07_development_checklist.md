@@ -79,6 +79,9 @@ Submit-critical examples:
 - Use @tabler/icons-react only.
 - Do not hardcode raw colors, arbitrary spacing, arbitrary font sizes, or arbitrary z-indexes.
 - Use design tokens and Tailwind scale.
+- Check `09_web_design_guide.md` for spacing, component rhythm, and dashboard container rules.
+- Check `10_ux_principles.md` for hierarchy, interaction feedback, and product UX heuristics.
+- Dashboard routes should use `AppPageContainer` instead of hand-rolled route padding and max widths.
 - Icon-only buttons require accessible labels.
 - Inputs must support default, focus, error, disabled, and readonly states.
 - Do not remove focus rings.
@@ -100,5 +103,7 @@ Submit-critical examples:
 - Are mutation side effects split correctly between hooks and components?
 - Are invalidations using key factories?
 - Are UI components using existing primitives and composition rules?
+- Does dashboard page layout follow `09_web_design_guide.md`?
+- Does the screen follow the relevant UX principles from `10_ux_principles.md`?
 - Are errors displayed through `getErrorMessage`?
 - Did you run the appropriate checks for the size of the change?

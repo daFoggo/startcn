@@ -48,5 +48,6 @@ declare module "@tanstack/react-router" {
 		hideHeader?: boolean;
 		header?: IRouteHeaderConfig;
 		fixedHeight?: boolean;
+		pageContainerSize?: "small" | "default" | "large" | "full";
 	}
 }

@@ -168,7 +168,7 @@ export const MarkdownEditor = ({
 				{...props}
 			>
 				<div className={cn("min-w-0 flex-1", contentClassName)}>
-					<div className="space-y-2 px-3 py-2">
+					<div className="flex flex-col gap-2 px-3 py-2">
 						<Skeleton className="h-4 w-full" />
 						<Skeleton className="h-4 w-3/4" />
 						<Skeleton className="h-4 w-5/6" />
@@ -189,7 +189,7 @@ export const MarkdownEditor = ({
 						align="block-end"
 						className={cn("select-none", footerClassName)}
 					>
-						<div className="flex justify-end p-2">
+						<div className="flex justify-end px-3 py-2">
 							<Skeleton className="h-8 w-20" />
 						</div>
 					</InputGroupAddon>

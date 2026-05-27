@@ -94,7 +94,7 @@ export function DateTimePicker({
 						/>
 					}
 				>
-					{!hideIcon && <CalendarIcon className="mr-2 size-4" />}
+					{!hideIcon && <CalendarIcon data-icon="inline-start" />}
 					{selectedDate && !Number.isNaN(selectedDate.getTime()) ? (
 						format(selectedDate, "PPP HH:mm")
 					) : (
@@ -112,7 +112,7 @@ export function DateTimePicker({
 								className="w-fit"
 							/>
 						</div>
-						<div className="flex items-center justify-between border-t p-2">
+						<div className="flex items-center justify-between border-t px-3 py-2">
 							<div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
 								<Clock className="size-4" />
 								<span>Time</span>
@@ -120,7 +120,7 @@ export function DateTimePicker({
 							<TimePicker
 								value={timeValue}
 								onChange={handleTimeChange}
-								className="h-8 w-fit rounded-md border bg-background px-2 text-sm"
+								className="h-8 w-fit rounded-md border bg-background px-3 text-sm"
 							/>
 						</div>
 					</div>

@@ -32,7 +32,10 @@ export function BigCalendarSkeleton({
 		>
 			{/* Skeleton Toolbar */}
 			<div
-				className={cn("flex items-center gap-2 border-b p-2", headerClassName)}
+				className={cn(
+					"flex items-center gap-2 border-b px-3 py-2",
+					headerClassName,
+				)}
 			>
 				<Skeleton className="h-9 w-16" />
 				<div className="flex items-center gap-1">

@@ -28,7 +28,7 @@ export const AppBreadcrumbs = () => {
 
 	return (
 		<nav aria-label="Breadcrumb" className="flex items-center">
-			<ol className="flex items-center gap-1.5 text-xs md:text-sm font-medium select-none">
+			<ol className="flex items-center gap-2 text-xs font-medium select-none md:text-sm">
 				{breadcrumbMatches.map((match, index) => {
 					const isLast = index === breadcrumbMatches.length - 1;
 					const staticData = match.staticData;
@@ -38,8 +38,12 @@ export const AppBreadcrumbs = () => {
 					if (match.pathname === "/dashboard") {
 						title = "Home";
 					} else if (DASHBOARD_DYNAMIC_CONTEXT_PATH.test(match.pathname)) {
-						const contextValue = Object.values(match.params as Record<string, string>)[0];
-						title = contextValue ? formatFallbackTitle(contextValue) : "Project";
+						const contextValue = Object.values(
+							match.params as Record<string, string>,
+						)[0];
+						title = contextValue
+							? formatFallbackTitle(contextValue)
+							: "Project";
 					} else if (staticData?.header?.title) {
 						title =
 							typeof staticData.header.title === "function"
@@ -53,7 +57,7 @@ export const AppBreadcrumbs = () => {
 					if (!title) return null;
 
 					return (
-						<li key={match.id} className="flex items-center gap-1.5">
+						<li key={match.id} className="flex items-center gap-2">
 							{index > 0 && (
 								<IconChevronRight className="size-3.5 text-muted-foreground/40 shrink-0" />
 							)}
