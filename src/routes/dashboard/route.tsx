@@ -129,6 +129,7 @@ function DashboardLayout() {
 	const activeContextId = useSidebarContextStore(
 		(state) => state.activeContextId,
 	);
+	const routeParams = useSidebarContextStore((state) => state.routeParams);
 	const syncWithPathname = useSidebarContextStore(
 		(state) => state.syncWithPathname,
 	);
@@ -140,7 +141,7 @@ function DashboardLayout() {
 	const hideSidebar = matches.some((m) => m.staticData.hideSidebar);
 	const { data: currentUser } = useSuspenseQuery(userMeQueryOptions());
 	const { signOut: logoutMutation } = useAuthMutations();
-	const sidebarGroups = getSidebarGroupsForContext(activeContextId);
+	const sidebarGroups = getSidebarGroupsForContext(activeContextId, routeParams);
 	const breadcrumbs = getBreadcrumbsFromMatches(matches);
 
 	useEffect(() => {

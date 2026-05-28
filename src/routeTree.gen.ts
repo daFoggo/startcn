@@ -17,7 +17,11 @@ import { Route as AuthTelegramRouteImport } from './routes/auth/telegram'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
 import { Route as DashboardProjectsIndexRouteImport } from './routes/dashboard/projects/index'
-import { Route as DashboardProjectsProjectIdRouteImport } from './routes/dashboard/projects/$projectId'
+import { Route as DashboardProjectsProjectIdRouteRouteImport } from './routes/dashboard/projects/$projectId/route'
+import { Route as DashboardProjectsProjectIdIndexRouteImport } from './routes/dashboard/projects/$projectId/index'
+import { Route as DashboardProjectsProjectIdSetupRouteImport } from './routes/dashboard/projects/$projectId/setup'
+import { Route as DashboardProjectsProjectIdHomeRouteImport } from './routes/dashboard/projects/$projectId/home'
+import { Route as DashboardProjectsProjectIdAnnotationRouteImport } from './routes/dashboard/projects/$projectId/annotation'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -59,11 +63,35 @@ const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
   path: '/projects/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardProjectsProjectIdRoute =
-  DashboardProjectsProjectIdRouteImport.update({
+const DashboardProjectsProjectIdRouteRoute =
+  DashboardProjectsProjectIdRouteRouteImport.update({
     id: '/projects/$projectId',
     path: '/projects/$projectId',
     getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardProjectsProjectIdIndexRoute =
+  DashboardProjectsProjectIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardProjectsProjectIdRouteRoute,
+  } as any)
+const DashboardProjectsProjectIdSetupRoute =
+  DashboardProjectsProjectIdSetupRouteImport.update({
+    id: '/setup',
+    path: '/setup',
+    getParentRoute: () => DashboardProjectsProjectIdRouteRoute,
+  } as any)
+const DashboardProjectsProjectIdHomeRoute =
+  DashboardProjectsProjectIdHomeRouteImport.update({
+    id: '/home',
+    path: '/home',
+    getParentRoute: () => DashboardProjectsProjectIdRouteRoute,
+  } as any)
+const DashboardProjectsProjectIdAnnotationRoute =
+  DashboardProjectsProjectIdAnnotationRouteImport.update({
+    id: '/annotation',
+    path: '/annotation',
+    getParentRoute: () => DashboardProjectsProjectIdRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -74,8 +102,12 @@ export interface FileRoutesByFullPath {
   '/auth/telegram': typeof AuthTelegramRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRoute
+  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRouteRouteWithChildren
   '/dashboard/projects/': typeof DashboardProjectsIndexRoute
+  '/dashboard/projects/$projectId/annotation': typeof DashboardProjectsProjectIdAnnotationRoute
+  '/dashboard/projects/$projectId/home': typeof DashboardProjectsProjectIdHomeRoute
+  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRoute
+  '/dashboard/projects/$projectId/': typeof DashboardProjectsProjectIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +116,11 @@ export interface FileRoutesByTo {
   '/auth/telegram': typeof AuthTelegramRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
-  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRoute
   '/dashboard/projects': typeof DashboardProjectsIndexRoute
+  '/dashboard/projects/$projectId/annotation': typeof DashboardProjectsProjectIdAnnotationRoute
+  '/dashboard/projects/$projectId/home': typeof DashboardProjectsProjectIdHomeRoute
+  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRoute
+  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +131,12 @@ export interface FileRoutesById {
   '/auth/telegram': typeof AuthTelegramRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRoute
+  '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdRouteRouteWithChildren
   '/dashboard/projects/': typeof DashboardProjectsIndexRoute
+  '/dashboard/projects/$projectId/annotation': typeof DashboardProjectsProjectIdAnnotationRoute
+  '/dashboard/projects/$projectId/home': typeof DashboardProjectsProjectIdHomeRoute
+  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRoute
+  '/dashboard/projects/$projectId/': typeof DashboardProjectsProjectIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +150,10 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/dashboard/projects/$projectId'
     | '/dashboard/projects/'
+    | '/dashboard/projects/$projectId/annotation'
+    | '/dashboard/projects/$projectId/home'
+    | '/dashboard/projects/$projectId/setup'
+    | '/dashboard/projects/$projectId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -119,8 +162,11 @@ export interface FileRouteTypes {
     | '/auth/telegram'
     | '/auth'
     | '/dashboard'
-    | '/dashboard/projects/$projectId'
     | '/dashboard/projects'
+    | '/dashboard/projects/$projectId/annotation'
+    | '/dashboard/projects/$projectId/home'
+    | '/dashboard/projects/$projectId/setup'
+    | '/dashboard/projects/$projectId'
   id:
     | '__root__'
     | '/'
@@ -132,6 +178,10 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/dashboard/projects/$projectId'
     | '/dashboard/projects/'
+    | '/dashboard/projects/$projectId/annotation'
+    | '/dashboard/projects/$projectId/home'
+    | '/dashboard/projects/$projectId/setup'
+    | '/dashboard/projects/$projectId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -205,21 +255,71 @@ declare module '@tanstack/react-router' {
       id: '/dashboard/projects/$projectId'
       path: '/projects/$projectId'
       fullPath: '/dashboard/projects/$projectId'
-      preLoaderRoute: typeof DashboardProjectsProjectIdRouteImport
+      preLoaderRoute: typeof DashboardProjectsProjectIdRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/projects/$projectId/': {
+      id: '/dashboard/projects/$projectId/'
+      path: '/'
+      fullPath: '/dashboard/projects/$projectId/'
+      preLoaderRoute: typeof DashboardProjectsProjectIdIndexRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdRouteRoute
+    }
+    '/dashboard/projects/$projectId/setup': {
+      id: '/dashboard/projects/$projectId/setup'
+      path: '/setup'
+      fullPath: '/dashboard/projects/$projectId/setup'
+      preLoaderRoute: typeof DashboardProjectsProjectIdSetupRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdRouteRoute
+    }
+    '/dashboard/projects/$projectId/home': {
+      id: '/dashboard/projects/$projectId/home'
+      path: '/home'
+      fullPath: '/dashboard/projects/$projectId/home'
+      preLoaderRoute: typeof DashboardProjectsProjectIdHomeRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdRouteRoute
+    }
+    '/dashboard/projects/$projectId/annotation': {
+      id: '/dashboard/projects/$projectId/annotation'
+      path: '/annotation'
+      fullPath: '/dashboard/projects/$projectId/annotation'
+      preLoaderRoute: typeof DashboardProjectsProjectIdAnnotationRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdRouteRoute
     }
   }
 }
 
+interface DashboardProjectsProjectIdRouteRouteChildren {
+  DashboardProjectsProjectIdAnnotationRoute: typeof DashboardProjectsProjectIdAnnotationRoute
+  DashboardProjectsProjectIdHomeRoute: typeof DashboardProjectsProjectIdHomeRoute
+  DashboardProjectsProjectIdSetupRoute: typeof DashboardProjectsProjectIdSetupRoute
+  DashboardProjectsProjectIdIndexRoute: typeof DashboardProjectsProjectIdIndexRoute
+}
+
+const DashboardProjectsProjectIdRouteRouteChildren: DashboardProjectsProjectIdRouteRouteChildren =
+  {
+    DashboardProjectsProjectIdAnnotationRoute:
+      DashboardProjectsProjectIdAnnotationRoute,
+    DashboardProjectsProjectIdHomeRoute: DashboardProjectsProjectIdHomeRoute,
+    DashboardProjectsProjectIdSetupRoute: DashboardProjectsProjectIdSetupRoute,
+    DashboardProjectsProjectIdIndexRoute: DashboardProjectsProjectIdIndexRoute,
+  }
+
+const DashboardProjectsProjectIdRouteRouteWithChildren =
+  DashboardProjectsProjectIdRouteRoute._addFileChildren(
+    DashboardProjectsProjectIdRouteRouteChildren,
+  )
+
 interface DashboardRouteRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute
+  DashboardProjectsProjectIdRouteRoute: typeof DashboardProjectsProjectIdRouteRouteWithChildren
   DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
+  DashboardProjectsProjectIdRouteRoute:
+    DashboardProjectsProjectIdRouteRouteWithChildren,
   DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
 }
 
