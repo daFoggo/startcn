@@ -40,6 +40,7 @@ export const AppHeader = ({
 }: IAppHeaderProps) => {
 	const { isMobile, openMobile } = useSidebar();
 	const BrandIcon = brand.icon ?? IconSubtitlesAi;
+	const hasBreadcrumbs = breadcrumbs.length > 0;
 
 	return (
 		<header className="sticky top-0 z-30 flex h-12 w-full shrink-0 items-center justify-between border-b bg-background px-4 select-none">
@@ -54,8 +55,12 @@ export const AppHeader = ({
 							{brand.title}
 						</span>
 					</Link>
-					<Separator orientation="vertical" className="h-5" />
-					<AppBreadcrumbs items={breadcrumbs} />
+					{hasBreadcrumbs && (
+						<>
+							<Separator orientation="vertical" className="h-5" />
+							<AppBreadcrumbs items={breadcrumbs} />
+						</>
+					)}
 				</div>
 
 				<div className="flex items-center gap-2 md:hidden">

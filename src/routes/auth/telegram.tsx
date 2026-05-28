@@ -127,7 +127,7 @@ function TelegramAuthCallbackPage() {
 				navigate({
 					to: response.user_info.profile_completed
 						? redirect || "/dashboard"
-						: "/dashboard/overview",
+						: "/dashboard/projects",
 				});
 			})
 			.catch((error) => {

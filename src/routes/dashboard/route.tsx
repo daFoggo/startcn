@@ -1,8 +1,4 @@
-import {
-	IconLogout,
-	IconSubtitlesAi,
-	IconUserSquareRounded,
-} from "@tabler/icons-react";
+import { IconLogout, IconSubtitlesAi } from "@tabler/icons-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
 	createFileRoute,
@@ -23,6 +19,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SITE_CONFIG } from "@/configs/site";
 import { getSidebarGroupsForContext } from "@/constants/sidebar-navigation";
 import { useAuthMutations } from "@/features/auth";
+import type { TProject } from "@/features/projects";
 import { userMeQueryOptions } from "@/features/users";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { deleteAuthToken } from "@/lib/auth-token";
@@ -30,7 +27,7 @@ import { getErrorMessage } from "@/lib/error";
 import { cn } from "@/lib/utils";
 import { useSidebarContextStore } from "@/stores/use-sidebar-context-store";
 
-const DASHBOARD_DYNAMIC_CONTEXT_PATH = /^\/dashboard\/([^/]+)$/;
+const DASHBOARD_PROJECT_DETAIL_PATH = /^\/dashboard\/projects\/([^/]+)$/;
 
 const formatFallbackTitle = (value: string) => {
 	return value
@@ -41,36 +38,50 @@ const formatFallbackTitle = (value: string) => {
 const getBreadcrumbsFromMatches = (
 	matches: ReturnType<typeof useMatches>,
 ): IAppBreadcrumbItem[] => {
+	const projectDetailMatch = matches.find((match) =>
+		DASHBOARD_PROJECT_DETAIL_PATH.test(match.pathname),
+	);
 	const breadcrumbMatches = matches.filter((match) => {
 		const staticData = match.staticData;
 		if (!staticData) return false;
+		if (match.pathname === "/dashboard") return false;
+		if (projectDetailMatch && match.pathname === "/dashboard/projects") {
+			return false;
+		}
 
 		return (
 			staticData.getTitle ||
 			staticData.header?.title ||
-			match.pathname === "/dashboard" ||
-			DASHBOARD_DYNAMIC_CONTEXT_PATH.test(match.pathname)
+			DASHBOARD_PROJECT_DETAIL_PATH.test(match.pathname)
 		);
 	});
 
 	const items: IAppBreadcrumbItem[] = [];
 
+	if (projectDetailMatch) {
+		items.push({
+			id: "dashboard-projects",
+			title: "Projects",
+			to: "/dashboard/projects",
+			isCurrent: false,
+		});
+	}
+
 	breadcrumbMatches.forEach((match, index) => {
 		const staticData = match.staticData;
 		let title = "";
 
-		if (match.pathname === "/dashboard") {
-			title = "Home";
-		} else if (DASHBOARD_DYNAMIC_CONTEXT_PATH.test(match.pathname)) {
-			const contextValue = Object.values(
-				match.params as Record<string, string>,
-			)[0];
-			title = contextValue ? formatFallbackTitle(contextValue) : "Project";
-		} else if (staticData?.header?.title) {
+		if (staticData?.header?.title) {
 			title =
 				typeof staticData.header.title === "function"
 					? staticData.header.title()
 					: staticData.header.title;
+		} else if (DASHBOARD_PROJECT_DETAIL_PATH.test(match.pathname)) {
+			const { projectId } = match.params as Record<string, string>;
+			const loaderData = match.loaderData as { project?: TProject } | undefined;
+			title = projectId
+				? (loaderData?.project?.name ?? formatFallbackTitle(projectId))
+				: "Project";
 		} else if (staticData?.getTitle) {
 			title = staticData.getTitle();
 		}
@@ -126,7 +137,7 @@ function DashboardLayout() {
 		[...matches].reverse().find((m) => m.staticData.pageContainerSize)
 			?.staticData.pageContainerSize ?? "default";
 
-	const hideSidebar = matches.some((m) => (m.staticData as any).hideSidebar);
+	const hideSidebar = matches.some((m) => m.staticData.hideSidebar);
 	const { data: currentUser } = useSuspenseQuery(userMeQueryOptions());
 	const { signOut: logoutMutation } = useAuthMutations();
 	const sidebarGroups = getSidebarGroupsForContext(activeContextId);
@@ -166,11 +177,6 @@ function DashboardLayout() {
 					avatarUrl: currentUser.avatar_url,
 				}}
 				accountActions={[
-					{
-						label: "My Profile",
-						icon: IconUserSquareRounded,
-						onSelect: () => navigate({ to: "/dashboard/settings" as any }),
-					},
 					{
 						label: "Log out",
 						icon: IconLogout,

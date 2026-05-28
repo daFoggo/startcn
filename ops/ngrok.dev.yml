@@ -1,0 +1,9 @@
+version: "2"
+
+tunnels:
+  anno-bot-fe:
+    proto: http
+    addr: 3000
+  anno-bot-be:
+    proto: http
+    addr: 8000

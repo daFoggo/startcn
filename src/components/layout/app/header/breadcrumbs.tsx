@@ -13,7 +13,7 @@ interface IAppBreadcrumbsProps {
 }
 
 export const AppBreadcrumbs = ({ items }: IAppBreadcrumbsProps) => {
-	if (items.length <= 1) return null;
+	if (items.length === 0) return null;
 	return (
 		<nav aria-label="Breadcrumb" className="flex items-center">
 			<ol className="flex items-center gap-2 text-xs font-medium select-none md:text-sm">

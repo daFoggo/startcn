@@ -32,7 +32,7 @@ export const SignInForm = ({ redirect }: ISignInFormProps) => {
 
 	const navigateAfterAuth = (response: TSignInResponse) => {
 		if (!response.user_info.profile_completed) {
-			navigate({ to: "/dashboard/overview" });
+			navigate({ to: "/dashboard/projects" });
 			return;
 		}
 

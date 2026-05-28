@@ -8,7 +8,7 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
 	server: {
-		allowedHosts: [".ngrok-free.app"],
+		allowedHosts: [".ngrok-free.app", ".trycloudflare.com", ".loca.lt"],
 	},
 	plugins: [
 		devtools(),

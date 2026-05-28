@@ -65,6 +65,45 @@ pnpm dev
 
 The app runs on the Vite dev server, usually `http://localhost:3000`.
 
+### Frontend + Backend + Telegram Tunnel
+
+When testing Telegram login or bot webhooks locally, run both projects behind
+ngrok tunnels from this frontend workspace:
+
+```bash
+pnpm dev:tunnel
+```
+
+This starts:
+
+- frontend on `:3000`
+- backend Docker Compose API on `:8000`
+- ngrok tunnels for both ports
+
+The launcher reads the tunnel URLs, updates both `.env` files, then starts the
+servers:
+
+- frontend `.env`: `VITE_API_CORE_URL=<backend tunnel>`
+- backend `.env`: `FRONTEND_URL=<frontend tunnel>`
+- backend `.env`: `TELEGRAM_WEBHOOK_URL=<backend tunnel>/api/v1/telegram/webhook`
+- backend `.env`: `BACKEND_CORS_ORIGINS=["<frontend tunnel>","http://localhost:3000"]`
+
+If backend `.env` contains `TELEGRAM_BOT_TOKEN`, the launcher also calls
+Telegram `setWebhook` with the backend tunnel URL. Pass
+`-SkipTelegramWebhookSetup` to skip that call.
+
+Prerequisites:
+
+- Docker Desktop is running
+- backend repo exists next to this repo at `../anno-bot-be`
+- ngrok is installed and authenticated
+
+Use `pnpm dev:tunnel -- -NoBackendBuild` after the backend image has already
+been built once.
+By default, the launcher loads the ngrok authtoken from
+`%LOCALAPPDATA%\ngrok\ngrok.yml` and tunnel definitions from
+`ops/ngrok.dev.yml`.
+
 ### Verification
 
 Use these checks before merging larger work:

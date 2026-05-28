@@ -2,6 +2,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 import type { ReactNode } from "react";
+import type { IAppPageHeaderConfig } from "@/components/layout/app/page-container";
 import { createQueryClient } from "@/lib/query-client";
 import { routeTree } from "./routeTree.gen";
 
@@ -46,8 +47,10 @@ declare module "@tanstack/react-router" {
 	interface StaticDataRouteOption {
 		getTitle?: () => string;
 		hideHeader?: boolean;
+		hideSidebar?: boolean;
 		header?: IRouteHeaderConfig;
 		fixedHeight?: boolean;
+		pageHeader?: IAppPageHeaderConfig | ReactNode;
 		pageContainerSize?: "small" | "default" | "large" | "full";
 	}
 }

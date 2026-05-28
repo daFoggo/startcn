@@ -17,7 +17,7 @@ export interface INavigationGroup {
 
 export type TNavigation = INavigationGroup[];
 
-export type TSidebarContextId = "default" | "team" | "settings";
+export type TSidebarContextId = "default";
 
 export interface ISidebarContextMatch {
 	contextId: TSidebarContextId;

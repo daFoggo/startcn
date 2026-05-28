@@ -4,6 +4,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev --mode dev --port 3000",
+		"dev:host": "vite dev --mode dev --host 0.0.0.0 --port 3000",
+		"dev:tunnel": "powershell -ExecutionPolicy Bypass -File scripts/dev-tunnel.ps1",
+		"tunnel": "ngrok start --all --config ops/ngrok.dev.yml",
 		"build": "vite build",
 		"build:stag": "vite build --mode stag",
 		"build:prod": "vite build",
