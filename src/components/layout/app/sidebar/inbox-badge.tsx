@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 
 interface IInboxBadgeProps {
-	count: number | undefined;
+	badge: number | string | undefined;
 	className?: string;
 }
 
-export const InboxBadge = ({ count, className }: IInboxBadgeProps) => {
-	if (count === undefined || count === 0) {
+export const InboxBadge = ({ badge, className }: IInboxBadgeProps) => {
+	if (badge === undefined || badge === 0 || badge === "") {
 		return null;
 	}
 
@@ -17,7 +17,7 @@ export const InboxBadge = ({ count, className }: IInboxBadgeProps) => {
 				className,
 			)}
 		>
-			{count}
+			{badge}
 		</div>
 	);
 };

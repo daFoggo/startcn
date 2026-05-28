@@ -1,21 +1,21 @@
 import type { Icon as TablerIcon } from "@tabler/icons-react";
 
-export interface ISidebarNavigationItem {
+export interface INavigationItem {
 	title: string;
 	to: string;
 	icon?: TablerIcon;
-	children?: ISidebarNavigationItem[];
+	children?: INavigationItem[];
 	isActive?: boolean;
 	exactActive?: boolean;
 	badge?: number | string;
 }
 
-export interface ISidebarGroup {
+export interface INavigationGroup {
 	label?: string;
-	items: ISidebarNavigationItem[];
+	items: INavigationItem[];
 }
 
-export type TSidebarNavigation = ISidebarGroup[];
+export type TNavigation = INavigationGroup[];
 
 export type TSidebarContextId = "default" | "team" | "settings";
 

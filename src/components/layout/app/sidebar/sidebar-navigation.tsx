@@ -8,14 +8,16 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import type { ISidebarGroup } from "@/types/sidebar";
+import type { INavigationGroup } from "@/types/sidebar";
 import { InboxBadge } from "./inbox-badge";
 
-interface ISidebarGroupSectionProps {
-	group: ISidebarGroup;
+interface INavigationGroupSectionProps {
+	group: INavigationGroup;
 }
 
-export const SidebarGroupSection = ({ group }: ISidebarGroupSectionProps) => {
+export const SidebarGroupSection = ({
+	group,
+}: INavigationGroupSectionProps) => {
 	return (
 		<SidebarGroup key={group.label || "default"}>
 			{group.label && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
@@ -45,11 +47,7 @@ export const SidebarGroupSection = ({ group }: ISidebarGroupSectionProps) => {
 										>
 											{item.title}
 										</span>
-										{item.title === "Inbox" &&
-										item.badge !== undefined &&
-										item.badge !== 0 ? (
-											<InboxBadge count={item.badge as number} />
-										) : null}
+										<InboxBadge badge={item.badge} />
 									</SidebarMenuButton>
 								)}
 							</Link>

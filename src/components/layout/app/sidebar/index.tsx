@@ -1,5 +1,3 @@
-import { useLocation } from "@tanstack/react-router";
-import { useEffect } from "react";
 import {
 	Sidebar,
 	SidebarContent,
@@ -9,48 +7,33 @@ import {
 	SidebarMenuItem,
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getSidebarGroupsForContext } from "@/constants/sidebar-navigation";
-import type { TUser } from "@/features/users";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useSidebarContextStore } from "@/stores/use-sidebar-context-store";
+import type { INavigationGroup } from "@/types/sidebar";
 import { SidebarGroupSection } from "./sidebar-navigation";
 
 export interface IAppSidebarProps {
-	currentUser?: TUser;
-	isCurrentUserLoading: boolean;
+	groups: INavigationGroup[];
+	side?: "left" | "right";
+	showDesktopToggle?: boolean;
 }
 
 export const AppSidebar = ({
-	currentUser: _currentUser,
-	isCurrentUserLoading: _isCurrentUserLoading,
+	groups,
+	side = "left",
+	showDesktopToggle = true,
 }: IAppSidebarProps) => {
-	const { pathname } = useLocation();
-	const isMobile = useIsMobile();
-	const syncWithPathname = useSidebarContextStore(
-		(state) => state.syncWithPathname,
-	);
-	const activeContextId = useSidebarContextStore(
-		(state) => state.activeContextId,
-	);
-	const sidebarGroups = getSidebarGroupsForContext(activeContextId);
-
-	useEffect(() => {
-		syncWithPathname(pathname);
-	}, [pathname, syncWithPathname]);
-
 	return (
 		<Sidebar
-			side={isMobile ? "right" : "left"}
+			side={side}
 			variant="sidebar"
 			collapsible="icon"
 			className="shrink-0 border-r bg-background md:top-12 md:h-[calc(100vh-3rem)]"
 		>
 			<SidebarContent className="bg-background py-2">
-				{sidebarGroups.map((group) => (
+				{groups.map((group) => (
 					<SidebarGroupSection key={group.label || "default"} group={group} />
 				))}
 			</SidebarContent>
-			{!isMobile && (
+			{showDesktopToggle && (
 				<SidebarFooter className="mt-auto p-2">
 					<SidebarMenu>
 						<SidebarMenuItem>

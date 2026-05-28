@@ -10,12 +10,12 @@ import {
 	IconUsers as Users,
 } from "@tabler/icons-react";
 import type {
+	INavigationGroup,
 	ISidebarContextMatch,
-	ISidebarGroup,
 	TSidebarContextId,
 } from "@/types/sidebar";
 
-export const SIDEBAR_PERSONAL: ISidebarGroup = {
+export const SIDEBAR_PERSONAL: INavigationGroup = {
 	label: "Personal",
 	items: [
 		{
@@ -36,7 +36,7 @@ export const SIDEBAR_PERSONAL: ISidebarGroup = {
 	],
 };
 
-export const SIDEBAR_TEAM: ISidebarGroup = {
+export const SIDEBAR_TEAM: INavigationGroup = {
 	label: "Teams",
 	items: [
 		{
@@ -47,7 +47,7 @@ export const SIDEBAR_TEAM: ISidebarGroup = {
 	],
 };
 
-export const SIDEBAR_SETTINGS: ISidebarGroup = {
+export const SIDEBAR_SETTINGS: INavigationGroup = {
 	label: "Settings",
 	items: [
 		{
@@ -74,7 +74,7 @@ export const SIDEBAR_SETTINGS: ISidebarGroup = {
 	],
 };
 
-export const SIDEBAR_TEAM_CONTEXT: ISidebarGroup = {
+export const SIDEBAR_TEAM_CONTEXT: INavigationGroup = {
 	label: "Team Tools",
 	items: [
 		{
@@ -96,7 +96,10 @@ export const SIDEBAR_TEAM_CONTEXT: ISidebarGroup = {
 	],
 };
 
-export const SIDEBAR_GROUPS_BY_CONTEXT: Record<TSidebarContextId, ISidebarGroup[]> = {
+export const SIDEBAR_GROUPS_BY_CONTEXT: Record<
+	TSidebarContextId,
+	INavigationGroup[]
+> = {
 	default: [SIDEBAR_PERSONAL, SIDEBAR_TEAM, SIDEBAR_SETTINGS],
 	team: [SIDEBAR_TEAM_CONTEXT, SIDEBAR_SETTINGS],
 	settings: [SIDEBAR_SETTINGS],
@@ -104,8 +107,10 @@ export const SIDEBAR_GROUPS_BY_CONTEXT: Record<TSidebarContextId, ISidebarGroup[
 
 export const getSidebarGroupsForContext = (
 	contextId: TSidebarContextId,
-): ISidebarGroup[] => {
-	return SIDEBAR_GROUPS_BY_CONTEXT[contextId] ?? SIDEBAR_GROUPS_BY_CONTEXT.default;
+): INavigationGroup[] => {
+	return (
+		SIDEBAR_GROUPS_BY_CONTEXT[contextId] ?? SIDEBAR_GROUPS_BY_CONTEXT.default
+	);
 };
 
 export const resolveSidebarContextFromPathname = (
@@ -120,7 +125,10 @@ export const resolveSidebarContextFromPathname = (
 	const teamContextMatch = pathname.match(/^\/dashboard\/([^/]+)$/);
 	if (teamContextMatch) {
 		const [, teamId] = teamContextMatch;
-		if (!teamId || ["overview", "schedules", "inbox", "team"].includes(teamId)) {
+		if (
+			!teamId ||
+			["overview", "schedules", "inbox", "team"].includes(teamId)
+		) {
 			return {
 				contextId: "default",
 			};
