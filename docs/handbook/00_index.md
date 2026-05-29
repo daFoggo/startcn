@@ -18,6 +18,7 @@ This handbook replaces the older root-level `docs/*.md` set. Prefer this handboo
 | 8 | `08_telegram_login.md` | Telegram OIDC sign-in and account linking flow |
 | 9 | `09_web_design_guide.md` | Canonical design system, spacing, and dashboard container rules |
 | 10 | `10_ux_principles.md` | Product UX principles retained from the Laws of UX field guide |
+| 11 | `11_annobot_resident_product.md` | AnnoBot resident-side product model, screens, and interaction scope |
 
 ## Mandatory Agent Rule Files
 
@@ -39,3 +40,4 @@ Automation agents and coding assistants should read `AGENTS.md` at the project r
 - Submit-critical dependency queries must block actions while loading or errored.
 - Design and spacing rules live in `09_web_design_guide.md`; other docs should link there instead of duplicating the rules.
 - Product UX principles live in `10_ux_principles.md`; keep them separate from implementation spacing rules.
+- Resident-facing AnnoBot product scope lives in `11_annobot_resident_product.md`; read it before building project, annotation, configuration, or Telegram entry flows.

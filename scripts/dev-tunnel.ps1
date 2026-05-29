@@ -252,19 +252,23 @@ function Set-TelegramWebhook {
     }
 
     $secretToken = Get-DotEnvValue -Path $BackendEnvPath -Key "TELEGRAM_WEBHOOK_SECRET_TOKEN"
-    $body = @{
+
+    # 1. Update webhook with callback_query allowed
+    $webhookBody = @{
         url = $WebhookUrl
-        drop_pending_updates = "true"
+        allowed_updates = @("message", "callback_query")
+        drop_pending_updates = $true
     }
 
     if ($secretToken) {
-        $body.secret_token = $secretToken
+        $webhookBody.secret_token = $secretToken
     }
 
     try {
-        $response = Invoke-RestMethod -Method Post -Uri "https://api.telegram.org/bot$botToken/setWebhook" -Body $body -TimeoutSec 15
+        $webhookJson = ConvertTo-Json $webhookBody -Depth 5
+        $response = Invoke-RestMethod -Method Post -Uri "https://api.telegram.org/bot$botToken/setWebhook" -ContentType "application/json" -Body $webhookJson -TimeoutSec 15
         if ($response.ok) {
-            Write-Host "Telegram webhook was updated." -ForegroundColor Green
+            Write-Host "Telegram webhook was updated with allowed_updates=[message, callback_query]." -ForegroundColor Green
         }
         else {
             Write-Host "Telegram setWebhook returned ok=false." -ForegroundColor DarkYellow
@@ -272,6 +276,30 @@ function Set-TelegramWebhook {
     }
     catch {
         Write-Host "Telegram setWebhook failed: $($_.Exception.Message)" -ForegroundColor DarkYellow
+    }
+
+    # 2. Register autocomplete commands
+    $commandsBody = @{
+        commands = @(
+            @{ command = "start"; description = "Welcome message and web app link" },
+            @{ command = "dashboard"; description = "Access dashboard and active projects" },
+            @{ command = "label_demo"; description = "Review annotation examples" },
+            @{ command = "help"; description = "Get help and instructions" }
+        )
+    }
+
+    try {
+        $commandsJson = ConvertTo-Json $commandsBody -Depth 5
+        $response = Invoke-RestMethod -Method Post -Uri "https://api.telegram.org/bot$botToken/setMyCommands" -ContentType "application/json" -Body $commandsJson -TimeoutSec 15
+        if ($response.ok) {
+            Write-Host "Telegram bot commands registered successfully." -ForegroundColor Green
+        }
+        else {
+            Write-Host "Telegram setMyCommands returned ok=false." -ForegroundColor DarkYellow
+        }
+    }
+    catch {
+        Write-Host "Telegram setMyCommands failed: $($_.Exception.Message)" -ForegroundColor DarkYellow
     }
 }
 

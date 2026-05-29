@@ -2,26 +2,26 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import {
 	projectByIdQueryOptions,
-	ResidentProjectConfiguration,
+	ResidentAboutProject,
 } from "@/features/projects";
 
-export const Route = createFileRoute("/dashboard/projects/$projectId/setup")({
+export const Route = createFileRoute("/dashboard/projects/$projectId/about")({
 	loader: ({ context, params }) => {
 		return context.queryClient.ensureQueryData(
 			projectByIdQueryOptions(params.projectId),
 		);
 	},
-	component: ProjectSetupRoute,
+	component: ProjectAboutRoute,
 	staticData: {
-		getTitle: () => "Configuration",
+		getTitle: () => "About Project",
 	},
 });
 
-function ProjectSetupRoute() {
+function ProjectAboutRoute() {
 	const { projectId } = Route.useParams();
 	const { data: project } = useSuspenseQuery(
 		projectByIdQueryOptions(projectId),
 	);
 
-	return <ResidentProjectConfiguration project={project} />;
+	return <ResidentAboutProject project={project} />;
 }

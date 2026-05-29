@@ -1,5 +1,14 @@
-import { queryOptions } from "@tanstack/react-query";
-import { getProjectByIdFn, listProjectsFn } from "./functions";
+import {
+	queryOptions,
+	useMutation,
+	useQueryClient,
+} from "@tanstack/react-query";
+import {
+	getProjectByIdFn,
+	listProjectsFn,
+	submitAnnotationAnswerFn,
+} from "./functions";
+import type { TSubmitAnnotationAnswerInput } from "./schemas";
 
 export const projectKeys = {
 	all: ["projects"] as const,
@@ -20,3 +29,20 @@ export const projectByIdQueryOptions = (projectId: string) =>
 		queryKey: projectKeys.detail(projectId),
 		queryFn: () => getProjectByIdFn({ data: { projectId } }),
 	});
+
+export const useProjectMutations = () => {
+	const queryClient = useQueryClient();
+
+	const submitAnnotationAnswer = useMutation({
+		mutationFn: (variables: TSubmitAnnotationAnswerInput) =>
+			submitAnnotationAnswerFn({ data: variables }),
+		onSuccess: (_result, variables) => {
+			void queryClient.invalidateQueries({
+				queryKey: projectKeys.detail(variables.projectId),
+			});
+			void queryClient.invalidateQueries({ queryKey: projectKeys.list() });
+		},
+	});
+
+	return { submitAnnotationAnswer };
+};

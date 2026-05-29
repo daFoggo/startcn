@@ -1,6 +1,7 @@
 import {
 	IconFolder,
 	IconHomeBolt,
+	IconInfoCircle,
 	IconSettingsSpark,
 	IconTable,
 } from "@tabler/icons-react";
@@ -25,21 +26,27 @@ const getProjectSidebarGroups = (projectId: string): INavigationGroup[] => [
 	{
 		items: [
 			{
-				title: "Home",
+				title: "Dashboard",
 				to: `/dashboard/projects/${projectId}/home`,
 				icon: IconHomeBolt,
 				exactActive: true,
 			},
 			{
-				title: "Setup",
+				title: "Configuration",
 				to: `/dashboard/projects/${projectId}/setup`,
 				icon: IconSettingsSpark,
 				exactActive: true,
 			},
 			{
-				title: "Annotation",
+				title: "Annotation Logs",
 				to: `/dashboard/projects/${projectId}/annotation`,
 				icon: IconTable,
+				exactActive: true,
+			},
+			{
+				title: "About Project",
+				to: `/dashboard/projects/${projectId}/about`,
+				icon: IconInfoCircle,
 				exactActive: true,
 			},
 		],

@@ -1,13 +1,14 @@
 # Project Overview
 
-startcn Base Boilerplate is the clean, minimal dashboard base template featuring authentication (Auth) and user management (Users) features, combined with a highly responsive, dynamic context-switching sidebar layout. It serves as a modern, premium starter kit for building robust and beautiful SaaS frontend web applications.
+AnnoBot is a resident-facing annotation assistant for smart-building research studies. It helps occupants label sensor-detected events with minimal burden by combining passive sensor evidence, learned household patterns, Telegram questions, and a web dashboard for review and fallback answering.
 
-It is fully equipped with advanced pre-built utility components (Big Calendar, Data Table, Markdown Editor/Renderer, Multi-select Combobox) ready to accelerate your dashboard application development.
+This frontend started from the startcn Base dashboard template. The base architecture, auth, layout, and reusable components remain useful, but product work should now treat AnnoBot resident workflows as the primary scope. See `11_annobot_resident_product.md` for the canonical resident-side product model and screen requirements.
 
 ## Frontend Responsibilities
 
-- Render the base dashboard app shell and flexible sidebar context switcher.
-- Provide clean, robust user authentication (Login, Register, Session context, Logout).
+- Render the resident dashboard app shell and project navigation.
+- Provide robust authentication, including Telegram OIDC and account login fallback.
+- Show resident project list, project dashboard, configuration, annotation logs, about project, and web fallback answering surfaces.
 - Integrate with core APIs through Ky and TanStack Start server functions.
 - Use TanStack Router flat routing for optimal layout composition and loaders to avoid request waterfalls.
 - Keep server-state behavior consistent through TanStack Query queryOptions factories.
@@ -15,17 +16,21 @@ It is fully equipped with advanced pre-built utility components (Big Calendar, D
 
 ## Main Domains
 
-- **Auth and User Context**: Pre-built authentication hooks (`src/features/auth/`), user session management, and current user retrieval.
-- **Dynamic Dashboard App Shell**: A responsive sidebar (`AppSidebar`) equipped with a context-switching store to switch navigation panels (Main Menu vs System Settings) dynamically.
-- **Flat Layout Routes**: Modern flat-structured routes directly under `/dashboard` (overview, schedules, inbox, team, and settings layouts) with clean redirection.
-- **Reusable Utility Components**: Core feature-agnostic widgets in `components/common` (Big Calendar, Data Table, Markdown Editor/Renderer, Multi-select Combobox) to be utilized anywhere.
+- **Auth and Telegram Entry**: Login, session context, Telegram OIDC callback, and Telegram bot entry redirects.
+- **Resident Projects**: Project list, project detail loading, participation status, coverage, and pending questions.
+- **Activities and Annotation Events**: Activity cards, event timelines, sensor context, source provenance, and slot checklists.
+- **Resident Configuration**: Read-only researcher-defined study schema plus editable resident overrides such as quiet hours, devices, daily question budget, scenarios, and member routing.
+- **Dynamic Dashboard App Shell**: Responsive sidebar and project-aware navigation.
+- **Reusable Utility Components**: Core feature-agnostic widgets in `components/common` for data-heavy resident views where appropriate.
 
 ## Product Capabilities
 
-- **Auth & Sessions**: Seamless session persistence and automatic token redirection.
-- **Context-Switching Sidebar**: Sleek collapsible navigation sidebar with custom user profile card, team/organization switcher placeholders, and dynamic sub-menu panels.
-- **Flat Redirections**: Unified `/dashboard` routing with `/dashboard/overview`, `/dashboard/schedules`, `/dashboard/inbox`, `/dashboard/team`, and a dedicated layout under `/dashboard/settings/*` (general, security, theme settings).
-- **Asynchronous Standard UI**: Every data-bound container clearly defines and handles loading (custom skeletons), error (error alert boxes), and valid empty states.
+- **Auth & Sessions**: Seamless session persistence, Telegram OIDC login, account login fallback, and automatic token redirection.
+- **Project Routing**: `/dashboard` redirects to resident projects; Telegram can deep-link to a specific project or fall back to project list.
+- **Resident Dashboard**: Cross-activity overview, pending questions, coverage, and per-activity cards with recent event timelines.
+- **Annotation Review**: Filterable logs with sensor context, source badges, resident corrections, and expandable slot summaries.
+- **Resident Controls**: Quiet hours, daily question limits, scenario overrides, connected devices, and member routing patterns.
+- **Asynchronous Standard UI**: Every data-bound container clearly defines and handles loading, error, and valid empty states.
 
 ## Tech Stack
 

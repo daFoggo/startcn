@@ -1,39 +1,27 @@
-import { IconHome } from "@tabler/icons-react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-	Empty,
-	EmptyContent,
-	EmptyDescription,
-	EmptyHeader,
-	EmptyMedia,
-	EmptyTitle,
-} from "@/components/ui/empty";
+	projectByIdQueryOptions,
+	ResidentProjectDashboard,
+} from "@/features/projects";
 
 export const Route = createFileRoute("/dashboard/projects/$projectId/home")({
+	loader: ({ context, params }) => {
+		return context.queryClient.ensureQueryData(
+			projectByIdQueryOptions(params.projectId),
+		);
+	},
 	component: ProjectHomeRoute,
 	staticData: {
-		getTitle: () => "Home",
+		getTitle: () => "Dashboard",
 	},
 });
 
 function ProjectHomeRoute() {
-	return (
-		<Empty className="min-h-96 border">
-			<EmptyHeader>
-				<EmptyMedia variant="icon">
-					<IconHome />
-				</EmptyMedia>
-				<EmptyTitle>Home</EmptyTitle>
-				<EmptyDescription>
-					Project overview content will be connected here.
-				</EmptyDescription>
-			</EmptyHeader>
-			<EmptyContent>
-				<p className="text-sm text-muted-foreground">
-					Use this section for project status, recent activity, and annotation
-					progress.
-				</p>
-			</EmptyContent>
-		</Empty>
+	const { projectId } = Route.useParams();
+	const { data: project } = useSuspenseQuery(
+		projectByIdQueryOptions(projectId),
 	);
+
+	return <ResidentProjectDashboard project={project} />;
 }

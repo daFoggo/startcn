@@ -1,27 +1,25 @@
 import {
 	IconCheckbox,
+	IconClockQuestion,
 	IconMessageQuestion,
 	IconSparkles,
 } from "@tabler/icons-react";
 import { Link } from "@tanstack/react-router";
+import type React from "react";
+import { Badge } from "@/components/ui/badge";
 import {
 	Card,
+	CardAction,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import type { TProject } from "../schemas";
-
-interface IProjectCardStats {
-	coverage: number;
-	pendingQuestions: number;
-	autoResolvedEvents: number;
-}
+import type { TProject, TProjectStats } from "../schemas";
 
 interface IProjectCardProps {
 	project: TProject;
-	stats?: IProjectCardStats;
+	stats?: TProjectStats;
 }
 
 const clampPercent = (value: number) => Math.max(0, Math.min(100, value));
@@ -43,6 +41,13 @@ export const ProjectCard = ({ project, stats }: IProjectCardProps) => {
 					<CardDescription className="truncate">
 						{project.organization.name}
 					</CardDescription>
+					<CardAction>
+						<Badge
+							variant={project.status === "active" ? "default" : "outline"}
+						>
+							{project.status === "active" ? "Active" : "Ended"}
+						</Badge>
+					</CardAction>
 				</CardHeader>
 
 				<CardContent className="flex flex-col gap-4">
@@ -65,13 +70,23 @@ export const ProjectCard = ({ project, stats }: IProjectCardProps) => {
 					<div className="grid grid-cols-2 gap-3">
 						<ProjectCardMetric
 							icon={IconMessageQuestion}
-							label="Pending prompts"
+							label="Pending today"
 							value={pendingQuestions}
 						/>
 						<ProjectCardMetric
 							icon={IconSparkles}
 							label="Auto-resolved"
 							value={autoResolvedEvents}
+						/>
+						<ProjectCardMetric
+							icon={IconClockQuestion}
+							label="Events today"
+							value={stats?.totalEventsToday ?? 0}
+						/>
+						<ProjectCardMetric
+							icon={IconCheckbox}
+							label="You answered"
+							value={stats?.userResolvedEvents ?? 0}
 						/>
 					</div>
 				</CardContent>
@@ -81,7 +96,7 @@ export const ProjectCard = ({ project, stats }: IProjectCardProps) => {
 };
 
 interface IProjectCardMetricProps {
-	icon: typeof IconMessageQuestion;
+	icon: React.ComponentType<{ className?: string }>;
 	label: string;
 	value: number;
 }

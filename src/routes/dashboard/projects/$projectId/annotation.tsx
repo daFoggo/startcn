@@ -1,41 +1,29 @@
-import { IconPencil } from "@tabler/icons-react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-	Empty,
-	EmptyContent,
-	EmptyDescription,
-	EmptyHeader,
-	EmptyMedia,
-	EmptyTitle,
-} from "@/components/ui/empty";
+	projectByIdQueryOptions,
+	ResidentAnnotationLogs,
+} from "@/features/projects";
 
 export const Route = createFileRoute(
 	"/dashboard/projects/$projectId/annotation",
 )({
+	loader: ({ context, params }) => {
+		return context.queryClient.ensureQueryData(
+			projectByIdQueryOptions(params.projectId),
+		);
+	},
 	component: ProjectAnnotationRoute,
 	staticData: {
-		getTitle: () => "Annotation",
+		getTitle: () => "Annotation Logs",
 	},
 });
 
 function ProjectAnnotationRoute() {
-	return (
-		<Empty className="min-h-96 border">
-			<EmptyHeader>
-				<EmptyMedia variant="icon">
-					<IconPencil />
-				</EmptyMedia>
-				<EmptyTitle>Annotation</EmptyTitle>
-				<EmptyDescription>
-					Annotation workspace content will be connected here.
-				</EmptyDescription>
-			</EmptyHeader>
-			<EmptyContent>
-				<p className="text-sm text-muted-foreground">
-					Use this section for labeling queues, review workflows, and task
-					progress.
-				</p>
-			</EmptyContent>
-		</Empty>
+	const { projectId } = Route.useParams();
+	const { data: project } = useSuspenseQuery(
+		projectByIdQueryOptions(projectId),
 	);
+
+	return <ResidentAnnotationLogs project={project} />;
 }

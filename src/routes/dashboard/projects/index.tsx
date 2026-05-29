@@ -18,6 +18,8 @@ export const Route = createFileRoute("/dashboard/projects/")({
 		hideSidebar: true,
 		pageHeader: {
 			title: "Projects",
+			description:
+				"Choose a resident study to review pending questions, coverage, logs, and project controls.",
 		},
 		pageContainerSize: "default",
 	},
@@ -41,7 +43,7 @@ function ProjectsRoute() {
 				</InputGroup>
 			</div>
 
-			<ul className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+			<ul className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 				{projects.map(({ project, stats }) => (
 					<li key={project.id} className="list-none">
 						<ProjectCard project={project} stats={stats} />
