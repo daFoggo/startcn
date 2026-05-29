@@ -23,6 +23,9 @@ import { Route as DashboardProjectsProjectIdSetupRouteImport } from './routes/da
 import { Route as DashboardProjectsProjectIdHomeRouteImport } from './routes/dashboard/projects/$projectId/home'
 import { Route as DashboardProjectsProjectIdAnnotationRouteImport } from './routes/dashboard/projects/$projectId/annotation'
 import { Route as DashboardProjectsProjectIdAboutRouteImport } from './routes/dashboard/projects/$projectId/about'
+import { Route as DashboardProjectsProjectIdSetupIndexRouteImport } from './routes/dashboard/projects/$projectId/setup.index'
+import { Route as DashboardProjectsProjectIdSetupSensorsRouteImport } from './routes/dashboard/projects/$projectId/setup.sensors'
+import { Route as DashboardProjectsProjectIdSetupContextRouteImport } from './routes/dashboard/projects/$projectId/setup.context'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -100,6 +103,24 @@ const DashboardProjectsProjectIdAboutRoute =
     path: '/about',
     getParentRoute: () => DashboardProjectsProjectIdRouteRoute,
   } as any)
+const DashboardProjectsProjectIdSetupIndexRoute =
+  DashboardProjectsProjectIdSetupIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardProjectsProjectIdSetupRoute,
+  } as any)
+const DashboardProjectsProjectIdSetupSensorsRoute =
+  DashboardProjectsProjectIdSetupSensorsRouteImport.update({
+    id: '/sensors',
+    path: '/sensors',
+    getParentRoute: () => DashboardProjectsProjectIdSetupRoute,
+  } as any)
+const DashboardProjectsProjectIdSetupContextRoute =
+  DashboardProjectsProjectIdSetupContextRouteImport.update({
+    id: '/context',
+    path: '/context',
+    getParentRoute: () => DashboardProjectsProjectIdSetupRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -114,8 +135,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/projects/$projectId/about': typeof DashboardProjectsProjectIdAboutRoute
   '/dashboard/projects/$projectId/annotation': typeof DashboardProjectsProjectIdAnnotationRoute
   '/dashboard/projects/$projectId/home': typeof DashboardProjectsProjectIdHomeRoute
-  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRoute
+  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRouteWithChildren
   '/dashboard/projects/$projectId/': typeof DashboardProjectsProjectIdIndexRoute
+  '/dashboard/projects/$projectId/setup/context': typeof DashboardProjectsProjectIdSetupContextRoute
+  '/dashboard/projects/$projectId/setup/sensors': typeof DashboardProjectsProjectIdSetupSensorsRoute
+  '/dashboard/projects/$projectId/setup/': typeof DashboardProjectsProjectIdSetupIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -128,8 +152,10 @@ export interface FileRoutesByTo {
   '/dashboard/projects/$projectId/about': typeof DashboardProjectsProjectIdAboutRoute
   '/dashboard/projects/$projectId/annotation': typeof DashboardProjectsProjectIdAnnotationRoute
   '/dashboard/projects/$projectId/home': typeof DashboardProjectsProjectIdHomeRoute
-  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRoute
   '/dashboard/projects/$projectId': typeof DashboardProjectsProjectIdIndexRoute
+  '/dashboard/projects/$projectId/setup/context': typeof DashboardProjectsProjectIdSetupContextRoute
+  '/dashboard/projects/$projectId/setup/sensors': typeof DashboardProjectsProjectIdSetupSensorsRoute
+  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -145,8 +171,11 @@ export interface FileRoutesById {
   '/dashboard/projects/$projectId/about': typeof DashboardProjectsProjectIdAboutRoute
   '/dashboard/projects/$projectId/annotation': typeof DashboardProjectsProjectIdAnnotationRoute
   '/dashboard/projects/$projectId/home': typeof DashboardProjectsProjectIdHomeRoute
-  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRoute
+  '/dashboard/projects/$projectId/setup': typeof DashboardProjectsProjectIdSetupRouteWithChildren
   '/dashboard/projects/$projectId/': typeof DashboardProjectsProjectIdIndexRoute
+  '/dashboard/projects/$projectId/setup/context': typeof DashboardProjectsProjectIdSetupContextRoute
+  '/dashboard/projects/$projectId/setup/sensors': typeof DashboardProjectsProjectIdSetupSensorsRoute
+  '/dashboard/projects/$projectId/setup/': typeof DashboardProjectsProjectIdSetupIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -165,6 +194,9 @@ export interface FileRouteTypes {
     | '/dashboard/projects/$projectId/home'
     | '/dashboard/projects/$projectId/setup'
     | '/dashboard/projects/$projectId/'
+    | '/dashboard/projects/$projectId/setup/context'
+    | '/dashboard/projects/$projectId/setup/sensors'
+    | '/dashboard/projects/$projectId/setup/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -177,8 +209,10 @@ export interface FileRouteTypes {
     | '/dashboard/projects/$projectId/about'
     | '/dashboard/projects/$projectId/annotation'
     | '/dashboard/projects/$projectId/home'
-    | '/dashboard/projects/$projectId/setup'
     | '/dashboard/projects/$projectId'
+    | '/dashboard/projects/$projectId/setup/context'
+    | '/dashboard/projects/$projectId/setup/sensors'
+    | '/dashboard/projects/$projectId/setup'
   id:
     | '__root__'
     | '/'
@@ -195,6 +229,9 @@ export interface FileRouteTypes {
     | '/dashboard/projects/$projectId/home'
     | '/dashboard/projects/$projectId/setup'
     | '/dashboard/projects/$projectId/'
+    | '/dashboard/projects/$projectId/setup/context'
+    | '/dashboard/projects/$projectId/setup/sensors'
+    | '/dashboard/projects/$projectId/setup/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -306,14 +343,56 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardProjectsProjectIdAboutRouteImport
       parentRoute: typeof DashboardProjectsProjectIdRouteRoute
     }
+    '/dashboard/projects/$projectId/setup/': {
+      id: '/dashboard/projects/$projectId/setup/'
+      path: '/'
+      fullPath: '/dashboard/projects/$projectId/setup/'
+      preLoaderRoute: typeof DashboardProjectsProjectIdSetupIndexRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdSetupRoute
+    }
+    '/dashboard/projects/$projectId/setup/sensors': {
+      id: '/dashboard/projects/$projectId/setup/sensors'
+      path: '/sensors'
+      fullPath: '/dashboard/projects/$projectId/setup/sensors'
+      preLoaderRoute: typeof DashboardProjectsProjectIdSetupSensorsRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdSetupRoute
+    }
+    '/dashboard/projects/$projectId/setup/context': {
+      id: '/dashboard/projects/$projectId/setup/context'
+      path: '/context'
+      fullPath: '/dashboard/projects/$projectId/setup/context'
+      preLoaderRoute: typeof DashboardProjectsProjectIdSetupContextRouteImport
+      parentRoute: typeof DashboardProjectsProjectIdSetupRoute
+    }
   }
 }
+
+interface DashboardProjectsProjectIdSetupRouteChildren {
+  DashboardProjectsProjectIdSetupContextRoute: typeof DashboardProjectsProjectIdSetupContextRoute
+  DashboardProjectsProjectIdSetupSensorsRoute: typeof DashboardProjectsProjectIdSetupSensorsRoute
+  DashboardProjectsProjectIdSetupIndexRoute: typeof DashboardProjectsProjectIdSetupIndexRoute
+}
+
+const DashboardProjectsProjectIdSetupRouteChildren: DashboardProjectsProjectIdSetupRouteChildren =
+  {
+    DashboardProjectsProjectIdSetupContextRoute:
+      DashboardProjectsProjectIdSetupContextRoute,
+    DashboardProjectsProjectIdSetupSensorsRoute:
+      DashboardProjectsProjectIdSetupSensorsRoute,
+    DashboardProjectsProjectIdSetupIndexRoute:
+      DashboardProjectsProjectIdSetupIndexRoute,
+  }
+
+const DashboardProjectsProjectIdSetupRouteWithChildren =
+  DashboardProjectsProjectIdSetupRoute._addFileChildren(
+    DashboardProjectsProjectIdSetupRouteChildren,
+  )
 
 interface DashboardProjectsProjectIdRouteRouteChildren {
   DashboardProjectsProjectIdAboutRoute: typeof DashboardProjectsProjectIdAboutRoute
   DashboardProjectsProjectIdAnnotationRoute: typeof DashboardProjectsProjectIdAnnotationRoute
   DashboardProjectsProjectIdHomeRoute: typeof DashboardProjectsProjectIdHomeRoute
-  DashboardProjectsProjectIdSetupRoute: typeof DashboardProjectsProjectIdSetupRoute
+  DashboardProjectsProjectIdSetupRoute: typeof DashboardProjectsProjectIdSetupRouteWithChildren
   DashboardProjectsProjectIdIndexRoute: typeof DashboardProjectsProjectIdIndexRoute
 }
 
@@ -323,7 +402,8 @@ const DashboardProjectsProjectIdRouteRouteChildren: DashboardProjectsProjectIdRo
     DashboardProjectsProjectIdAnnotationRoute:
       DashboardProjectsProjectIdAnnotationRoute,
     DashboardProjectsProjectIdHomeRoute: DashboardProjectsProjectIdHomeRoute,
-    DashboardProjectsProjectIdSetupRoute: DashboardProjectsProjectIdSetupRoute,
+    DashboardProjectsProjectIdSetupRoute:
+      DashboardProjectsProjectIdSetupRouteWithChildren,
     DashboardProjectsProjectIdIndexRoute: DashboardProjectsProjectIdIndexRoute,
   }
 

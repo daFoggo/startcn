@@ -216,7 +216,8 @@ const PixelBackground = ({
 	children,
 }: PixelBackgroundProps) => {
 	const { resolvedTheme } = useTheme();
-	const colors = (resolvedTheme === "dark" ? darkColors : lightColors) ?? lightColors;
+	const colors =
+		(resolvedTheme === "dark" ? darkColors : lightColors) ?? lightColors;
 	const containerRef = React.useRef<HTMLDivElement>(null);
 	const canvasRef = React.useRef<HTMLCanvasElement>(null);
 	const pixelsRef = React.useRef<Pixel[]>([]);

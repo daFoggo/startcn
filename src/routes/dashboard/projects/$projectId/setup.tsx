@@ -1,9 +1,5 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import {
-	projectByIdQueryOptions,
-	ResidentProjectConfiguration,
-} from "@/features/projects";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { projectByIdQueryOptions } from "@/features/projects";
 
 export const Route = createFileRoute("/dashboard/projects/$projectId/setup")({
 	loader: ({ context, params }) => {
@@ -11,17 +7,12 @@ export const Route = createFileRoute("/dashboard/projects/$projectId/setup")({
 			projectByIdQueryOptions(params.projectId),
 		);
 	},
-	component: ProjectSetupRoute,
+	component: ProjectSetupLayoutRoute,
 	staticData: {
 		getTitle: () => "Configuration",
 	},
 });
 
-function ProjectSetupRoute() {
-	const { projectId } = Route.useParams();
-	const { data: project } = useSuspenseQuery(
-		projectByIdQueryOptions(projectId),
-	);
-
-	return <ResidentProjectConfiguration project={project} />;
+function ProjectSetupLayoutRoute() {
+	return <Outlet />;
 }

@@ -7,14 +7,18 @@ import {
 	IconChevronDown,
 	IconClock,
 	IconDeviceMobile,
+	IconDroplet,
 	IconEdit,
+	IconGauge,
 	IconHome,
 	IconInfoCircle,
 	IconMessageCircle,
 	IconMessageQuestion,
-	IconPlugConnected,
+	IconRefresh,
+	IconRouter,
 	IconShieldLock,
 	IconSparkles,
+	IconTemperature,
 	IconUserCheck,
 	IconUsers,
 	IconX,
@@ -22,6 +26,15 @@ import {
 import { Link } from "@tanstack/react-router";
 import type React from "react";
 import { useMemo, useState } from "react";
+import {
+	CartesianGrid,
+	Line,
+	LineChart,
+	ReferenceArea,
+	ReferenceLine,
+	XAxis,
+	YAxis,
+} from "recharts";
 import { toast } from "sonner";
 import {
 	AlertDialog,
@@ -46,6 +59,12 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import {
+	type ChartConfig,
+	ChartContainer,
+	ChartTooltip,
+	ChartTooltipContent,
+} from "@/components/ui/chart";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/radix-switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -56,6 +75,8 @@ import type {
 	TAnnotationEvent,
 	TAnnotationSource,
 	TAnnotationSourceFilter,
+	TBuildingActivityWindow,
+	TConnectedDevice,
 	TPendingQuestion,
 	TProjectDetail,
 } from "../schemas";
@@ -90,6 +111,38 @@ const sourceToFilter = (
 };
 
 const formatPercent = (value: number) => `${Math.round(value)}%`;
+
+const powerTraceChartConfig = {
+	power: {
+		label: "Whole-house load",
+		color: "var(--chart-1)",
+	},
+	waterFlow: {
+		label: "Hot-water flow",
+		color: "var(--chart-5)",
+	},
+	kettle: {
+		label: "Kettle",
+		color: "var(--chart-4)",
+	},
+	laundry: {
+		label: "Laundry",
+		color: "var(--chart-2)",
+	},
+	dishwasher: {
+		label: "Dishwasher",
+		color: "var(--chart-3)",
+	},
+} satisfies ChartConfig;
+
+const activityWindowColors: Record<
+	TBuildingActivityWindow["colorKey"],
+	string
+> = {
+	dishwasher: "var(--chart-3)",
+	kettle: "var(--chart-4)",
+	laundry: "var(--chart-2)",
+};
 
 interface IProjectDetailProps {
 	project: TProjectDetail;
@@ -160,6 +213,8 @@ export function ResidentProjectDashboard({ project }: IProjectDetailProps) {
 					</CardContent>
 				</Card>
 			</section>
+
+			<RealTimeBuildingContext project={project} />
 
 			{firstPending && (
 				<PendingQuestionPanel
@@ -360,41 +415,8 @@ export function ResidentProjectConfiguration({ project }: IProjectDetailProps) {
 				</Card>
 			</section>
 
-			<section className="grid gap-4 lg:grid-cols-3">
-				<Card className="lg:col-span-1">
-					<CardHeader>
-						<CardTitle>Connected devices</CardTitle>
-					</CardHeader>
-					<CardContent className="flex flex-col gap-3">
-						{project.overrides.connectedDevices.map((device) => (
-							<div
-								key={device.id}
-								className="flex items-start gap-3 rounded-lg border px-4 py-3"
-							>
-								<IconPlugConnected className="mt-1 size-4 text-muted-foreground" />
-								<div className="min-w-0 flex-1">
-									<p className="font-medium">{device.name}</p>
-									<p className="text-xs text-muted-foreground">
-										{device.type} - {device.detail}
-									</p>
-								</div>
-								<Badge
-									variant={
-										device.status === "connected" ? "outline" : "destructive"
-									}
-								>
-									{device.status}
-								</Badge>
-							</div>
-						))}
-						<Button variant="outline">
-							<IconDeviceMobile data-icon="inline-start" />
-							<span>Add device</span>
-						</Button>
-					</CardContent>
-				</Card>
-
-				<Card className="lg:col-span-1">
+			<section className="grid gap-4 lg:grid-cols-2">
+				<Card>
 					<CardHeader>
 						<CardTitle>Scenario overrides</CardTitle>
 					</CardHeader>
@@ -419,7 +441,7 @@ export function ResidentProjectConfiguration({ project }: IProjectDetailProps) {
 					</CardContent>
 				</Card>
 
-				<Card className="lg:col-span-1">
+				<Card>
 					<CardHeader>
 						<CardTitle>Member routing</CardTitle>
 					</CardHeader>
@@ -445,6 +467,62 @@ export function ResidentProjectConfiguration({ project }: IProjectDetailProps) {
 						))}
 					</CardContent>
 				</Card>
+			</section>
+		</div>
+	);
+}
+
+export function ResidentProjectSensors({ project }: IProjectDetailProps) {
+	return (
+		<div className="flex flex-col gap-8">
+			<section className="flex flex-col gap-4">
+				<div className="flex flex-col gap-1">
+					<h2 className="text-base font-medium">Connected sensors</h2>
+					<p className="text-sm text-muted-foreground">
+						Manage the building data sources that feed AnnoBot context and
+						auto-labelling.
+					</p>
+				</div>
+
+				<div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
+					<div className="grid gap-4">
+						{project.overrides.connectedDevices.map((device) => (
+							<SensorCard device={device} key={device.id} />
+						))}
+					</div>
+
+					<div className="flex flex-col gap-4">
+						<Card>
+							<CardHeader>
+								<CardTitle>Sensor actions</CardTitle>
+								<CardDescription>
+									Add sources or refresh metadata without changing research
+									activity definitions.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="flex flex-col gap-3">
+								<Button>
+									<IconDeviceMobile data-icon="inline-start" />
+									<span>Add sensor</span>
+								</Button>
+							</CardContent>
+						</Card>
+
+						<Card>
+							<CardHeader>
+								<CardTitle>Connection rules</CardTitle>
+							</CardHeader>
+							<CardContent className="flex flex-col gap-3">
+								<SensorFact label="Quote policy" value="Event summaries only" />
+								<SensorFact label="Raw traces" value="Research team only" />
+								<SensorFact
+									label="Resident control"
+									value="Add or remove device"
+								/>
+							</CardContent>
+						</Card>
+					</div>
+				</div>
 			</section>
 		</div>
 	);
@@ -645,6 +723,318 @@ export function ResidentAboutProject({ project }: IProjectDetailProps) {
 					</CardFooter>
 				</Card>
 			</div>
+		</div>
+	);
+}
+
+function RealTimeBuildingContext({ project }: IProjectDetailProps) {
+	const context = project.buildingContext;
+	const powerTrace = useMemo(
+		() =>
+			context.powerTraceKw.map((power, index) => {
+				const minutesAgo = (context.powerTraceKw.length - 1 - index) * 2;
+				const totalMinutes = 19 * 60 + 21 - minutesAgo;
+				const hours = Math.floor(totalMinutes / 60);
+				const minutes = totalMinutes % 60;
+				return {
+					power,
+					time: `${hours.toString().padStart(2, "0")}:${minutes
+						.toString()
+						.padStart(2, "0")}`,
+					waterFlow: context.waterFlowTraceLpm[index] ?? 0,
+				};
+			}),
+		[context.powerTraceKw, context.waterFlowTraceLpm],
+	);
+	return (
+		<section>
+			<Card className="overflow-hidden">
+				<CardHeader className="pb-3">
+					<div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+						<div>
+							<div className="flex items-center gap-2">
+								<span className="flex size-2 rounded-full bg-primary" />
+								<CardTitle>Home activity timeline</CardTitle>
+							</div>
+						</div>
+						<p className="text-xs font-medium text-muted-foreground">
+							{context.liveAt}
+						</p>
+					</div>
+				</CardHeader>
+				<CardContent className="grid gap-3 lg:grid-cols-[20rem_1fr]">
+					<div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
+						{context.metrics.map((metric) => (
+							<div className="rounded-lg border px-3 py-2" key={metric.label}>
+								<p className="text-xs text-muted-foreground">{metric.label}</p>
+								<p className="mt-1 text-base font-semibold">{metric.value}</p>
+								{metric.helper && (
+									<p className="mt-1 text-xs text-muted-foreground">
+										{metric.helper}
+									</p>
+								)}
+							</div>
+						))}
+					</div>
+
+					<div className="flex flex-col gap-3">
+						<div className="rounded-lg border px-3 py-2">
+							<div className="flex items-center justify-between gap-3">
+								<div className="flex flex-col gap-0.5">
+									<p className="text-sm font-medium">
+										Sensor timeline and activity windows
+									</p>
+									<p className="text-xs text-muted-foreground">
+										Colored spans show when AnnoBot thinks an activity happened.
+									</p>
+								</div>
+								<p className="shrink-0 text-xs text-muted-foreground">
+									last 30 min
+								</p>
+							</div>
+							<PowerTraceChart
+								activitySpans={context.activityWindows}
+								data={powerTrace}
+							/>
+						</div>
+
+						<p className="rounded-lg border bg-muted/30 px-3 py-2 text-xs text-muted-foreground">
+							{context.learningSummary}
+						</p>
+					</div>
+				</CardContent>
+			</Card>
+		</section>
+	);
+}
+
+function PowerTraceChart({
+	activitySpans,
+	data,
+}: {
+	activitySpans: Array<TBuildingActivityWindow>;
+	data: Array<{ power: number; time: string; waterFlow: number }>;
+}) {
+	if (data.length === 0) {
+		return (
+			<p className="py-6 text-center text-sm text-muted-foreground">
+				No live trace is available for this project.
+			</p>
+		);
+	}
+
+	const liveTime = data.at(-1)?.time;
+
+	return (
+		<div className="mt-3 flex flex-col gap-3">
+			<div className="relative">
+				<ChartContainer
+					className="aspect-auto h-52 w-full"
+					config={powerTraceChartConfig}
+					initialDimension={{ width: 640, height: 208 }}
+				>
+					<LineChart
+						accessibilityLayer
+						data={data}
+						margin={{ bottom: 8, left: 0, right: 16, top: 12 }}
+					>
+						<CartesianGrid vertical />
+						<XAxis
+							axisLine={false}
+							dataKey="time"
+							interval={2}
+							minTickGap={16}
+							tickLine={false}
+						/>
+						<YAxis
+							axisLine={false}
+							domain={[0, "dataMax + 0.5"]}
+							tickLine={false}
+							unit=" kW"
+							width={52}
+							yAxisId="power"
+						/>
+						<YAxis
+							axisLine={false}
+							domain={[0, "dataMax + 0.5"]}
+							orientation="right"
+							tickLine={false}
+							unit=" L/m"
+							width={56}
+							yAxisId="flow"
+						/>
+						<ChartTooltip
+							content={
+								<ChartTooltipContent
+									formatter={(value, name) => {
+										const isWaterFlow = name === "waterFlow";
+										return (
+											<>
+												<span className="text-muted-foreground">
+													{isWaterFlow ? "Hot-water flow" : "Whole-house"}
+												</span>
+												<span className="font-mono font-medium">
+													{Number(value).toFixed(isWaterFlow ? 1 : 2)}{" "}
+													{isWaterFlow ? "L/min" : "kW"}
+												</span>
+											</>
+										);
+									}}
+									hideLabel={false}
+								/>
+							}
+						/>
+						{activitySpans.map((span) => (
+							<ReferenceArea
+								fill={activityWindowColors[span.colorKey]}
+								fillOpacity={0.16}
+								ifOverflow="extendDomain"
+								key={span.id}
+								stroke={activityWindowColors[span.colorKey]}
+								strokeDasharray="3 3"
+								strokeOpacity={0.7}
+								x1={span.start}
+								x2={span.end}
+							/>
+						))}
+						{liveTime && (
+							<ReferenceLine
+								stroke="var(--border)"
+								strokeDasharray="4 4"
+								x={liveTime}
+							/>
+						)}
+						<Line
+							activeDot={{ r: 4 }}
+							dataKey="power"
+							dot={false}
+							stroke="var(--color-power)"
+							strokeWidth={2}
+							type="monotone"
+							yAxisId="power"
+						/>
+						<Line
+							activeDot={{ r: 4 }}
+							dataKey="waterFlow"
+							dot={false}
+							stroke="var(--color-waterFlow)"
+							strokeWidth={2}
+							type="monotone"
+							yAxisId="flow"
+						/>
+					</LineChart>
+				</ChartContainer>
+			</div>
+
+			<div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+				<div className="flex items-center gap-2">
+					<span className="size-2 rounded-full bg-[var(--chart-1)]" />
+					<span>Whole-house load, kW</span>
+				</div>
+				<div className="flex items-center gap-2">
+					<span className="size-2 rounded-full bg-[var(--chart-5)]" />
+					<span>Hot-water flow, L/min</span>
+				</div>
+			</div>
+
+			<div className="grid gap-2 sm:grid-cols-3">
+				{activitySpans.map((span) => (
+					<div
+						className="overflow-hidden rounded-lg border bg-muted/20"
+						key={span.id}
+					>
+						<div
+							className="h-1"
+							style={{
+								backgroundColor: activityWindowColors[span.colorKey],
+							}}
+						/>
+						<div className="px-3 py-2">
+							<div className="flex items-center gap-2">
+								<span
+									className="size-2 rounded-full"
+									style={{
+										backgroundColor: activityWindowColors[span.colorKey],
+									}}
+								/>
+								<p
+									className="text-xs font-semibold"
+									style={{ color: activityWindowColors[span.colorKey] }}
+								>
+									{span.label}
+								</p>
+							</div>
+							<p className="mt-1 text-xs text-muted-foreground">
+								{span.start} - {span.end}
+							</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+}
+
+function SensorCard({ device }: { device: TConnectedDevice }) {
+	return (
+		<Card>
+			<CardHeader>
+				<div className="flex items-start gap-3">
+					<div className="flex min-w-0 items-start gap-3">
+						<SensorIcon type={device.type} />
+						<div className="min-w-0">
+							<CardTitle>{device.name}</CardTitle>
+							<CardDescription>
+								{device.type} - {device.location ?? "Whole home"}
+							</CardDescription>
+						</div>
+					</div>
+					<div className="ml-auto flex shrink-0 items-center gap-2">
+						<Badge
+							variant={
+								device.status === "connected" ? "outline" : "destructive"
+							}
+						>
+							{device.status}
+						</Badge>
+						<Button
+							aria-label={`Refresh ${device.name}`}
+							size="icon-sm"
+							variant="ghost"
+						>
+							<IconRefresh />
+						</Button>
+					</div>
+				</div>
+			</CardHeader>
+			<CardContent className="grid gap-3 md:grid-cols-4">
+				<SensorFact label="Location" value={device.location ?? "Whole home"} />
+				<SensorFact label="Current reading" value={device.reading ?? "Idle"} />
+				<SensorFact label="Latency" value={device.latency ?? "Unknown"} />
+				<SensorFact label="Health" value={device.detail} />
+			</CardContent>
+		</Card>
+	);
+}
+
+function SensorIcon({ type }: { type: string }) {
+	const normalizedType = type.toLowerCase();
+	const Icon = normalizedType.includes("water")
+		? IconDroplet
+		: normalizedType.includes("presence")
+			? IconRouter
+			: normalizedType.includes("environment")
+				? IconTemperature
+				: IconGauge;
+
+	return <Icon className="mt-1 size-5 shrink-0 text-muted-foreground" />;
+}
+
+function SensorFact({ label, value }: { label: string; value: string }) {
+	return (
+		<div className="rounded-lg border bg-muted/30 px-4 py-3">
+			<p className="text-xs text-muted-foreground">{label}</p>
+			<p className="mt-1 text-sm font-medium">{value}</p>
 		</div>
 	);
 }

@@ -17,7 +17,10 @@ import { AppPageContainer } from "@/components/layout/app/page-container";
 import { AppSidebar } from "@/components/layout/app/sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SITE_CONFIG } from "@/configs/site";
-import { getSidebarGroupsForContext } from "@/constants/sidebar-navigation";
+import {
+	getSidebarGroupsForContext,
+	resolveSidebarContextFromPathname,
+} from "@/constants/sidebar-navigation";
 import { useAuthMutations } from "@/features/auth";
 import type { TProject } from "@/features/projects";
 import { userMeQueryOptions } from "@/features/users";
@@ -126,13 +129,10 @@ function DashboardLayout() {
 	const { pathname } = useLocation();
 	const matches = useMatches();
 	const isMobile = useIsMobile();
-	const activeContextId = useSidebarContextStore(
-		(state) => state.activeContextId,
-	);
-	const routeParams = useSidebarContextStore((state) => state.routeParams);
 	const syncWithPathname = useSidebarContextStore(
 		(state) => state.syncWithPathname,
 	);
+	const sidebarContext = resolveSidebarContextFromPathname(pathname);
 	const isFixedHeight = matches.some((m) => m.staticData.fixedHeight);
 	const pageContainerSize =
 		[...matches].reverse().find((m) => m.staticData.pageContainerSize)
@@ -141,7 +141,10 @@ function DashboardLayout() {
 	const hideSidebar = matches.some((m) => m.staticData.hideSidebar);
 	const { data: currentUser } = useSuspenseQuery(userMeQueryOptions());
 	const { signOut: logoutMutation } = useAuthMutations();
-	const sidebarGroups = getSidebarGroupsForContext(activeContextId, routeParams);
+	const sidebarGroups = getSidebarGroupsForContext(
+		sidebarContext.contextId,
+		sidebarContext.params,
+	);
 	const breadcrumbs = getBreadcrumbsFromMatches(matches);
 
 	useEffect(() => {

@@ -22,14 +22,12 @@ export const resolveTheme = (
  * Lấy tùy chọn giao diện (light hoặc dark) hiện tại từ cookie phía server.
  * Giúp đảm bảo giao diện người dùng nhất quán ngay khi trang vừa tải mà không bị nhấp nháy (FOUC).
  */
-export const getThemeServerFn = createServerFn().handler(
-	async () => {
-		const storedTheme = getCookie(storageKey);
-		return postThemeValidator.safeParse(storedTheme).success
-			? (storedTheme as TTheme)
-			: "system";
-	},
-);
+export const getThemeServerFn = createServerFn().handler(async () => {
+	const storedTheme = getCookie(storageKey);
+	return postThemeValidator.safeParse(storedTheme).success
+		? (storedTheme as TTheme)
+		: "system";
+});
 
 /**
  * Cập nhật tùy chọn giao diện mới vào cookie phía server.

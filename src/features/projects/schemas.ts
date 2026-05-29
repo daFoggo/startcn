@@ -102,12 +102,50 @@ export const PendingQuestionSchema = z.object({
 	canRedirectMembers: z.array(z.string()),
 });
 
+export const BuildingContextMetricSchema = z.object({
+	label: z.string(),
+	value: z.string(),
+	helper: z.string().optional(),
+});
+
+export const BuildingContextItemSchema = z.object({
+	id: z.string(),
+	time: z.string(),
+	title: z.string(),
+	context: z.string(),
+	status: z.string(),
+});
+
+export const BuildingActivityWindowSchema = z.object({
+	id: z.string(),
+	activityId: z.string(),
+	label: z.string(),
+	start: z.string(),
+	end: z.string(),
+	colorKey: z.enum(["kettle", "laundry", "dishwasher"]),
+	lane: z.number().min(1),
+});
+
+export const BuildingContextSchema = z.object({
+	liveAt: z.string(),
+	metrics: z.array(BuildingContextMetricSchema),
+	powerTraceKw: z.array(z.number().min(0)),
+	waterFlowTraceLpm: z.array(z.number().min(0)),
+	activityWindows: z.array(BuildingActivityWindowSchema),
+	pendingItems: z.array(BuildingContextItemSchema),
+	autoResolvedItems: z.array(BuildingContextItemSchema),
+	learningSummary: z.string(),
+});
+
 export const ConnectedDeviceSchema = z.object({
 	id: z.string(),
 	name: z.string(),
 	type: z.string(),
 	status: z.enum(["connected", "attention", "offline"]),
 	detail: z.string(),
+	location: z.string().optional(),
+	reading: z.string().optional(),
+	latency: z.string().optional(),
 });
 
 export const MemberRoutingPatternSchema = z.object({
@@ -150,6 +188,7 @@ export const ProjectDetailSchema = ProjectSchema.extend({
 	activities: z.array(ResidentActivitySchema),
 	recentEvents: z.array(AnnotationEventSchema),
 	pendingQuestions: z.array(PendingQuestionSchema),
+	buildingContext: BuildingContextSchema,
 	overrides: ResidentOverridesSchema,
 	privacyPolicy: ProjectPrivacyPolicySchema,
 });
@@ -183,6 +222,14 @@ export type TResidentActivity = z.infer<typeof ResidentActivitySchema>;
 export type TAnnotationSlot = z.infer<typeof AnnotationSlotSchema>;
 export type TAnnotationEvent = z.infer<typeof AnnotationEventSchema>;
 export type TPendingQuestion = z.infer<typeof PendingQuestionSchema>;
+export type TBuildingContextMetric = z.infer<
+	typeof BuildingContextMetricSchema
+>;
+export type TBuildingContextItem = z.infer<typeof BuildingContextItemSchema>;
+export type TBuildingActivityWindow = z.infer<
+	typeof BuildingActivityWindowSchema
+>;
+export type TBuildingContext = z.infer<typeof BuildingContextSchema>;
 export type TConnectedDevice = z.infer<typeof ConnectedDeviceSchema>;
 export type TMemberRoutingPattern = z.infer<typeof MemberRoutingPatternSchema>;
 export type TResidentOverrides = z.infer<typeof ResidentOverridesSchema>;

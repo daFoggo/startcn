@@ -2,6 +2,7 @@ import {
 	IconFolder,
 	IconHomeBolt,
 	IconInfoCircle,
+	IconPlugConnected,
 	IconSettingsSpark,
 	IconTable,
 } from "@tabler/icons-react";
@@ -33,9 +34,22 @@ const getProjectSidebarGroups = (projectId: string): INavigationGroup[] => [
 			},
 			{
 				title: "Configuration",
-				to: `/dashboard/projects/${projectId}/setup`,
+				to: `/dashboard/projects/${projectId}/setup/context`,
 				icon: IconSettingsSpark,
-				exactActive: true,
+				children: [
+					{
+						title: "Context & knowledge",
+						to: `/dashboard/projects/${projectId}/setup/context`,
+						icon: IconInfoCircle,
+						exactActive: true,
+					},
+					{
+						title: "Sensors",
+						to: `/dashboard/projects/${projectId}/setup/sensors`,
+						icon: IconPlugConnected,
+						exactActive: true,
+					},
+				],
 			},
 			{
 				title: "Annotation Logs",

@@ -6,8 +6,6 @@ import { IconLayoutSidebar as PanelLeftIcon } from "@tabler/icons-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import {
 	Drawer,
 	DrawerContent,
@@ -15,6 +13,8 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@/components/ui/drawer";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Tooltip,
@@ -190,7 +190,9 @@ function Sidebar({
 						<DrawerTitle>Sidebar</DrawerTitle>
 						<DrawerDescription>Displays the mobile sidebar.</DrawerDescription>
 					</DrawerHeader>
-					<div className="flex h-full w-full flex-col overflow-y-auto no-scrollbar">{children}</div>
+					<div className="flex h-full w-full flex-col overflow-y-auto no-scrollbar">
+						{children}
+					</div>
 				</DrawerContent>
 			</Drawer>
 		);

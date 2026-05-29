@@ -4,11 +4,7 @@ import {
 	ProjectByIdInputSchema,
 	SubmitAnnotationAnswerInputSchema,
 } from "./schemas";
-import {
-	getProjectById,
-	listProjects,
-	submitAnnotationAnswer,
-} from "./server";
+import { getProjectById, listProjects, submitAnnotationAnswer } from "./server";
 
 export const listProjectsFn = createServerFn({ method: "GET" })
 	.middleware([requestLoggerMiddleware])
